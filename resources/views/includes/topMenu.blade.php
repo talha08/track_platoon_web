@@ -22,22 +22,33 @@
 
                 <nav class=" navbar-default" role="navigation">
 
-
                     <ul class="nav navbar-nav hidden-xs">
-                        {{--<li class="dropdown">--}}
-                          {{--<a data-toggle="dropdown" class="dropdown-toggle" href="#">English <span class="caret"></span></a>--}}
-                            {{--<ul role="menu" class="dropdown-menu">--}}
-                                {{--<li><a href="#">German</a></li>--}}
-                                {{--<li><a href="#">French</a></li>--}}
-                                {{--<li><a href="#">Italian</a></li>--}}
-                                {{--<li><a href="#">Spanish</a></li>--}}
-                            {{--</ul>--}}
-                        {{--</li>--}}
-
-                            <li style="font-size: large"><a href="#" style="color: #ffffff">{!! $title !!}</a></li>
-
-
+                        <li style="font-size: large">
+                            <a href="#" style="color: #ffffff">
+                                {!! $title !!}
+                                {{--<br> <p style="font-size: x-small">dfu</p>--}}
+                            </a>
+                        </li>
                     </ul>
+
+
+
+                    <ul class="nav navbar-nav hidden-xs ">
+                        <li id="centerNav" style="font-size: large">
+                            <a href="#" style="color: #ffffff">
+                                @include('includes.year') || @include('includes.date')
+                            </a>
+                        </li>
+                    </ul>
+
+
+                    {{--<ul class="nav navbar-nav hidden-xs ">--}}
+                        {{--<li id="centerNav" style="font-size: large">--}}
+                            {{--<a href="#" style="color: #ffffff">--}}
+                                {{--@include('includes.year')--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--</ul>--}}
 
                     <!-- Right navbar -->
 
@@ -57,3 +68,10 @@
 
 <!-- Header Ends -->
 
+<style>
+    #centerNav{
+        text-align:center;
+
+    }
+
+</style>

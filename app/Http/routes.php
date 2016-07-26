@@ -80,61 +80,61 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 
-//
-//Route::get('profile1',function(){
-//	return View::make('template.profile')->with('title','Profile');
-//});
-//
-//Route::get('timeline',function(){
-//	return View::make('template.timeline')->with('title','Timeline');
-//});
-//
-//Route::get('widgets',function(){
-//	return View::make('template.widgets')->with('title','Widgets');
-//});
-//
-//Route::get('portlets',function(){
-//	return View::make('template.portlets')->with('title','Portlets');
-//});
-//
-//Route::get('panel',function(){
-//	return View::make('template.panel')->with('title','Panel');
-//});
-//
-//Route::get('chart_x',function(){
-//	return View::make('template.chart_x')->with('title','Chart_x');
-//});
-//
-//
-//Route::get('index2',function(){
-//	return View::make('template.dashboard')->with('title','Dashboard');
-//});
-//
-//Route::get('gmap',function(){
-//	return View::make('template.gmap')->with('title','GMap');
-//});
-//
-//Route::get('friends',function(){
-//	return View::make('template.friends')->with('title','Friends');
-//});
-//
-//Route::get('adForm',function(){
-//	return View::make('template.advanced_form')->with('title','Advanced Form');//problem
-//});
-//
-//Route::get('form-wizard',function(){
-//	return View::make('template.form_wizard')->with('title','Form Wizard');
-//});
-//
-//
-//Route::get('dataTable',function(){
-//	return View::make('template.datatable')->with('title','Data Table');
-//});
-//
-//
-//Route::get('EditableDataTable',function(){
-//	return View::make('template.editDataTable')->with('title','Editable Data Table');
-//});
-//
-//
-//
+
+Route::get('profile1',function(){
+	return View::make('template.profile')->with('title','Profile');
+});
+
+Route::get('timeline',function(){
+	return View::make('template.timeline')->with('title','Timeline');
+});
+
+Route::get('widgets',function(){
+	return View::make('template.widgets')->with('title','Widgets');
+});
+
+Route::get('portlets',function(){
+	return View::make('template.portlets')->with('title','Portlets');
+});
+
+Route::get('panel',function(){
+	return View::make('template.panel')->with('title','Panel');
+});
+
+Route::get('chart_x',function(){
+	return View::make('template.chart_x')->with('title','Chart_x');
+});
+
+
+Route::get('index2',function(){
+	return View::make('template.dashboard')->with('title','Dashboard');
+});
+
+Route::get('gmap',function(){
+	return View::make('template.gmap')->with('title','GMap');
+});
+
+Route::get('friends',function(){
+	return View::make('template.friends')->with('title','Friends');
+});
+
+Route::get('adForm',function(){
+	return View::make('template.advanced_form')->with('title','Advanced Form');//problem
+});
+
+Route::get('form-wizard',function(){
+	return View::make('template.form_wizard')->with('title','Form Wizard');
+});
+
+
+Route::get('dataTable',function(){
+	return View::make('template.datatable')->with('title','Data Table');
+});
+
+
+Route::get('EditableDataTable',function(){
+	return View::make('template.editDataTable')->with('title','Editable Data Table');
+});
+
+
+

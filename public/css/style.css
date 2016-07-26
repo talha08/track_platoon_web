@@ -168,7 +168,8 @@ aside.left-panel.lg + .content {
 .logo {
   text-align: center;
   background-color: #ffffff;
-  padding: 13px 10px;
+  padding: 20px 5px;
+
 }
 
 .logo-expanded {
@@ -177,6 +178,7 @@ aside.left-panel.lg + .content {
   color: #2f353f !important;
   font-weight: 700;
   text-transform: uppercase;
+
 }
 .logo-expanded i {
   font-size: 24px;
@@ -435,6 +437,7 @@ header .navbar-default .navbar-nav>li>a {
   font-size: 14px;
   vertical-align: middle;
   margin-left: 3px;
+  color: #ffffff;
 }
 
 .header-noti li a {
@@ -712,6 +715,8 @@ header .navbar-default .navbar-nav>li>a {
 }
 .widget-style-2 {
   padding-left: 30px;
+  background: #f1f4f5;
+
 }
 .widget-style-2 i {
   font-size: 48px;
