@@ -227,7 +227,7 @@ aside.left-panel.collapsed .navigation > ul > li > a .badge {
 .navigation > ul > li.active:hover > a,
 .navigation > ul > li.active > a{
   color: #fff;
-  background: #2A303A;
+  background: #0e0746;  /* sidebar hoover */
 }
 
 .navigation ul li a i {
@@ -249,7 +249,7 @@ aside.left-panel.collapsed .navigation > ul > li > a .badge {
 /*** 2.3 Sub Menu ***/
 .navigation ul li ul {
   display: none;
-  background-color: #272c35;
+  background-color: #0e0746; /* sub item color */
   padding-bottom: 10px;
 }
 
@@ -1938,7 +1938,7 @@ aside.left-panel.collapsed span.nav-label {
     padding: 15px;
   }
   aside.left-panel.collapsed .navigation > ul > li > a:hover {
-    background-color: #272c35;
+    background-color: #0e0746;   /* responsive item color */
   }
 
   aside.left-panel.collapsed i.fa {
@@ -1957,7 +1957,7 @@ aside.left-panel.collapsed span.nav-label {
     z-index: 3;
     left: 100%;
     top: 0px;
-    background-color: #272c35;
+    background-color: #0e0746;   /* responsive sub item */
     box-shadow: none;
     padding: 10px 0px;
     min-width: 200px;

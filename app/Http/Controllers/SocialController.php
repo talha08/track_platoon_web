@@ -41,9 +41,10 @@ class SocialController extends Controller
 
 
 //complete
-    public function loginWithFacebook() {
+    public function loginWithFacebook(Request $request) {
 
-        $code = \Input::get( 'code' );
+
+         $code = \Input::get( 'code' );
 
         $fb = \OAuth::consumer( 'Facebook' );
 
@@ -60,7 +61,7 @@ class SocialController extends Controller
             }
 
 
-            $profile = User::where('email','=',$result['email'])->first();
+             $profile = User::where('email','=',$result['email'])->first();
 
             if (empty($profile)) {
 
@@ -105,7 +106,7 @@ class SocialController extends Controller
             try {
                 $token = $googleService->requestAccessToken( $code );
 
-           return      $result = json_decode( $googleService->request( 'https://www.googleapis.com/oauth2/v1/userinfo' ), true );
+                 $result = json_decode( $googleService->request( 'https://www.googleapis.com/oauth2/v1/userinfo' ), true );
 
                 // return $result;
 

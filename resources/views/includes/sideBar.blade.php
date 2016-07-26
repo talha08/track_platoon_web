@@ -1,11 +1,11 @@
  <!-- Aside Start-->
-<aside class="left-panel">
+<aside class="left-panel"  style=" background: #1e285d;">
 
             <!-- brand -->
-            <div class="logo">
+            <div class="logo" style=" background: #1e285d;">
                 <a href="#" class="logo-expanded">
-                    <i class="ion-social-buffer"></i>
-                    <span href="{!!route('dashboard')!!}" class="nav-label">{!! Config::get('customConfig.names.siteName')!!}</span>
+                    <i class="ion-social-buffer"  style="color: #ffffff"></i>
+                    <span href="{!!route('dashboard')!!}"   style="color: #ffffff;font-family: cursive;" class="nav-label">{!! Config::get('customConfig.names.siteName')!!}</span>
 
                 </a>
             </div>

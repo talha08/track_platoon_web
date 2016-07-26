@@ -34,17 +34,48 @@ Route::group(['middleware' => 'guest'], function(){
 
 
 
+Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
+
 Route::group(array('middleware' => 'auth'), function()
 {
 
 	Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UsersController@profile']);
-	Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
+	//Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
 	Route::get('change-password', array('as' => 'password.change', 'uses' => 'Auth\AuthController@changePassword'));
 	Route::post('change-password', array('as' => 'password.doChange', 'uses' => 'Auth\AuthController@doChangePassword'));
 
 
 });
+
+
+
+
+
+/*********************************************************
+//api section
+ ********************************************************/
+
+// social login route
+Route::group([ 'prefix' => 'api/v2/'], function(){
+
+	    Route::post('login/fb', ['as'=>'login/fb','uses' => 'Api\LoginController@loginWithFacebook']);
+		Route::post('login/gp', ['as'=>'login/gp','uses' => 'Api\LoginController@loginWithGoogle']);
+		Route::post('login', ['as'=>'login','uses' => 'Api\LoginController@doLogin']);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

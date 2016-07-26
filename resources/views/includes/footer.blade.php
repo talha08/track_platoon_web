@@ -1,6 +1,6 @@
 <!-- Footer Start -->
 <footer class="footer">
-	Copyright &copy; 2016InfancyIT, Bangladesh. All rights reserved.
+	Copyright &copy; 2016- Track Platoon, Bangladesh. All rights reserved.
 </footer>
 <!-- Footer Ends -->
 

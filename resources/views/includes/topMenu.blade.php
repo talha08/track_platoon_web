@@ -1,6 +1,6 @@
 <!-- Header -->
 <section class="content">
-<header class="top-head container-fluid">
+<header class="top-head container-fluid" style=" background: #3f51b5;">
                 <button type="button" class="navbar-toggle pull-left">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -22,26 +22,29 @@
 
                 <nav class=" navbar-default" role="navigation">
 
-                    <!--
+
                     <ul class="nav navbar-nav hidden-xs">
-                        <li class="dropdown">
-                          <a data-toggle="dropdown" class="dropdown-toggle" href="#">English <span class="caret"></span></a>
-                            <ul role="menu" class="dropdown-menu">
-                                <li><a href="#">German</a></li>
-                                <li><a href="#">French</a></li>
-                                <li><a href="#">Italian</a></li>
-                                <li><a href="#">Spanish</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Files</a></li>
+                        {{--<li class="dropdown">--}}
+                          {{--<a data-toggle="dropdown" class="dropdown-toggle" href="#">English <span class="caret"></span></a>--}}
+                            {{--<ul role="menu" class="dropdown-menu">--}}
+                                {{--<li><a href="#">German</a></li>--}}
+                                {{--<li><a href="#">French</a></li>--}}
+                                {{--<li><a href="#">Italian</a></li>--}}
+                                {{--<li><a href="#">Spanish</a></li>--}}
+                            {{--</ul>--}}
+                        {{--</li>--}}
+
+                            <li style="font-size: large"><a href="#" style="color: #ffffff">{!! $title !!}</a></li>
+
+
                     </ul>
-                   -->
+
                     <!-- Right navbar -->
 
                     <ul class="nav navbar-nav navbar-right top-menu top-right-menu">
 
-                        @include('includes.notificationMenu')
-                        @include('includes.inboxMenu')
+                        {{--@include('includes.notificationMenu')--}}
+                        {{--@include('includes.inboxMenu')--}}
                         @include('includes.profileMenu')
 
                     </ul>
