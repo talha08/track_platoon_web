@@ -168,7 +168,8 @@ aside.left-panel.lg + .content {
 .logo {
   text-align: center;
   background-color: #ffffff;
-  padding: 20px 5px;
+padding-top: 15px;
+  padding-bottom: 1px;
 
 }
 

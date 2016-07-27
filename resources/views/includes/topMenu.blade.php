@@ -24,8 +24,15 @@
 
                     <ul class="nav navbar-nav hidden-xs">
                         <li style="font-size: large">
-                            <a href="#" style="color: #ffffff">
-                                {!! $title !!}
+                            <a href="#" style="color: #ffffff;  padding: 3px 2px;">
+
+                                <h4>
+                                    {!! $title !!}<br>
+                                </h4>
+
+                                <h6 style="font-size:small;color: #96a588;">
+                                    @include('includes.year')
+                                </h6>
                                 {{--<br> <p style="font-size: x-small">dfu</p>--}}
                             </a>
                         </li>
@@ -35,8 +42,8 @@
 
                     <ul class="nav navbar-nav hidden-xs ">
                         <li id="centerNav" style="font-size: large">
-                            <a href="#" style="color: #ffffff">
-                                @include('includes.year') || @include('includes.date')
+                            <a href="#" style="color: #ffffff;padding-left: 6cm;">
+                               @include('includes.date')
                             </a>
                         </li>
                     </ul>
@@ -68,10 +75,3 @@
 
 <!-- Header Ends -->
 
-<style>
-    #centerNav{
-        text-align:center;
-
-    }
-
-</style>
