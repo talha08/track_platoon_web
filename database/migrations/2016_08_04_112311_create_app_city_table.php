@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfileTable extends Migration
+class CreateAppCityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,14 @@ class CreateProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile', function (Blueprint $table) {
+        Schema::create('app_city', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('user_id')->unsigned();
-
             $table->string('name');
-            $table->string('mobile_number');
-            $table->string('sex');
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-
+            $table->integer('country_id')->unsigned();
+            $table->foreign('country_id')->references('id')
+                ->on('app_country')
+                ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -35,6 +32,6 @@ class CreateProfileTable extends Migration
      */
     public function down()
     {
-        Schema::drop('profile');
+        Schema::drop('app_city');
     }
 }

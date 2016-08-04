@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-	return Redirect::route('dashboard');
+	return Redirect::route('login');
 });
 
 
@@ -23,7 +23,7 @@ Route::group(['middleware' => 'guest'], function(){
 	Route::post('user/store', ['as'=>'user.store','uses' => 'UsersController@store']);
 	Route::post('login', array('uses' => 'Auth\AuthController@doLogin'));
 
-
+	//Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
 	// social login route
 	Route::get('login/fb', ['as'=>'login/fb','uses' => 'SocialController@loginWithFacebook']);
 	Route::get('login/gp', ['as'=>'login/gp','uses' => 'SocialController@loginWithGoogle']);
@@ -34,14 +34,14 @@ Route::group(['middleware' => 'guest'], function(){
 
 
 
-Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
+
 
 Route::group(array('middleware' => 'auth'), function()
 {
 
 	Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UsersController@profile']);
-	//Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
+	Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'Auth\AuthController@dashboard'));
 	Route::get('change-password', array('as' => 'password.change', 'uses' => 'Auth\AuthController@changePassword'));
 	Route::post('change-password', array('as' => 'password.doChange', 'uses' => 'Auth\AuthController@doChangePassword'));
 
@@ -59,9 +59,9 @@ Route::group(array('middleware' => 'auth'), function()
 // social login route
 Route::group([ 'prefix' => 'api/v2/'], function(){
 
-	    Route::post('login/fb', ['as'=>'login/fb','uses' => 'Api\LoginController@loginWithFacebook']);
-		Route::post('login/gp', ['as'=>'login/gp','uses' => 'Api\LoginController@loginWithGoogle']);
-		Route::post('login', ['as'=>'login','uses' => 'Api\LoginController@doLogin']);
+//	    Route::post('login/fb', ['as'=>'login/fb','uses' => 'Api\LoginController@loginWithFacebook']);
+//		Route::post('login/gp', ['as'=>'login/gp','uses' => 'Api\LoginController@loginWithGoogle']);
+//		Route::post('login/api', ['as'=>'login/normal','uses' => 'Api\LoginController@doLogin']);
 });
 
 
