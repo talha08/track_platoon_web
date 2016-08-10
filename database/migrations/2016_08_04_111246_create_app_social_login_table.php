@@ -15,7 +15,7 @@ class CreateAppSocialLoginTable extends Migration
         Schema::create('app_social_login', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->unique();
-            $table->string('social_login-id');
+            $table->string('social_login_id');
 
             $table->integer('app_user_id')->unsigned();
             $table->foreign('app_user_id')

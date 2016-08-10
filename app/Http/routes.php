@@ -59,9 +59,15 @@ Route::group(array('middleware' => 'auth'), function()
 // social login route
 Route::group([ 'prefix' => 'api/v2/'], function(){
 
-//	    Route::post('login/fb', ['as'=>'login/fb','uses' => 'Api\LoginController@loginWithFacebook']);
-//		Route::post('login/gp', ['as'=>'login/gp','uses' => 'Api\LoginController@loginWithGoogle']);
-//		Route::post('login/api', ['as'=>'login/normal','uses' => 'Api\LoginController@doLogin']);
+
+		Route::post('loginWithSocial', ['as'=>'loginWithSocial','uses' => 'Api\LoginController@loginWithSocial']);
+		Route::post('loginNormal', ['as'=>'login/email','uses' => 'Api\LoginController@normalLogin']);
+
+
+
+	    //Route::get('register', ['as'=>'register','uses' => 'Api\SignupController@genRandomString']);
+	    Route::post('register', ['as'=>'register','uses' => 'Api\SignupController@register']);
+	    Route::post('confirmAccount', ['as'=>'confirmAccount','uses' => 'Api\SignupController@confirmAccount']);
 });
 
 

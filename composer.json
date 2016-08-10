@@ -11,8 +11,8 @@
         "zizaco/entrust": "dev-laravel-5",
         "laravel/cashier": "~5.0",
         "ellipsesynergie/api-response": "^0.12.1",
-        "guzzlehttp/guzzle": "^6.2",
-        "oriceon/oauth-5-laravel": "dev-master"
+        "oriceon/oauth-5-laravel": "dev-master",
+        "guzzlehttp/guzzle": "~4.0"
 
     },
     "require-dev": {

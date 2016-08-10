@@ -18,9 +18,9 @@ class CreateAppUserTable extends Migration
            // $table->string('type');
             $table->string('profile_pic');
             $table->string('confirm_code');
-            $table->string('is_active');   // 0 inactive , 1 for active
+            $table->string('is_active')->default(0);   // 0 inactive , 1 for active
 
-            $table->string('is_banned'); // 1 for ban request, 2 for banned
+            $table->string('is_banned')->default(0); // 1 for ban request, 2 for banned
 
 
 

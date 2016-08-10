@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\AppUser;
+use App\ApiModel\EmailLogin;
+use App\ApiModel\SocialLogin;
 use App\User;
 use Validator;
 use Auth;
@@ -20,16 +23,19 @@ class LoginController extends Controller
 
 
     /*********************************************************
-    // Social Login System
+    // Normal Login System
      ********************************************************/
 
 
     /**
      * Email login System
+     *
+     * Post Method
+     * @param email. password
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return user_id
      */
-    public function doLogin(Request $request)
+    public function normalLogin(Request $request)
     {
         $rules = array
         (
@@ -40,28 +46,31 @@ class LoginController extends Controller
         $validation = Validator::make($allInput, $rules);
 
         // dd($allInput);
-
-
         if ($validation->fails())
         {
-            return Response::json(['error'=>'email_and_username_not_match'], 403);
+            return Response::json(['error'=>'Validation failed'], 403);
         } else
         {
 
-            $credentials = array
-            (
-                'email'    => $allInput['email'],
-                'password' => $allInput['password']
-            );
+                $email   = $allInput['email'];
+                $password = $allInput['password'];
 
-            if (Auth::attempt($credentials))
-            {
-                $user = Auth::user()->id;
-                return $user;
-            } else
-            {
-                return Response::json(['error'=>'Something_went_wrong'], 403);
-            }
+                $user_id = EmailLogin::where('email', $email)->first();
+
+                if(!empty($user_id)){
+
+                    $user_pass = EmailLogin::where('id', $user_id->id)->pluck('password');
+                    //Hash::check('INPUT PASSWORD', database password);
+                    if(Hash::check($password, $user_pass)){
+
+                        return Response::json(['user_id'=> $user_id->app_user_id], 200);
+                    }else{
+                        return Response::json(['error'=>'Wrong Password'], 403);
+                    }
+                }else{
+                    return Response::json(['error'=>'No user found with this account'], 403);
+                }
+
         }
 
     }
@@ -75,102 +84,98 @@ class LoginController extends Controller
      ********************************************************/
 
 
-
-
     /**
-     * Facebook Login System
+     * Social Login
+     * Post Method
+     * @param social_id,account_type= 2 or 3 ,name,email,profile_pic
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return user_id
      */
-    public function loginWithFacebook(Request $request) {
+    public function loginWithSocial(Request $request)
+    {
 
-          $user_fb_id = $request->user_fb_id;
-          $social_id = User::where('type', '=', 'facebook')
-                        ->where('social_id','=',$user_fb_id )->pluck('id');
-
-        if(!empty($social_id)){
-
-            return $social_id;
-
-        }else{
-
-            // store data
-        }
-    }
+        $social_id = $request->social_id;
+        $account_type = $request->account_type;
 
 
+        //facebook
+        if ($account_type == 2) {
 
+            $user_id = SocialLogin::where('social_login_id', '=', $social_id)->pluck('app_user_id');
 
+            if (!empty($user_id)) {
 
+                return Response::json(['user_id' => $user_id], 200);
 
-    /**
-     * Google Login System
-     * @param Request $request
-     * @return mixed
-     */
-    public function loginWithGoogle(Request $request) {
+            } else {
 
+                $appUser = new AppUser();
+                $appUser->name = $request->name;
+                $appUser->profile_pic = $request->profile_pic;
+                $appUser->is_active = 1;
+                $appUser->account_type_id = $account_type;
+                if ($appUser->save()) {
 
-        $user_gp_id = $request->user_gp_id;
-        $social_id = User::where('type', '=', 'google')
-            ->where('social_id','=',$user_gp_id )->pluck('id');
+                    $social = new SocialLogin();
+                    $social->app_user_id = $appUser->id;
+                    $social->email = $request->email;
+                    $social->social_login_id = $social_id;
 
-        if(!empty($social_id)){
-
-            return $social_id;
-        }else{
-
-
-            // store data
-        }
-
-
-    }
-
-
-
-
-
-    /**
-     * Twitter Login System
-     * @param Request $request
-     * @return mixed
-     */
-    public function loginWithTwitter(Request $request) {
-
-
-        $user_tt_id = $request->user_gp_id;
-        $social_id = User::where('type', '=', 'twitter')
-            ->where('social_id','=',$user_tt_id )->pluck('id');
-
-        if(!empty($social_id)){
-
-            return $social_id;
-        }else{
-
-
-            // store data
+                    if ($social->save()) {
+                        return Response::json(['user_id' => $social->app_user_id, 'success' => 'Login successfully'], 200);
+                    } else {
+                        return Response::json(['error' => 'Something went wrong'], 403);
+                    }
+                } else {
+                    return Response::json(['error' => 'Something went wrong'], 403);
+                }
+            }
         }
 
 
-    }
 
 
+        //google
 
+        elseif ($account_type == 3) {
+            $user_id = SocialLogin::where('social_login_id', '=', $social_id)->pluck('app_user_id');
 
+            if (!empty($user_id)) {
 
-    public function normalSignUp(Request $request){
+                return Response::json(['user_id' => $user_id], 200);
 
-        $user = new User();
+            } else {
 
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->type = 'normal';
-        if($user->save()){
+                $appUser = new AppUser();
+                $appUser->name = $request->name;
+                $appUser->profile_pic = $request->profile_pic;
+                $appUser->is_active = 1;
+                $appUser->account_type_id = $account_type;
+                if ($appUser->save()) {
 
+                    $social = new SocialLogin();
+                    $social->app_user_id = $appUser->id;
+                    $social->email = $request->email;
+                    $social->social_login_id = $social_id;
+
+                    if ($social->save()) {
+                        return Response::json(['user_id' => $social->app_user_id, 'success' => 'Login successfully'], 200);
+                    } else {
+                        return Response::json(['error' => 'Something went wrong'], 403);
+                    }
+                } else {
+                    return Response::json(['error' => 'Something went wrong'], 403);
+                }
+            }
         }
 
     }
+
+
+
+
+
+
 
 
 }

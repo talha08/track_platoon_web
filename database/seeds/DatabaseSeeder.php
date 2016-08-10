@@ -18,9 +18,13 @@ class DatabaseSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        $this->call(RolesTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(EntrustTableSeeder::class);
+       // $this->call(RolesTableSeeder::class);
+       // $this->call(UsersTableSeeder::class);
+       // $this->call(EntrustTableSeeder::class);
+
+
+
+        $this->call(AccounttypeSeeder::class);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

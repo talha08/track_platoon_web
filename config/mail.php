@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'infancyit@gmail.com', 'name' => 'InfancyIT'],
+    'from' => ['address' => 'infancyit@gmail.com', 'name' => 'Track Platoon'],
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol
