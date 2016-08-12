@@ -12,7 +12,7 @@
 <div class="wrapper-page animated fadeInDown">
     <div class="panel panel-color panel-primary">
         <div class="panel-heading">
-            <h3 class="text-center m-t-10"> Sign Up In <strong>Laravel 5.1</strong> </h3>
+            <h3 class="text-center m-t-10"> Sign Up In <strong>Track Platoon</strong> </h3>
         </div>
         <br>
         @include('includes.alert')
@@ -60,13 +60,13 @@
 
 
         <center>
-            <p>or you can sign up via social network</p>
+            {{--<p>or you can sign up via social network</p>--}}
 
-            <div class="login-social-link">
-                <a href="{{ route('login/fb') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>
-                <!-- <a href="#" class="btn btn-info"><i class="fa fa-twitter"></i>Twitter</a> -->
-                <a href="{{ route('login/gp') }}" class="btn btn-danger"><i class="fa fa-google-plus"></i> Google</a>
-            </div>
+            {{--<div class="login-social-link">--}}
+                {{--<a href="{{ route('login/fb') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>--}}
+                {{--<!-- <a href="#" class="btn btn-info"><i class="fa fa-twitter"></i>Twitter</a> -->--}}
+                {{--<a href="{{ route('login/gp') }}" class="btn btn-danger"><i class="fa fa-google-plus"></i> Google</a>--}}
+            {{--</div>--}}
 
 
             <div class="registration">
