@@ -4,7 +4,8 @@
 <script>
 	(function ()
 	{
-		document.write(new Date().toString("MMMM  dd yyyy"));
+		document.write(new Date().toString('yyyy')
+
 	})();
 </script>
 </html>

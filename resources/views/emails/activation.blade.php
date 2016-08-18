@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>Verify Your Email Address</h2>
+<h2>Verify Your Confirmation Code</h2>
 <table class="container-middle" align="center" border="0" cellpadding="0" cellspacing="0" width="560" bgcolor="F1F2F7">
     <tbody><tr>
         <td>
@@ -50,14 +50,14 @@
                         </table>
 
 
-                        <table class="section-item" align="left" border="0" cellpadding="0" cellspacing="0">
-                            <tbody><tr><td height="6"></td></tr>
-                            <tr>
-                                <td><a href="" style="width: 128px; display: block;">{{ Html::image('img/logo_dark.png', 'alt', array( 'width' => 35, 'height' => 35 )) }}</a></td>
-                            </tr>
-                            <tr><td height="10"></td></tr>
-                            </tbody>
-                        </table>
+                        {{--<table class="section-item" align="left" border="0" cellpadding="0" cellspacing="0">--}}
+                            {{--<tbody><tr><td height="6"></td></tr>--}}
+                            {{--<tr>--}}
+                                {{--<td><a href="" style="width: 128px; display: block;">{{ Html::image('img/logo_dark.png', 'alt', array( 'width' => 35, 'height' => 35 )) }}</a></td>--}}
+                            {{--</tr>--}}
+                            {{--<tr><td height="10"></td></tr>--}}
+                            {{--</tbody>--}}
+                        {{--</table>--}}
 
 
                     </td>

@@ -1,0 +1,40 @@
+	/**
+     * Email Sign Up
+	 *
+	 * Post Method
+	 * @url : http://platoon.sustcse12.cf/api/v2/register
+     * @param email,password,name,account_type=1
+     * @return success, 200
+     */
+	 
+	 
+	 
+	 /**
+     * Account Confirmation
+	 *
+     * Post Method
+	 * @url : http://platoon.sustcse12.cf/api/v2/confirmAccount
+     * @param email,confirm_code,
+     * @return user_id
+     */
+	 
+	 
+	 
+	 /**
+     * Email login System
+	 *
+	 * Post Method
+     * @url : http://platoon.sustcse12.cf/api/v2/loginNormal
+     * @param email. password
+     * @return user_id
+     */
+	 
+	 
+	 /**
+     * Social Login
+	 *
+     * Post Method
+	 * @url : http://platoon.sustcse12.cf/api/v2/loginWithSocial
+     * @param social_id,account_type= 2 or 3 ,name,email,profile_pic
+	 * @return user_id
+     */
