@@ -8,6 +8,7 @@ use App\ApiModel\AppUser;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 //use EllipseSynergie\ApiResponse;
+use Mockery\CountValidator\Exception;
 use Response;
 
 class SignupController extends Controller
@@ -49,6 +50,7 @@ class SignupController extends Controller
         $email = $request->email;
         $password = $request->password;
         $name = $request->name;
+        $user_type = $request->user_type;
         $confirm_code = $this->genRandomString();
 
         $user_exists= EmailLogin::where('email', $email)->first();
@@ -60,6 +62,7 @@ class SignupController extends Controller
 
                 $user = new AppUser();
                 $user->name = $name;
+                $user->user_type = $user_type; //0 for person, 1 for organization
                 $user->confirm_code = $confirm_code;
                 $user->account_type_id = 1;
 
@@ -71,15 +74,18 @@ class SignupController extends Controller
 
                     if($email_register->save()){
 
-                        \Mail::send('emails.activation', ['confirm_code'=>$confirm_code],
-                            function($message) {
-                                $message->to(\Input::get('email'))
-                                    ->subject('Verify your Confirmation Code');
-                            });
+                        try{
+                            \Mail::send('emails.activation', ['confirm_code'=>$confirm_code],
+                                function($message) {
+                                    $message->to(\Input::get('email'))
+                                        ->subject('Verify your Confirmation Code');
+                                });
+                            return Response::json(['success'=>'User successfully added, Confirmation code sent'], 200);
 
+                        }catch(Exception $e){
+                            return Response::json(['error'=>'Confirmation code sending Problem'], 403);
+                        }
 
-
-                        return Response::json(['success'=>'User successfully added, Confirmation code sent'], 200);
 
                     }else{
 

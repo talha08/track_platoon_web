@@ -64,7 +64,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 	  //sign up api
-	    Route::get('test', ['as'=>'register','uses' => 'Api\SignupController@genRandomString']);
+	   // Route::get('test', ['as'=>'register','uses' => 'Api\SignupController@genRandomString']);
 	    Route::post('register', ['as'=>'register','uses' => 'Api\SignupController@register']);
 	    Route::post('confirmAccount', ['as'=>'confirmAccount','uses' => 'Api\SignupController@confirmAccount']);
 });
