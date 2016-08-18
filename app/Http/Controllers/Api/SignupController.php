@@ -74,7 +74,7 @@ class SignupController extends Controller
                         \Mail::send('emails.activation', ['confirm_code'=>$confirm_code],
                             function($message) {
                                 $message->to(\Input::get('email'))
-                                    ->subject('Verify your email address');
+                                    ->subject('Verify your Confirmation Code');
                             });
 
 
