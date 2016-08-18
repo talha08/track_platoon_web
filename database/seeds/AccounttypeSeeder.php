@@ -14,5 +14,6 @@ class AccounttypeSeeder extends Seeder
         UserAccountType::create(['account_type' => 'email']);
         UserAccountType::create(['account_type' => 'facebook']);
         UserAccountType::create(['account_type' => 'google']);
+        UserAccountType::create(['account_type' => 'twitter']);
     }
 }

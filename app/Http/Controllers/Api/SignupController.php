@@ -58,7 +58,7 @@ class SignupController extends Controller
 
         if(!$user_exists){
 
-            if($request->account_type == 1){  // here 1 mean email sign up , 2 = facebook, 3 = google
+            if($request->account_type == 1){  // here 1 mean email sign up , 2 = facebook, 3 = google , 4= twitter
 
                 $user = new AppUser();
                 $user->name = $name;

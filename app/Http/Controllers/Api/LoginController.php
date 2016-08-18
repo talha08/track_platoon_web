@@ -178,6 +178,44 @@ class LoginController extends Controller
             }
         }
 
+
+
+        //twitter
+
+        elseif ($account_type == 4) {
+            $user_id = SocialLogin::where('social_login_id', '=', $social_id)->pluck('app_user_id');
+
+            if (!empty($user_id)) {
+
+                return Response::json(['user_id' => $user_id], 200);
+
+            } else {
+
+                $appUser = new AppUser();
+                $appUser->name = $request->name;
+                $appUser->profile_pic = $request->profile_pic;
+                $appUser->is_active = 1;
+                $appUser->account_type_id = $account_type;
+                if ($appUser->save()) {
+
+                    $social = new SocialLogin();
+                    $social->app_user_id = $appUser->id;
+                    $social->email = $request->email;
+                    $social->social_login_id = $social_id;
+
+                    if ($social->save()) {
+                        return Response::json(['user_id' => $social->app_user_id, 'success' => 'Login successfully'], 200);
+                    } else {
+                        return Response::json(['error' => 'Something went wrong'], 403);
+                    }
+                } else {
+                    return Response::json(['error' => 'Something went wrong'], 403);
+                }
+            }
+        }
+
+
+
     }
 
 
