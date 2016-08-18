@@ -21,9 +21,9 @@ class CreateAppPostTable extends Migration
             $table->string('location');   // specific location
 
             $table->string('title');
-            $table->string('description');
-            $table->integer('is_active');
-            $table->integer('is_emergency');
+            $table->text('description');
+            $table->integer('is_active')->default(1); // 1 or 0
+            $table->integer('is_emergency'); //1 or 0
             $table->string('help_info');
 
 

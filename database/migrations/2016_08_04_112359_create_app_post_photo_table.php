@@ -15,7 +15,7 @@ class CreateAppPostPhotoTable extends Migration
         Schema::create('app_post_photo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('photo');
-            $table->integer('is_active');
+            $table->integer('is_active')->default(1);  //1 or 0
 
             $table->integer('app_post_id')->unsigned();
             $table->foreign('app_post_id')->references('id')

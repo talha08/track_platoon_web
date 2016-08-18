@@ -12,7 +12,8 @@
         "laravel/cashier": "~5.0",
         "ellipsesynergie/api-response": "^0.12.1",
         "oriceon/oauth-5-laravel": "dev-master",
-        "guzzlehttp/guzzle": "~4.0"
+        "guzzlehttp/guzzle": "~4.0",
+        "intervention/image": "^2.3"
 
     },
     "require-dev": {

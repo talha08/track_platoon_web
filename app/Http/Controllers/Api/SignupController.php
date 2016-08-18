@@ -126,9 +126,9 @@ class SignupController extends Controller
         $email = $request->email;
 
         $user_email_login_id = EmailLogin::where('email', $email)->pluck('id');
-        $database_code= AppUser::where('id',$user_email_login_id )->pluck('confirm_code');
+         $database_code= AppUser::where('id',$user_email_login_id )->pluck('confirm_code');
 
-        if($database_code == $confirm_code ){
+        if($database_code === $confirm_code ){
 
             $user = AppUser::findOrFail($user_email_login_id);
 

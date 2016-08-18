@@ -15,7 +15,7 @@ class CreateAppPostAttachmentTable extends Migration
         Schema::create('app_post_attachment', function (Blueprint $table) {
             $table->increments('id');
             $table->string('file');
-            $table->integer('is_active');
+            $table->integer('is_active')->default(1); //0 and 1
 
             $table->integer('app_post_id')->unsigned();
             $table->foreign('app_post_id')->references('id')

@@ -3,7 +3,7 @@
 	 *
 	 * Post Method
 	 * @url : http://platoon.sustcse12.cf/api/v2/register
-     * @param email,password,name,account_type=1
+     * @param email,password,name,account_type=1,user_type (0 for person, 1 for organization)
      * @return success, 200
      */
 	 
@@ -38,3 +38,16 @@
      * @param social_id,account_type= 2 or 3 ,name,email,profile_pic
 	 * @return user_id
      */
+
+
+
+
+
+          /**
+          *Topic Post
+          *
+          * Post method
+          * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency, help_info,
+          * photo (multiple photo select), file (multiple select)
+          * @return success 200 or error 403
+          */

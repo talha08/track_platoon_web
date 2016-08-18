@@ -78,6 +78,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 
+Route::get('test', function () {
+	return  \App\ApiModel\Post::all();
+});
 
 
 
