@@ -22,9 +22,14 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(EntrustTableSeeder::class);
 
-
-
         $this->call(AccounttypeSeeder::class);
+        $this->call(CountryTableSeeder::class);
+        $this->call(CityTableSeeder::class);
+
+
+        $this->call(PostTableSeeder::class);
+        $this->call(PostSubTypeTableSeeder::class);
+
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
