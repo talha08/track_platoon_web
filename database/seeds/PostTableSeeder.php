@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\ApiModel\PostType;
+use App\ApiModel\Post;
 
 class PostTableSeeder extends Seeder
 {
@@ -12,9 +12,43 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        PostType::create(['name' => 'Topic']);
-        PostType::create(['name' => 'Report']);
-        PostType::create(['name' => 'Help']);
-        PostType::create(['name' => 'Campaign']);
+        Post::create([
+            'posted_by' => 1,
+            'app_subType_id' => 1,
+            'app_city_id' => 1,
+            'location' => 'Mirpur ds',
+            'title' => 'Topic Test',
+            'description' => 'srtwerseyydty',
+            'is_emergency' => 1,
+            'help_info' => 'xfthshtjfdj'
+
+        ]);
+
+
+        Post::create([
+            'posted_by' => 1,
+            'app_subType_id' => 1,
+            'app_city_id' => 1,
+            'location' => 'Mirpur es',
+            'title' => 'Topic Test',
+            'description' => 'srtwerseyydty',
+            'is_emergency' => 1,
+            'help_info' => '1fthdtj'
+
+        ]);
+
+
+        Post::create([
+            'posted_by' => 1,
+            'app_subType_id' => 1,
+            'app_city_id' => 1,
+            'location' => 'Mirpur cs',
+            'title' => 'Topic Test',
+            'description' => 'srtwerseyydty',
+            'is_emergency' => 1,
+            'help_info' => 'cfgethdtrhd'
+
+        ]);
+
     }
 }

@@ -62,19 +62,45 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::post('loginNormal', ['as'=>'login/email','uses' => 'Api\LoginController@normalLogin']);
 
 
-
-	   //sign up api
-	   // Route::get('test', ['as'=>'register','uses' => 'Api\SignupController@genRandomString']);
-	    Route::post('register', ['as'=>'register','uses' => 'Api\SignupController@register']);
+		//sign up api
+		Route::post('register', ['as'=>'register','uses' => 'Api\SignupController@register']);
 	    Route::post('confirmAccount', ['as'=>'confirmAccount','uses' => 'Api\SignupController@confirmAccount']);
+
+
+		//user ban request
+		Route::post('userBanRequest', ['as'=>'userBanRequest','uses' => 'Api\UserBannedController@userBanRequest']);
+
 
 		//location
 	    Route::get('country', ['as'=>'country','uses' => 'Api\LocationController@countryList']);
-	    Route::get('city/{id}', ['as'=>'city','uses' => 'Api\LocationController@cityList']);
+	    Route::get('city', ['as'=>'city','uses' => 'Api\LocationController@cityList']);
 
-		//topic post
+
+		//post
 	    Route::post('topicPost', ['as'=>'topicPost','uses' => 'Api\PostTopicController@topicPost']);
+	    Route::post('helpPost', ['as'=>'helpPost','uses' => 'Api\PostHelpController@helpPost']);
+	    Route::post('campaignPost', ['as'=>'campaignPost','uses' => 'Api\PostCampaignController@campaignPost']);
+	    Route::post('reportPost', ['as'=>'reportPost','uses' => 'Api\PostReportController@reportPost']);
+
+		//comment
+	    Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -8,7 +8,7 @@ class Country extends Model
 {
     public $timestamps = false;
     protected $table ='app_country';
-
+    protected $hidden = ['created_at', 'updated_at'];
 
 
     /**

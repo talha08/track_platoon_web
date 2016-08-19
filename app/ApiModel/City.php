@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $table ='app_city';
+    protected $hidden = ['created_at', 'updated_at'];
 
     /**
      * One to many relationship with City

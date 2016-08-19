@@ -40,6 +40,16 @@
      */
 
 
+				  /**
+                   * User Ban Request
+                   * 1 for ban request, 2 for banned
+                   *
+                   * Post Method
+                   * @url: http://platoon.sustcse12.cf/api/v2/userBanRequest
+                   * @param user_id
+                   * return success 200 or error 403
+                   */
+
 
 
 
@@ -47,7 +57,32 @@
           *Topic Post
           *
           * Post method
+          * @url : http://platoon.sustcse12.cf/api/v2/topicPost
           * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency, help_info,
           * photo (multiple photo select), file (multiple select)
           * @return success 200 or error 403
           */
+
+
+
+		/**
+         * Country
+         *
+         * Get Method
+         * @url : http://platoon.sustcse12.cf/api/v2/country
+         * @param none
+         * return country json 200, or error 403
+         */
+
+
+
+         	 /**
+        	  * City
+        	  *
+              * Get Method
+              * @url : http://platoon.sustcse12.cf/api/v2/city
+              * @param country_id
+              * return city json  200  or error 403
+              */
+
+
