@@ -84,6 +84,8 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 		//comment
 	    Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
+	    Route::post('subComment', ['as'=>'subComment','uses' => 'Api\CommentController@subCommentStore']);
+	    Route::post('checkCommentStatus', ['as'=>'checkCommentStatus','uses' => 'Api\CommentController@checkCommentStatus']);
 });
 
 
