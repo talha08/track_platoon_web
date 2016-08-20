@@ -75,6 +75,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	    Route::get('country', ['as'=>'country','uses' => 'Api\LocationController@countryList']);
 	    Route::get('city', ['as'=>'city','uses' => 'Api\LocationController@cityList']);
 
+		//Post type and subType
+		Route::get('postType', ['as'=>'postType','uses' => 'Api\PostTypeController@postType']);
+		Route::get('postSubType', ['as'=>'postSubType','uses' => 'Api\PostTypeController@postSubType']);
 
 		//post
 	    Route::post('topicPost', ['as'=>'topicPost','uses' => 'Api\PostTopicController@topicPost']);

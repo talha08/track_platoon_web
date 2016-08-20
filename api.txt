@@ -123,3 +123,24 @@
 	 */
 
 
+
+
+	/**
+	 * Post type
+	 *
+	 * Get Method
+	 * @url : http://localhost:8000/api/v2/postType
+	 * @param none
+	 * return postType json 200, or error 403
+	 */
+
+
+
+	 /**
+	  * Post Sub type
+	  *
+	  * Get Method
+	  * @url : http://localhost:8000/api/v2/postSubType
+	  * @param postType_id
+	  * return postSubType json  200  or error 403
+	  */

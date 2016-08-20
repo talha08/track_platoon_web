@@ -84,12 +84,12 @@ class CommentController extends Controller
              */
             public function checkCommentStatus(Request $request){
 
-                   $user_id = $request->user_id;
-                   $post_id = $request->post_id;
+                  // $user_id = $request->user_id;
+                   //$post_id = $request->post_id;
 
                 //app_comment_type_id = 1 for support , 2 for support
-                  $comment = Comment::where('post_id', $post_id )
-                       ->where('app_user_id',$user_id )->first();
+                  $comment = Comment::where('post_id', $request->post_id)
+                       ->where('app_user_id',$request->user_id)->first();
 
 
                  if( !empty($comment)){

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PostSubType extends Model
 {
     protected $table ='app_post_subType';
-
+    protected $hidden = ['created_at', 'updated_at'];
 
 
     /**
