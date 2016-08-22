@@ -24,7 +24,8 @@ class CreateAppPostTable extends Migration
             $table->text('description');
             $table->integer('is_active')->default(1); // 1 or 0
             $table->integer('is_emergency'); //1 or 0
-            $table->string('help_info');
+            $table->string('help_info')->nullable();
+            $table->string('survey_among')->nullable();
 
 
             $table->foreign('posted_by')->references('id')

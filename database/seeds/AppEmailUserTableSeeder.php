@@ -14,7 +14,7 @@ class AppEmailUserTableSeeder extends Seeder
     {
         EmailLogin::create([
             'app_user_id' => 1,
-            'email' => 'talhamc@gmail.com',
+            'email' => 'anonymous@platoon.com',
             'password' => Hash::make('a'),
 
         ]);

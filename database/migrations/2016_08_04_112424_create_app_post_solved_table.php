@@ -20,7 +20,7 @@ class CreateAppPostSolvedTable extends Migration
 
             $table->string('title');
             $table->string('description');
-            $table->string('help_info');
+            $table->string('help_info')->nullable();
 
             $table->foreign('post_id')->references('id')
                 ->on('app_post')

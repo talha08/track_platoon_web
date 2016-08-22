@@ -56,12 +56,45 @@
 
 
 	  /**
-	  *Topic Post
+	  * Topic Post
 	  *
 	  * Post method
 	  * @url : http://localhost:8000/api/v2/topicPost
-	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency, help_info,
-	  * photo (multiple photo select), file (multiple select)
+	  * @param app_subType_id(int), user_id, app_city_id(int), location (string), title, description, is_emergency, help_info,
+	    photo (multiple photo select), file (multiple select)
+	  * @return success 200 or error 403
+	  */
+
+
+	  /**
+	  * Help Post
+	  *
+	  * Post method
+	  * @url : http://localhost:8000/api/v2/helpPost
+	  * @param app_subType_id(int), user_id, app_city_id(int), location (string), title, description, is_emergency, help_info,
+	    photo (multiple photo select), file (multiple select)
+	  * @return success 200 or error 403
+	  */
+
+
+ 	  /**
+	  * Campaign Post
+	  *
+	  * Post method
+	  * @url : http://localhost:8000/api/v2/campaignPost
+	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
+                  photo (multiple photo select), file (multiple select), survey_among, help_info, survey_among
+	  * @return success 200 or error 403
+	  */
+
+
+ 	  /**
+	  * Report Post
+	  *
+	  * Post method
+	  * @url : http://localhost:8000/api/v2/reportPost
+	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
+                   photo (multiple photo select), file (multiple select), hide_id (0 for none, 1 for hide), survey_among
 	  * @return success 200 or error 403
 	  */
 

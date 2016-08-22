@@ -13,8 +13,8 @@ class AppUserTableSeeder extends Seeder
     public function run()
     {
         AppUser::create([
-            'name' => 'Bangladesh',
-            'profile_pic' => 'xyz',
+            'name' => 'Anonymous',
+            'profile_pic' => '/upload/default/icon.jpg',
             'is_active' => 1,
             'user_type' => 0,
             'account_type_id' => 1,
