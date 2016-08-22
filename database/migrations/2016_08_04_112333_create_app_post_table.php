@@ -28,6 +28,9 @@ class CreateAppPostTable extends Migration
             $table->string('survey_among')->nullable();
 
 
+            $table->string('post_type');  //direct use of post type
+
+
             $table->foreign('posted_by')->references('id')
                 ->on('app_user')
                 ->onUpdate('cascade')->onDelete('cascade');

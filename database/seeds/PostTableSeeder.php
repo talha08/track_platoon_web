@@ -20,7 +20,8 @@ class PostTableSeeder extends Seeder
             'title' => 'Topic Test',
             'description' => 'srtwerseyydty',
             'is_emergency' => 1,
-            'help_info' => 'xfthshtjfdj'
+            'help_info' => 'xfthshtjfdj',
+            'post_type' => 1
 
         ]);
 
@@ -33,7 +34,8 @@ class PostTableSeeder extends Seeder
             'title' => 'Topic Test',
             'description' => 'srtwerseyydty',
             'is_emergency' => 1,
-            'help_info' => '1fthdtj'
+            'help_info' => '1fthdtj',
+            'post_type' => 1
 
         ]);
 
@@ -46,7 +48,8 @@ class PostTableSeeder extends Seeder
             'title' => 'Topic Test',
             'description' => 'srtwerseyydty',
             'is_emergency' => 1,
-            'help_info' => 'cfgethdtrhd'
+            'help_info' => 'cfgethdtrhd',
+            'post_type' => 1
 
         ]);
 

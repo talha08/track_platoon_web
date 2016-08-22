@@ -55,5 +55,19 @@ class Post extends Model
         return $this->hasOne('App\ApiModel\PostSolved','post_id','id');
     }
 
+
+
+
+
+
+ //post tipe
+    public function postType()
+    {
+        return $this->belongsTo('App\ApiModel\PostSubType','app_subType_id','id');
+    }
+
+
+
+
 }
 

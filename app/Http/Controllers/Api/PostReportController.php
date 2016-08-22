@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\PostSubType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -41,6 +42,8 @@ class PostReportController extends Controller
                 $topic->posted_by = $request->user_id;
             }
 
+            $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
+
             $topic->app_subType_id = $request->app_subType_id;
             $topic->app_city_id = $request->app_city_id;
             $topic->location = $request->location;
@@ -52,6 +55,9 @@ class PostReportController extends Controller
             $topic->is_active = 1;
             $topic->is_emergency = $request->is_emergency;  //1 or 0
            // $topic->help_info = $request->help_info;
+
+            $topic->post_type = $type;
+
             if($topic->save()){
 
 

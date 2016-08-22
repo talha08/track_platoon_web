@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\ApiModel\Post;
 use App\ApiModel\PostAttachment;
 use App\ApiModel\PostPhoto;
+use App\ApiModel\PostSubType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -36,6 +37,9 @@ class PostTopicController extends Controller
     public function topicPost(Request $request){
 
       try{
+
+          $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
+
           $topic = new Post();
           //$topic->posted_by = \Auth::user()->id;
           $topic->posted_by = $request->user_id;
@@ -48,6 +52,9 @@ class PostTopicController extends Controller
           $topic->is_active = 1;
           $topic->is_emergency = $request->is_emergency;  //1 or 0
           $topic->help_info = $request->help_info;
+
+          $topic->post_type = $type;
+
           if($topic->save()){
 
 

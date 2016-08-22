@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\PostSubType;
 use Illuminate\Http\Request;
 use Mockery\CountValidator\Exception;
 use Response;
@@ -34,6 +35,9 @@ class PostHelpController extends Controller
     public function helpPost(Request $request){
 
         try{
+
+            $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
+
             $topic = new Post();
             //$topic->posted_by = \Auth::user()->id;
             $topic->posted_by = $request->user_id;
@@ -46,6 +50,10 @@ class PostHelpController extends Controller
             $topic->is_active = 1;
             $topic->is_emergency = $request->is_emergency;  //1 or 0
             $topic->help_info = $request->help_info;
+
+
+            $topic->post_type = $type;
+
             if($topic->save()){
 
 

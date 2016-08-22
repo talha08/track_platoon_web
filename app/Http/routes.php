@@ -85,6 +85,12 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	    Route::post('campaignPost', ['as'=>'campaignPost','uses' => 'Api\PostCampaignController@campaignPost']);
 	    Route::post('reportPost', ['as'=>'reportPost','uses' => 'Api\PostReportController@reportPost']);
 
+	    //newsFeed
+	    Route::post('newsFeed', ['as'=>'newsFeed','uses' => 'Api\NewsFeedController@newsFeed']);
+
+		//discover
+	     Route::post('discover', ['as'=>'discover','uses' => 'Api\DiscoverController@discover']);
+
 		//comment
 	    Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
 	    Route::post('subComment', ['as'=>'subComment','uses' => 'Api\CommentController@subCommentStore']);
@@ -110,7 +116,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 Route::get('test', function () {
-	return  \App\ApiModel\Post::all();
+
 });
 
 

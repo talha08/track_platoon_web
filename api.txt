@@ -55,6 +55,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 	  /**
 	  * Topic Post
 	  *
@@ -97,6 +107,17 @@
                    photo (multiple photo select), file (multiple select), hide_id (0 for none, 1 for hide), survey_among
 	  * @return success 200 or error 403
 	  */
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -177,3 +198,19 @@
 	  * @param postType_id
 	  * return postSubType json  200  or error 403
 	  */
+
+
+
+
+
+
+
+
+
+		  /**
+           * Discover
+           *
+           * @url:http://localhost:8000/api/v2/discover
+           * @param: user_id, filter[people,organization,topic,report,campaign,help]
+           * @return: json 200
+           */

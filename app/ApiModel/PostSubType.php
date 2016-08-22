@@ -20,4 +20,11 @@ class PostSubType extends Model
         return $this->belongsTo('App\ApiModel\PostType','post_type_id','id');
     }
 
+
+    //post table
+    public function posts(){
+        return $this->hasMany('App\ApiModel\Post','app_subType_id','id');
+    }
+
+
 }
