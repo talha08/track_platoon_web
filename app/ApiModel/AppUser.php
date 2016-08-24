@@ -12,6 +12,18 @@ class AppUser extends Model
 
 
     /**
+     * One to many relationship with FollowUser
+     * User Has Many FollowUser
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function follower(){
+        return $this->hasMany('App\ApiModel\FollowUser','following','id');
+    }
+
+
+
+
+    /**
      * One to many relationship with UserAccountType
      * AppUser belongsTo UserAccountType
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

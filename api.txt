@@ -237,7 +237,7 @@
 	 /**
      * Follow
      *
-     * Get Method
+     * Post Method
      * @param: user_id,follower_id
      * @url: http://localhost:8000/api/v2/follow
      * @return: success, 200/ error , 403
@@ -247,11 +247,32 @@
 	 /**
      * UnFollow
      *
-     * Get Method
+     * Post Method
      * @param: user_id,follower_id
      * @url: http://localhost:8000/api/v2/unFollow
      * @return: success, 200/ error , 403
      */
+
+
+	 /**
+     * Follower List
+     *
+     * Get Method
+     * @param: user_id
+     * @url: http://localhost:8000/api/v2/followerList
+     * @return: json follower,200
+     */
+
+
+	 /**
+	  * Following List
+	  *
+	  * Get Method
+	  * @param: user_id
+	  * @url: http://localhost:8000/api/v2/followerList
+	  * @return: json following,200
+	  */
+
 
 
 	=========================================
@@ -260,8 +281,23 @@
 	/**
      * Post solved
 	 *
-     * Get Method
+     * Post Method
      * @param: post_id, title, description, help_info
      * @url: http://localhost:8000/api/v2/postSolved
      * @return: success 200/ error 403
+     */
+
+
+
+     	=========================================
+     				User Profile
+     	=========================================
+
+  	/**
+     * User Profile
+     *
+     * Get Method
+     * @param: user_id
+     * @url: http://localhost:8000/api/v2/userProfile
+     * @return: user json, 200
      */

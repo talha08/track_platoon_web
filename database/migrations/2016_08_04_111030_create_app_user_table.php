@@ -25,7 +25,7 @@ class CreateAppUserTable extends Migration
 
 
 
-            $table->integer('account_type_id')->unsigned();
+            $table->integer('account_type_id')->unsigned();  // 1 email login others social login
             $table->foreign('account_type_id')->references('id')
                 ->on('app_user_account_type')
                 ->onUpdate('cascade')->onDelete('cascade');

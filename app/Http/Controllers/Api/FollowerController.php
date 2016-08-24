@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\AppUser;
 use App\ApiModel\FollowUser;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class FollowerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      *
-     * Get Method
+     * Post Method
      * @param: user_id,follower_id
      * @url: http://localhost:8000/api/v2/follow
      * @return: success, 200/ error , 403
@@ -45,7 +46,7 @@ class FollowerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      *
-     * Get Method
+     * Post Method
      * @param: user_id,follower_id
      * @url: http://localhost:8000/api/v2/unFollow
      * @return: success, 200/ error , 403
@@ -62,6 +63,63 @@ class FollowerController extends Controller
 
 
             return Response::json(['success' => 'UnFollowing successfully'], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong'], 403);
+        }
+    }
+
+
+
+
+    /**
+     * followerList
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get method
+     * @param: user_id
+     * @url: http://localhost:8000/api/v2/followerList
+     * @return: json follower,200
+     *
+     */
+    public function followerList(Request $request){
+        try{
+            $user = $request->user_id;
+            $followers = \DB::table('app_follow_users')->where('user_id',$user)->lists('following');
+            // return    FollowUser::with('user')->where('user_id',$user)->get();
+            $data = AppUser::whereIn('id',$followers )->get();
+
+            return Response::json(['follower' => $data], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong'], 403);
+        }
+    }
+
+
+
+
+
+    /**
+     * following
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get method
+     * @param: user_id
+     * @url: http://localhost:8000/api/v2/followerList
+     * @return: json following,200
+     *
+     */
+    public function followingList(Request $request){
+        try{
+        $user = $request->user_id;
+        $following = \DB::table('app_follow_users')->where('following',$user)->lists('user_id');
+        // return    FollowUser::with('user')->where('user_id',$user)->get();
+       $data = AppUser::whereIn('id',$following )->get();
+
+            return Response::json(['following' => $data], 200);
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }
