@@ -8,7 +8,7 @@ class PostPhoto extends Model
 {
     protected $table ='app_post_photo';
 
-
+    protected $fillable = ['photo'];
 
     /**
      * One to many relationship with Post
