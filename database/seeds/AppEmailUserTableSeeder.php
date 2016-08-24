@@ -18,5 +18,12 @@ class AppEmailUserTableSeeder extends Seeder
             'password' => Hash::make('a'),
 
         ]);
+
+        EmailLogin::create([
+            'app_user_id' => 2,
+            'email' => 'tanvy@gmail.com',
+            'password' => Hash::make('a'),
+
+        ]);
     }
 }
