@@ -31,7 +31,7 @@ class DiscoverController extends Controller
        try{
            //Topic,Report,Help,Campaign
 
-           $user = $request->user_id;
+           $user = $request->user_id; // Auth user
            $filter = $request->filter;
 
            if($filter === 'people'){

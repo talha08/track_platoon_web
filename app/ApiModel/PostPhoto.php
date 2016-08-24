@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class PostPhoto extends Model
 {
     protected $table ='app_post_photo';
+    protected $hidden = ['created_at', 'updated_at'];
 
-    protected $fillable = ['photo'];
+
 
     /**
      * One to many relationship with Post

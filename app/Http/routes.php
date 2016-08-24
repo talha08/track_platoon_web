@@ -85,11 +85,23 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	    Route::post('campaignPost', ['as'=>'campaignPost','uses' => 'Api\PostCampaignController@campaignPost']);
 	    Route::post('reportPost', ['as'=>'reportPost','uses' => 'Api\PostReportController@reportPost']);
 
+
+		//post solved
+		Route::post('postSolved', ['as'=>'postSolved','uses' => 'Api\PostSolvedController@postSolved']);
+
+
 	    //newsFeed
-	    Route::post('newsFeed', ['as'=>'newsFeed','uses' => 'Api\NewsFeedController@newsFeed']);
+	    Route::get('newsFeed', ['as'=>'newsFeed','uses' => 'Api\NewsFeedController@newsFeed']); //query problem
 
 		//discover
-	     Route::post('discover', ['as'=>'discover','uses' => 'Api\DiscoverController@discover']);
+	    Route::get('discover', ['as'=>'discover','uses' => 'Api\DiscoverController@discover']);
+
+
+		//follow
+		Route::get('follow', ['as'=>'follow','uses' => 'Api\FollowerController@follow']);
+		Route::get('unFollow', ['as'=>'unFollow','uses' => 'Api\FollowerController@unFollow']);
+
+
 
 		//comment
 	    Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);

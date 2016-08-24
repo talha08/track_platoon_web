@@ -1,154 +1,106 @@
-	/**
+    =========================================
+		Login and Sign Up Section
+	=========================================
+
+
+
+	 /**
      * Email Sign Up
+	 * user_type= 0 for person, 1 for organization
 	 *
 	 * Post Method
-	 * @url : http://localhost:8000/api/v2/register
-     * @param email,password,name,account_type=1,user_type (0 for person, 1 for organization)
+	 * @url : http://platoon.sustcse12.cf/api/v2/register
+     * @param email,password,name,account_type=1, user_type= 1 or 0
      * @return success, 200
      */
-	 
-	 
-	 
+
+
+
 	 /**
      * Account Confirmation
 	 *
      * Post Method
-	 * @url : http://localhost:8000/api/v2/confirmAccount
+	 * @url : http://platoon.sustcse12.cf/api/v2/confirmAccount
      * @param email,confirm_code,
      * @return user_id
      */
-	 
-	 
-	 
+
+
+
 	 /**
      * Email login System
 	 *
 	 * Post Method
-     * @url : http://localhost:8000/api/v2/loginNormal
-     * @param email. password
+     * @url : http://platoon.sustcse12.cf/api/v2/loginNormal
+     * @param email, password
      * @return user_id
      */
 
 
-	 
 	 /**
      * Social Login
+	 * 2 = facebook, 3 = google , 4= twitter
 	 *
      * Post Method
-	 * @url : http://localhost:8000/api/v2/loginWithSocial
-     * @param social_id,account_type= 2 or 3 ,name,email,profile_pic
+	 * @url : http://platoon.sustcse12.cf/api/v2/loginWithSocial
+     * @param social_id,account_type= 2 , 3 or 4   ,name,email,profile_pic
 	 * @return user_id
      */
 
 
 
-	  /**
-	   * User Ban Request
-	   * 1 for ban request, 2 for banned
-	   *
-	   * Post Method
-	   * @url: http://localhost:8000/api/v2/userBanRequest
-	   * @param user_id
-	   * return success 200 or error 403
-	   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	  /**
-	  * Topic Post
-	  *
-	  * Post method
-	  * @url : http://localhost:8000/api/v2/topicPost
-	  * @param app_subType_id(int), user_id, app_city_id(int), location (string), title, description, is_emergency, help_info,
-	    photo (multiple photo select), file (multiple select)
-	  * @return success 200 or error 403
-	  */
-
-
-	  /**
-	  * Help Post
-	  *
-	  * Post method
-	  * @url : http://localhost:8000/api/v2/helpPost
-	  * @param app_subType_id(int), user_id, app_city_id(int), location (string), title, description, is_emergency, help_info,
-	    photo (multiple photo select), file (multiple select)
-	  * @return success 200 or error 403
-	  */
-
-
- 	  /**
-	  * Campaign Post
-	  *
-	  * Post method
-	  * @url : http://localhost:8000/api/v2/campaignPost
-	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
-                  photo (multiple photo select), file (multiple select), survey_among, help_info, survey_among
-	  * @return success 200 or error 403
-	  */
-
-
- 	  /**
-	  * Report Post
-	  *
-	  * Post method
-	  * @url : http://localhost:8000/api/v2/reportPost
-	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
-                   photo (multiple photo select), file (multiple select), hide_id (0 for none, 1 for hide), survey_among
-	  * @return success 200 or error 403
-	  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	 * Country
-	 *
-	 * Get Method
-	 * @url : http://localhost:8000/api/v2/country
-	 * @param none
-	 * return country json 200, or error 403
-	 */
+	=========================================
+				User Banned request
+	========================================
 
 
 
 	 /**
-	  * City
-	  *
-	  * Get Method
-	  * @url : http://localhost:8000/api/v2/city
-	  * @param country_id
-	  * return city json  200  or error 403
-	  */
+     * User Ban Request
+	 * 1 for ban request, 2 for banned
+	 *
+     * Post Method
+     * @url: http://platoon.sustcse12.cf/api/v2/userBanRequest
+     * @param user_id
+     * return success 200 or error 403
+     */
+
+
+	=========================================
+				Location
+	========================================
+
+	/**
+	* Country
+	*
+	* Get Method
+	* @url : http://platoon.sustcse12.cf/api/v2/country
+	* @param none
+	* return country json , 200
+	*/
 
 
 
+	/**
+	* City
+	*
+	* Get Method
+	* @url : http://platoon.sustcse12.cf/api/v2/city
+	* @param country_id
+	* return city json  200  or error 403
+	*/
 
-    /**
+
+
+	=========================================
+				Comment Section
+	=========================================
+
+     /**
      * Comment
      *
      * Post Method
-     * @url: http://localhost:8000/api/v2/comment
+     * @url: http://platoon.sustcse12.cf/api/v2/comment
      * @param post_id, user_id, comment_type_id(1 for support, 2 for unsupport), description
      * @return success 200, error 403
      */
@@ -160,30 +112,33 @@
 	 * SubComment
 	 *
 	 * Post Method
-	 * @url: http://localhost:8000/api/v2/subComment
+	 * @url: http://platoon.sustcse12.cf/api/v2/subComment
 	 * @param comment_id, user_id, comment_type_id(1 for support, 2 for unsupport), description
 	 * @return success 200, error 403
 	 */
 
 
 
-	/**
+     /**
 	 * Check Comment Status
 	 *
 	 * Get Method
-	 * @url: http://localhost:8000/api/v2/checkCommentStatus
+	 * @url: http://platoon.sustcse12.cf/api/v2/checkCommentStatus
 	 * @param user_id, post_id
 	 * @return message 200 (3 types message with message_id)
 	 */
 
 
+	=========================================
+				Post Type Section
+	=========================================
 
 
 	/**
 	 * Post type
 	 *
 	 * Get Method
-	 * @url : http://localhost:8000/api/v2/postType
+	 * @url : http://platoon.sustcse12.cf/api/v2/postType
 	 * @param none
 	 * return postType json 200, or error 403
 	 */
@@ -194,23 +149,119 @@
 	  * Post Sub type
 	  *
 	  * Get Method
-	  * @url : http://localhost:8000/api/v2/postSubType
+	  * @url : http://platoon.sustcse12.cf/api/v2/postSubType
 	  * @param postType_id
 	  * return postSubType json  200  or error 403
 	  */
 
+	=========================================
+				Post Section
+	=========================================
+
+	  /**
+      * Topic Post
+      *
+      * Post method
+	  * @url : http://platoon.sustcse12.cf/api/v2/topicPost
+      * @param app_subType_id(int), app_city_id(int), location (string),user_id, title, description, is_emergency, 							help_info, photo[] (multiple photo select), file[] (multiple select)
+      * @return success 200 or error 403
+      */
 
 
+	  /**
+	  * Report Post
+	  *
+	  * Post method
+	  * @url : http://platoon.sustcse12.cf/api/v2/reportPost
+	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
+                   photo[] (multiple photo select), file[] (multiple select), hide_id (0 for none, 1 for hide), 						   survey_among (numeric value)
+	  * @return success 200 or error 403
+	  */
 
 
+	 /**
+	  * Help Post
+	  *
+	  * Post method
+	  * @url : http://platoon.sustcse12.cf/api/v2/helpPost
+	  * @param app_subType_id(int), user_id, app_city_id(int), location (string), title, description, is_emergency, 		       help_info(Additional Info),photo[] (multiple photo select), file[] (multiple select)
+	  * @return success 200 or error 403
+	  */
 
 
+	  /**
+	  * Campaign Post
+	  *
+	  * Post method
+	  * @url : http://platoon.sustcse12.cf/api/v2/campaignPost
+	  * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
+                  photo[] (multiple photo select), file[] (multiple select), survey_among, help_info, survey_among
+	  * @return success 200 or error 403
+	  */
 
 
-		  /**
-           * Discover
-           *
-           * @url:http://localhost:8000/api/v2/discover
-           * @param: user_id, filter[people,organization,topic,report,campaign,help]
-           * @return: json 200
-           */
+	=========================================
+				Newsfeed
+	=========================================
+
+
+    /**
+     *
+     * NewsFeed
+     *
+     * Get Method
+     * @url : http://platoon.sustcse12.cf/api/v2/newsFeed
+     * @param: user_id, filter[all,topic,campaign,help,report]
+     * @return: json newsFeed 200
+     */
+
+
+	=========================================
+				Discover
+	=========================================
+
+	/**
+	* Discover
+	*
+	* Get Method
+	* @url:http://platoon.sustcse12.cf/api/v2/discover
+	* @param: user_id, filter[people,organization,topic,report,campaign,help]
+	* @return: json 200
+	*/
+
+
+	=========================================
+				Follow & UnFollow
+	=========================================
+
+	 /**
+     * Follow
+     *
+     * Get Method
+     * @param: user_id,follower_id
+     * @url: http://localhost:8000/api/v2/follow
+     * @return: success, 200/ error , 403
+     */
+
+
+	 /**
+     * UnFollow
+     *
+     * Get Method
+     * @param: user_id,follower_id
+     * @url: http://localhost:8000/api/v2/unFollow
+     * @return: success, 200/ error , 403
+     */
+
+
+	=========================================
+				Solve Post
+	=========================================
+	/**
+     * Post solved
+	 *
+     * Get Method
+     * @param: post_id, title, description, help_info
+     * @url: http://localhost:8000/api/v2/postSolved
+     * @return: success 200/ error 403
+     */

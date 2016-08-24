@@ -8,7 +8,7 @@ class PostAttachment extends Model
 {
     protected $table ='app_post_attachment';
 
-
+    protected $hidden = ['created_at', 'updated_at'];
     /**
      * One to many relationship with Post
      * PostAttachment belongsTo Post
