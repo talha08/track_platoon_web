@@ -90,6 +90,20 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::get('userPost', ['as'=>'userPost','uses' => 'Api\UserController@userPost']);
 
 
+
+		//single post comment
+		Route::get('postsComment', ['as'=>'postsComment','uses' => 'Api\CommentController@postsComment']);
+		Route::get('postsSubComment', ['as'=>'postsSubComment','uses' => 'Api\CommentController@postsSubComment']);
+
+
+		//comment post
+		Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
+		Route::post('subComment', ['as'=>'subComment','uses' => 'Api\CommentController@subCommentStore']);
+		//comment check
+		Route::get('checkCommentStatus', ['as'=>'checkCommentStatus','uses' => 'Api\CommentController@checkCommentStatus']);
+
+
+
 		//post solved
 		Route::post('postSolved', ['as'=>'postSolved','uses' => 'Api\PostSolvedController@postSolved']);
 
@@ -99,8 +113,6 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 		Route::get('followerList', ['as'=>'followerList','uses' => 'Api\FollowerController@followerList']);
 		Route::get('followingList', ['as'=>'followingList','uses' => 'Api\FollowerController@followingList']);
-
-
 
 
 		//newsFeed
@@ -113,10 +125,6 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	     Route::get('userProfile', ['as'=>'userProfile','uses' => 'Api\UserController@userProfile']);
 
 
-		//comment
-	    Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
-	    Route::post('subComment', ['as'=>'subComment','uses' => 'Api\CommentController@subCommentStore']);
-	    Route::get('checkCommentStatus', ['as'=>'checkCommentStatus','uses' => 'Api\CommentController@checkCommentStatus']);
 
 
 		//search

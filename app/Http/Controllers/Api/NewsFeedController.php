@@ -118,22 +118,24 @@ class NewsFeedController extends Controller
                    $post_id = $request->post_id;
                     $post = Post::with('user','postSolve','postFiles','postPhotos')->where('id',$post_id )->first();
 
+                if(!empty($post)) {
+                    if ($post->post_type == 2 OR $post->post_type == 4) {
 
-                   if($post->post_type ==  2 OR $post->post_type ==  4){
+                        $comment = Comment::with('subComments')->where('post_id', $request->post_id)->get();
+                        //for progress calculation
+                        $commentCount = count($comment);
+                        $survey_among = $post->survey_among;
+                        $progress = $this->progress($commentCount, $survey_among);
 
-                       $comment = Comment::with('subComments')->where('post_id', $request->post_id)->get();
+                        return Response::json(['progress' => $progress, 'post' => $post], 200);
 
-                       //for progress calculation
-                       $commentCount = count($comment);
-                       $survey_among = $post->survey_among;
-                       $progress = $this->progress($commentCount,$survey_among);
+                    } else {
+                        return Response::json(['progress' => 'null', 'post' => $post], 200);
+                    }
+                }else{
+                    return Response::json(['error' => 'No post found with this id'], 403);
+                }
 
-                       return Response::json(['progress' =>$progress , 'post'  => $post, 'comment'=> $comment ],200);
-
-                   } else{
-                       $comment = Comment::with('subComments')->where('post_id', $request->post_id)->get();
-                       return Response::json(['progress' =>'null', 'post'  => $post, 'comment'=> $comment ],200);
-                   }
                }catch(Exception $ex){
                    return Response::json(['error' => 'Something went wrong'], 403);
         }
@@ -155,6 +157,7 @@ class NewsFeedController extends Controller
        return  $calculate = ($commentCount/$survey_among) * 100 ;
 
     }
+
 
 
 

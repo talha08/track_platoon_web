@@ -129,6 +129,29 @@
 	 */
 
 
+
+		/**
+		 *
+		 * Comment associate with post
+		 *
+		 * Get method
+		 * @param: post_id
+		 * @url: http://platoon.sustcse12.cf/api/v2/postsComment
+		 * @return: comment json,200
+		 */
+
+
+		/**
+		 *
+		 * SubComment associate with post Comment
+		 *
+		 * Get method
+         * @param: comment_id
+         * @url: http://localhost:8000/api/v2/postsSubComment
+		 * @return: subComment json,200
+		 */
+
+
 	=========================================
 				Post Type Section
 	=========================================
@@ -316,6 +339,7 @@
           * @url: http://platoon.sustcse12.cf/api/v2/singlePost
           * @return: json progress, post 200
           */
+
 
 
       =========================================
