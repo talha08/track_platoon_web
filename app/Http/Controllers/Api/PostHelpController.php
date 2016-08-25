@@ -67,7 +67,7 @@ class PostHelpController extends Controller
                         $extension = $file->getClientOriginalExtension();
                         $fileName = md5(rand(11111, 99999)) . '.' . $extension; // renameing image
                         //path set
-                        $img_url = 'upload/helpPostPhotos/img-'.$fileName;
+                        $img_url = public_path().'upload/helpPostPhotos/img-'.$fileName;
 
                         //resize and crop image using Image Intervention
                         //Image::make($file)->crop(558, 221, 0, 0)->save(public_path($img_url));
