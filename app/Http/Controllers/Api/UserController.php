@@ -14,6 +14,11 @@ use Response;
 class UserController extends Controller
 {
 
+    //pagination
+    public $limit = 10;
+
+
+
 
     /**
      * User Profile
@@ -41,6 +46,12 @@ class UserController extends Controller
     }
 
 
+
+
+
+
+
+
     /**
      * Post Associate With user
      *
@@ -51,15 +62,19 @@ class UserController extends Controller
      * @param: user_id
      * @return: post json,200
      */
-    public function userPost(Request $request){
-        try{
+    public function userPost(Request $request)
+    {
+        try {
             $user_id = $request->user_id;
-            $post = Post::where('posted_by',$user_id )->get();
+            $post = Post::where('posted_by', $user_id)->paginate($this->limit);
             return Response::json(['post' => $post->toArray()], 200);
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             return Response::json(['error' => 'Something went wrong'], 403);
         }
-
     }
+
+
+
+
 
 }

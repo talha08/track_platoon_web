@@ -62,7 +62,7 @@ class PostCampaignController extends Controller
                         $img_url = 'upload/campaignPostPhotos/img-'.$fileName;
                         //resize and crop image using Image Intervention
                         //Image::make($file)->crop(558, 221, 0, 0)->save(public_path($img_url));
-                        Image::make($file)->resize(558, 221)->save(public_path($img_url));
+                        Image::make($file)->save(public_path($img_url));
                         $photo = new PostPhoto();
                         $photo->app_post_id = $campaign->id;
                         $photo->photo =  $img_url;
