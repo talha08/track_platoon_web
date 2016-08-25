@@ -68,7 +68,7 @@ class PostReportController extends Controller
 
                         //getting the file extension
                         $extension = $file->getClientOriginalExtension();
-                        $fileName = md5(rand(11111, 99999)) . '.' . $extension; // renameing image
+                        $fileName = md5(rand(11111, 99999)) .time(). '.' . $extension; // renameing image
                         //path set
                         $img_url = 'upload/reportPostPhotos/img-'.$fileName;
 
