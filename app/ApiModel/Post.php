@@ -57,13 +57,21 @@ class Post extends Model
 
 
 
-
-
-
  //post tipe
     public function postType()
     {
         return $this->belongsTo('App\ApiModel\PostSubType','app_subType_id','id');
+    }
+
+
+
+    /**
+     * One to many relationship with Comment
+     * Post Has Many Comment
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(){
+        return $this->hasMany('App\ApiModel\Comment','post_id','id');
     }
 
 

@@ -86,6 +86,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	    Route::post('reportPost', ['as'=>'reportPost','uses' => 'Api\PostReportController@reportPost']);
 
 
+	    //single post view
+		Route::get('singlePost', ['as'=>'singlePost','uses' => 'Api\NewsFeedController@singlePost']);
+
 		//post solved
 		Route::post('postSolved', ['as'=>'postSolved','uses' => 'Api\PostSolvedController@postSolved']);
 

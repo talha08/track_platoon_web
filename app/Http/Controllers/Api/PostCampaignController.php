@@ -39,7 +39,7 @@ class PostCampaignController extends Controller
             $campaign->post_type = $request->app_subType_id;
             $campaign->app_city_id = $request->app_city_id;
             $campaign->location = $request->location;
-            $campaign->survey_among = $request->survey_among;  // only for report
+            $campaign->survey_among = $request->survey_among;  // only for campaign and report
             $campaign->title = $request->title;
             $campaign->description = $request->description;
             $campaign->is_active = 1;

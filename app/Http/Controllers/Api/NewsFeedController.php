@@ -16,10 +16,7 @@ class NewsFeedController extends Controller
 
     public $limit = 5 ;
 
-    public function test(){
-        $user = 1;
-      return PostSubType::where('id',1)->pluck('post_type_id');
-    }
+
 
 
     /**
@@ -98,6 +95,68 @@ class NewsFeedController extends Controller
 
 
     }
+
+
+    /**
+     * Single Post with Progress bar
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get Method
+     * @param: post_id
+     * @url: http://localhost:8000/api/v2/singlePost
+     * @return: json progress, post 200
+     */
+    public function singlePost(Request $request){
+
+         // survey among == report, campaign
+         //topic=1 , report=2, help=3,campaign=4
+
+               try{
+                   $post_id = $request->post_id;
+                   $post = Post::with('user','postSolve','postFiles','postPhotos','comments')->where('id',$post_id )->first();
+
+                   if($post->post_type ==  2 OR $post->post_type ==  4){
+
+                       $commentCount = count($post->comments);
+                       $survey_among = $post->survey_among;
+                       $progress = $this->progress($commentCount,$survey_among);
+
+                       return Response::json(['progress' =>$progress, 'post'  => $post ],200);
+
+                   } else{
+                       return Response::json(['progress' =>'null', 'post'  => $post ],200);
+                   }
+               }catch(Exception $ex){
+                   return Response::json(['error' => 'Something went wrong'], 403);
+        }
+
+
+    }
+
+
+
+
+
+
+    /**
+     * Progress bar Calculation
+     *
+     * @param $commentCount
+     * @param $survey_among
+     * @return float
+     */
+    public function progress($commentCount,$survey_among ){
+
+       return  $calculate = ($commentCount/$survey_among) * 100 ;
+
+    }
+
+
+
+
+
 
 
 }
