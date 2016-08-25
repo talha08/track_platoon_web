@@ -85,9 +85,10 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	    Route::post('campaignPost', ['as'=>'campaignPost','uses' => 'Api\PostCampaignController@campaignPost']);
 	    Route::post('reportPost', ['as'=>'reportPost','uses' => 'Api\PostReportController@reportPost']);
 
-
-	    //single post view
+	   //single post view
 		Route::get('singlePost', ['as'=>'singlePost','uses' => 'Api\NewsFeedController@singlePost']);
+		Route::get('userPost', ['as'=>'userPost','uses' => 'Api\UserController@userPost']);
+
 
 		//post solved
 		Route::post('postSolved', ['as'=>'postSolved','uses' => 'Api\PostSolvedController@postSolved']);
@@ -115,7 +116,13 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		//comment
 	    Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
 	    Route::post('subComment', ['as'=>'subComment','uses' => 'Api\CommentController@subCommentStore']);
-	    Route::post('checkCommentStatus', ['as'=>'checkCommentStatus','uses' => 'Api\CommentController@checkCommentStatus']);
+	    Route::get('checkCommentStatus', ['as'=>'checkCommentStatus','uses' => 'Api\CommentController@checkCommentStatus']);
+
+
+		//search
+		Route::get('searchPostOrUser', ['as'=>'searchPostOrUser','uses' => 'Api\SearchController@searchPostOrUser']);
+		Route::get('searchDiscover', ['as'=>'searchDiscover','uses' => 'Api\SearchController@searchDiscover']);
+
 });
 
 

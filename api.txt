@@ -305,7 +305,7 @@
 
 
      	=========================================
-          				Single Post View
+          	    Single Post View
         =========================================
 
      	 /**
@@ -316,3 +316,16 @@
           * @url: http://platoon.sustcse12.cf/api/v2/singlePost
           * @return: json progress, post 200
           */
+
+
+      =========================================
+           Post Associate with User/ User post
+      =========================================
+     	 /**
+           * Post Associate With user
+           *
+           * Get method
+           * @param: user_id
+           * @url: http://platoon.sustcse12.cf/api/v2/userPost
+           * @return: post json,200
+           */

@@ -88,9 +88,9 @@ class FollowerController extends Controller
             $user = $request->user_id;
             $followers = \DB::table('app_follow_users')->where('user_id',$user)->lists('following');
             // return    FollowUser::with('user')->where('user_id',$user)->get();
-            $data = AppUser::whereIn('id',$followers )->get();
+            $data = AppUser::whereIn('id',$followers )->paginate(10);
 
-            return Response::json(['follower' => $data], 200);
+            return Response::json(['follower' => $data->toArray()], 200);
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }
@@ -117,9 +117,9 @@ class FollowerController extends Controller
         $user = $request->user_id;
         $following = \DB::table('app_follow_users')->where('following',$user)->lists('user_id');
         // return    FollowUser::with('user')->where('user_id',$user)->get();
-       $data = AppUser::whereIn('id',$following )->get();
+       $data = AppUser::whereIn('id',$following )->paginate(10);
 
-            return Response::json(['following' => $data], 200);
+            return Response::json(['following' => $data->toArray()], 200);
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }

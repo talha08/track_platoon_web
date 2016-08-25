@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 class DiscoverController extends Controller
 {
 
+    public $limit = 5 ;
 
     /**
      * Discover
@@ -35,28 +36,32 @@ class DiscoverController extends Controller
            $filter = $request->filter;
 
            if($filter === 'people'){
-               $people = AppUser::where('user_type',0)->get();
-               return Response::json(['data' => $people], 200);
+               $people = AppUser::where('user_type',0)->paginate($this->limit);
+               return Response::json(['data' => $people->toArray()], 200);
 
            }elseif($filter === 'organization'){
-               $organization = AppUser::where('user_type',1)->get();
-               return Response::json(['data' => $organization], 200);
+               $organization = AppUser::where('user_type',1)->paginate($this->limit);
+               return Response::json(['data' => $organization->toArray()], 200);
            }
            elseif($filter === 'topic'){
-               $post = Post::where('post_type', 1)->get();
-               return Response::json(['data' => $post], 200);
+               $post = Post::where('post_type', 1)->paginate($this->limit);
+               return Response::json(['data' => $post->toArray()], 200);
            }
            elseif($filter === 'report'){
-               $post = Post::where('post_type', 2)->get();
-               return Response::json(['data' => $post], 200);
+               $post = Post::where('post_type', 2)->paginate($this->limit);
+               return Response::json(['data' =>$post->toArray()], 200);
            }
            elseif($filter === 'campaign'){
-               $post = Post::where('post_type', 4)->get();
-               return Response::json(['data' => $post], 200);
+               $post = Post::where('post_type', 4)->paginate($this->limit);
+               return Response::json(['data' =>$post->toArray()], 200);
            }
            elseif($filter === 'help'){
-               $post = Post::where('post_type', 3)->get();
-               return Response::json(['data' => $post], 200);
+               $post = Post::where('post_type', 3)->paginate($this->limit);
+               return Response::json(['data' => $post->toArray()], 200);
+           }
+           elseif($filter === 'all'){
+               $post = Post::whereIn('post_type' ,[1,2,3,4])->paginate($this->limit);
+               return Response::json(['data' => $post->toArray()], 200);
            }
            else{
                return Response::json(['error' => 'Something went wrong'], 403);

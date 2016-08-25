@@ -15,7 +15,7 @@ use Mockery\CountValidator\Exception;
 class NewsFeedController extends Controller
 {
 
-    public $limit = 5 ;
+    public $limit = 10 ;
 
 
 
@@ -138,10 +138,7 @@ class NewsFeedController extends Controller
                    return Response::json(['error' => 'Something went wrong'], 403);
         }
 
-
     }
-
-
 
 
 

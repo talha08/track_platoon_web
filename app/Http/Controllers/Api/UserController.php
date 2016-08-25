@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiModel\AppUser;
+use App\ApiModel\Post;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mockery\CountValidator\Exception;
 use Response;
 
 class UserController extends Controller
@@ -39,6 +41,25 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Post Associate With user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get method
+     * @param: user_id
+     * @return: post json,200
+     */
+    public function userPost(Request $request){
+        try{
+            $user_id = $request->user_id;
+            $post = Post::where('posted_by',$user_id )->get();
+            return Response::json(['post' => $post->toArray()], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong'], 403);
+        }
 
+    }
 
 }
