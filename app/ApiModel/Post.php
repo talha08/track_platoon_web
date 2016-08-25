@@ -70,9 +70,9 @@ class Post extends Model
      * Post Has Many Comment
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments(){
-        return $this->hasMany('App\ApiModel\Comment','post_id','id');
-    }
+//    public function comments(){
+//        return $this->hasMany('App\ApiModel\Comment','post_id','id');
+//    }
 
 
 

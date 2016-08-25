@@ -301,3 +301,18 @@
      * @url: http://localhost:8000/api/v2/userProfile
      * @return: user json, 200
      */
+
+
+
+     	=========================================
+          				Single Post View
+        =========================================
+
+     	 /**
+          * Single Post View
+          *
+          * Get Method
+          * @param: post_id
+          * @url: http://platoon.sustcse12.cf/api/v2/singlePost
+          * @return: json progress, post 200
+          */
