@@ -59,10 +59,13 @@ class FollowerController extends Controller
 
             $item = FollowUser::where('user_id',$user)
                                 ->where('following',$follower );
-            $item->delete();
 
+            if($item->delete()){
+                return Response::json(['success' => 'UnFollowing successfully'], 200);
+            }else{
+                return Response::json(['error' => 'Something went wrong'], 403);
+            }
 
-            return Response::json(['success' => 'UnFollowing successfully'], 200);
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }

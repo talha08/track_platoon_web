@@ -9,6 +9,7 @@ class CreateAppFollowUserTable extends Migration
     {
         Schema::create('app_follow_users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('status')->nullable(); // 1 for request, 2 for accept, 3 reject //checking these when update follower
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('app_user')

@@ -92,5 +92,16 @@ class AppUser extends Model
 
 
 
+ /**
+     * One to many relationship with Interest
+     * User Has Many Interest
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function interests(){
+        return $this->hasMany('App\ApiModel\Interest','app_user_id','id');
+    }
+
+
+
 
 }

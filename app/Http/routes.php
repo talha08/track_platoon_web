@@ -125,7 +125,10 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	     Route::get('userProfile', ['as'=>'userProfile','uses' => 'Api\UserController@userProfile']);
 
 
-
+		//Interest
+	    Route::post('interestPostType', ['as'=>'interestPostType','uses' => 'Api\InterestController@interestPostType']);
+	    Route::get('showInterest', ['as'=>'showInterest','uses' => 'Api\InterestController@showInterest']);
+	    Route::get('removeInterest', ['as'=>'removeInterest','uses' => 'Api\InterestController@removeInterest']);
 
 		//search
 		Route::get('searchPostOrUser', ['as'=>'searchPostOrUser','uses' => 'Api\SearchController@searchPostOrUser']);
@@ -152,7 +155,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 Route::get('test', function () {
-
+	return  $interest = \ApiModel\Interest::count();
 });
 
 

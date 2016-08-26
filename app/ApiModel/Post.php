@@ -57,8 +57,8 @@ class Post extends Model
 
 
 
- //post tipe
-    public function postType()
+ //PostSubType
+    public function postSubType()
     {
         return $this->belongsTo('App\ApiModel\PostSubType','app_subType_id','id');
     }

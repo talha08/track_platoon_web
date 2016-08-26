@@ -23,6 +23,9 @@ class CreateAppUserTable extends Migration
 
             $table->string('is_banned')->default(0); // 1 for ban request, 2 for banned
 
+            $table->string('can_followed')->default(1); // 1 can follow, 2 for cant, need to send request
+            $table->string('can_view')->default(1); // 1 can view, 2 for cant
+
 
 
             $table->integer('account_type_id')->unsigned();  // 1 email login others social login

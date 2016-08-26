@@ -296,7 +296,40 @@
 	  * @return: json following,200
 	  */
 
+	=========================================
+			 Interest
+    =========================================
 
+	/**
+	* new Interest
+	*
+	* Post method
+	* @param: user_id, subType_id
+	* @url: http://platoon.sustcse12.cf/api/v2/interestPostType
+	* @return: success, error
+	*/
+
+
+
+   	/**
+     * Show Interest
+     *
+     * Get Method
+     * @param: user_id, filter[topic,report,help,campaign]
+     * @url: http://platoon.sustcse12.cf/api/v2/showInterest
+     * @return: json data.
+     */
+
+
+
+	/**
+     * Interest Remove
+     *
+     * Post Method
+     * @param: user_id, interest_id
+     * @url: http://platoon.sustcse12.cf/api/v2/removeInterest
+     * @return: success, error
+     */
 
 	=========================================
 				Solve Post
@@ -353,3 +386,39 @@
            * @url: http://platoon.sustcse12.cf/api/v2/userPost
            * @return: post json,200
            */
+
+
+
+
+       =========================================
+                 Search
+	   =========================================
+
+	    	/**
+            * Post Search
+            *
+       		* Get Method
+            * @param: search_text
+            * @url: http://platoon.sustcse12.cf/api/v2/searchPostOrUser
+            * @return: search json, 200
+            *
+            */
+
+
+
+
+
+			/**
+			 * Search Discover
+			 *
+			 *
+			 * Get Method
+			 * @param: search_text, filter = [people,organization,topic,report,campaign,help]
+			 * @url: http://platoon.sustcse12.cf/api/v2/searchDiscover
+			 * @return: data json,200
+			 *
+			 */
+
+
+
+

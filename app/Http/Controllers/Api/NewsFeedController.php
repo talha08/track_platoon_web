@@ -21,7 +21,6 @@ class NewsFeedController extends Controller
 
 
     /**
-     *
      * NewsFeed
      *
      * @param Request $request
@@ -42,17 +41,19 @@ class NewsFeedController extends Controller
              $follower_ids = \DB::table('app_follow_users')->where('user_id', $user_id)->lists('following');
 
             if($filter === 'all'){
-                 $posts = Post::with('user','postSolve','postFiles','postPhotos')
+                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType'  )
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
-                return Response::json(array('newsFeed'  => $posts->toArray()),200);
+
+
+                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
 
             }
             elseif($filter === 'topic'){
                 $feed = 1;
                  $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
-                 $posts = Post::with('user','postSolve','postFiles','postPhotos')
+                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
@@ -62,7 +63,7 @@ class NewsFeedController extends Controller
             elseif($filter === 'campaign'){
                 $feed = 2;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
-                $posts = Post::with('user','postSolve','postFiles','postPhotos')
+                $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
@@ -72,7 +73,7 @@ class NewsFeedController extends Controller
             elseif($filter === 'help'){
                 $feed = 3;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
-                $posts = Post::with('user','postSolve','postFiles','postPhotos')
+                $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
@@ -82,7 +83,7 @@ class NewsFeedController extends Controller
             elseif($filter === 'report'){
                 $feed = 4;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
-                $posts = Post::with('user','postSolve','postFiles','postPhotos')
+                $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)

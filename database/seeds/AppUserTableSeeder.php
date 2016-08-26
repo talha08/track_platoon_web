@@ -18,6 +18,8 @@ class AppUserTableSeeder extends Seeder
             'is_active' => 1,
             'user_type' => 0,
             'account_type_id' => 1,
+            'can_followed' => 1,
+            'can_view' => 1,
         ]);
 
         AppUser::create([
@@ -26,6 +28,8 @@ class AppUserTableSeeder extends Seeder
             'is_active' => 1,
             'user_type' => 0,
             'account_type_id' => 1,
+            'can_followed' => 1,
+            'can_view' => 1,
         ]);
 
     }

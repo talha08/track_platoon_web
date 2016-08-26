@@ -27,4 +27,12 @@ class PostSubType extends Model
     }
 
 
+
+    //interest table
+    public function interests(){
+        return $this->hasMany('App\ApiModel\Interest','app_subType_id','id');
+    }
+
+
+
 }
