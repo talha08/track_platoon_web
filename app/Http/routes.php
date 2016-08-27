@@ -92,7 +92,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 		//single post comment
-		Route::get('postsComment', ['as'=>'postsComment','uses' => 'Api\CommentController@postsComment']);
+		Route::get('unsupportComment', ['as'=>'unsupportComment','uses' => 'Api\CommentController@unsupportComment']);
+		Route::get('supportComment', ['as'=>'supportComment','uses' => 'Api\CommentController@supportComment']);
+
 		Route::get('postsSubComment', ['as'=>'postsSubComment','uses' => 'Api\CommentController@postsSubComment']);
 
 

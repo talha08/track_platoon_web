@@ -117,21 +117,52 @@ class CommentController extends Controller
 
 
             /**
-             * Comment associate with post
+             * Support Comment associate with post View
              *
              * @param Request $request
              * @return \Illuminate\Http\JsonResponse
              *
              * Get method
              * @param: post_id
-             * @url: http://localhost:8000/api/v2/postsComment
+             * @url: http://localhost:8000/api/v2/supportComment
              * @return: comment json,200
              */
-            public function postsComment(Request $request){
+            public function supportComment(Request $request){
 
                 try{
                     $post_id = $request->post_id;
-                    $comment = Comment::where('post_id', $post_id)->paginate($this->limit);
+                    $comment = Comment::where('post_id', $post_id)
+                        ->where('app_comment_type_id',1)
+                        ->paginate($this->limit);
+                    return Response::json(['comment' => $comment->toArray()], 200);
+                }
+                catch(Exception $ex){
+                    return Response::json(['error' => 'Something went wrong'], 403);
+                }
+            }
+
+
+
+
+
+            /**
+             * Un support Comment associate with post
+             *
+             * @param Request $request
+             * @return \Illuminate\Http\JsonResponse
+             *
+             * Get method
+             * @param: post_id
+             * @url: http://localhost:8000/api/v2/unsupportComment
+             * @return: comment json,200
+             */
+            public function unsupportComment(Request $request){
+
+                try{
+                    $post_id = $request->post_id;
+                    $comment = Comment::where('post_id', $post_id)
+                        ->where('app_comment_type_id',2)
+                        ->paginate($this->limit);
                     return Response::json(['comment' => $comment->toArray()], 200);
                 }
                 catch(Exception $ex){
@@ -144,9 +175,7 @@ class CommentController extends Controller
 
 
 
-
-
-        /**
+    /**
          * SubComment associate with post Comment
          *
          * @param Request $request

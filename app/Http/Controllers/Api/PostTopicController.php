@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Mockery\CountValidator\Exception;
 use Response;
 use Intervention\Image\ImageManagerStatic as Image;
-use PushNotification;
+use Davibennun\LaravelPushNotification\Facades\PushNotification;
 
 class PostTopicController extends Controller
 {

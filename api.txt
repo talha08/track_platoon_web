@@ -130,15 +130,31 @@
 
 
 
+
+
 		/**
-		 *
-		 * Comment associate with post
+		 * Support Comment associate with post
 		 *
 		 * Get method
 		 * @param: post_id
-		 * @url: http://platoon.sustcse12.cf/api/v2/postsComment
+		 * @url: http://platoon.sustcse12.cf/api/v2/supportComment
 		 * @return: comment json,200
 		 */
+
+
+
+		 /**
+		  * Unsupport Comment associate with post
+		  *
+		  * Get method
+		  * @param: post_id
+		  * @url: http://platoon.sustcse12.cf/api/v2/unsupportComment
+		  * @return: comment json,200
+		  */
+
+
+
+
 
 
 		/**
