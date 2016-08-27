@@ -43,7 +43,7 @@ class PostTopicController extends Controller
 
           //country
           $country_id = City::where('id',$request->app_city_id)->pluck('country_id');
-          $country = Country::where('id', $country_id )->pulck('name');
+          $country = Country::where('id', $country_id )->pluck('name');
 
           $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
 

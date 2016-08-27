@@ -42,9 +42,7 @@ class NewsFeedController extends Controller
 
             if($filter === 'all'){
 
-
-
-                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
+              $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
@@ -59,8 +57,8 @@ class NewsFeedController extends Controller
                  $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                  //  ->whereIn('posted_by', $follower_ids)
-                  //  ->orWhere('posted_by',$user_id)
+                     ->whereIn('posted_by', $follower_ids)
+                     ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
@@ -69,8 +67,8 @@ class NewsFeedController extends Controller
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')
                     ->whereIn('id', $test)
-                    //->whereIn('posted_by', $follower_ids)
-                   // ->orWhere('posted_by',$user_id)
+                    ->whereIn('posted_by', $follower_ids)
+                   ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
 
                // foreach($posts as $post){
@@ -84,8 +82,8 @@ class NewsFeedController extends Controller
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    //->whereIn('posted_by', $follower_ids)
-                   // ->orWhere('posted_by',$user_id)
+                    ->whereIn('posted_by', $follower_ids)
+                    ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
@@ -94,8 +92,8 @@ class NewsFeedController extends Controller
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    //->whereIn('posted_by', $follower_ids)
-                    //->orWhere('posted_by',$user_id)
+                    ->whereIn('posted_by', $follower_ids)
+                    ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
 
 
@@ -152,21 +150,37 @@ class NewsFeedController extends Controller
 
                try{
                    $post_id = $request->post_id;
-                    $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
+                   $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
+
+                    $comment = Comment::with('subComments')->where('post_id', $request->post_id)->get();
+
+                    $support = $comment->where('app_comment_type_id', 1)->count();
+                    $unsupport = $comment->where('app_comment_type_id', 2)->count();
+                    $share = 110;
 
                 if(!empty($post)) {
                     if ($post->post_type == 2 OR $post->post_type == 4) {
-
-                        $comment = Comment::with('subComments')->where('post_id', $request->post_id)->get();
                         //for progress calculation
                         $commentCount = count($comment);
                         $survey_among = $post->survey_among;
                         $progress = $this->progress($commentCount, $survey_among);
 
-                        return Response::json(['progress' => $progress, 'post' => $post], 200);
+                        return Response::json([
+                            'progress' => $progress,
+                            'support'=>$support,
+                            'unSupport' => $unsupport,
+                            'share' => $share,
+                            'post' => $post
+                        ], 200);
 
                     } else {
-                        return Response::json(['progress' => 'null', 'post' => $post], 200);
+                        return Response::json([
+                            'progress' => 'null',
+                            'support'=>$support,
+                            'unSupport' => $unsupport,
+                            'share' => $share,
+                            'post' => $post
+                        ], 200);
                     }
                 }else{
                     return Response::json(['error' => 'No post found with this id'], 403);

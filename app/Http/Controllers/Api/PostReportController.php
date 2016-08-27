@@ -49,7 +49,7 @@ class PostReportController extends Controller
 
             //country
             $country_id = City::where('id',$request->app_city_id)->pluck('country_id');
-            $country = Country::where('id', $country_id )->pulck('name');
+            $country = Country::where('id', $country_id )->pluck('name');
 
             $topic->app_subType_id = $request->app_subType_id;
             $topic->app_city_id = $request->app_city_id;
