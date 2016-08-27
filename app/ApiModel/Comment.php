@@ -50,10 +50,10 @@ class Comment extends Model
 //     * Comment belongsTo Post
 //     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 //     */
-//    public function post()
-//    {
-//        return $this->belongsTo('App\ApiModel\Post','post_id','id');
-//    }
+    public function post()
+    {
+        return $this->belongsTo('App\ApiModel\Post','post_id','id');
+    }
 
 
 

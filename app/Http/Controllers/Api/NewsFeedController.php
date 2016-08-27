@@ -43,9 +43,10 @@ class NewsFeedController extends Controller
             if($filter === 'all'){
 
               $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                    ->whereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
-                    ->orderBy('id', 'desc')->paginate($this->limit);
+                     ->whereIn('posted_by', $follower_ids)
+                     ->orWhere('posted_by',$user_id)
+                     ->orderBy('id', 'desc')
+                     ->paginate($this->limit);
 
 
                  return Response::json(array('newsFeed'  => $posts->toArray()),200);

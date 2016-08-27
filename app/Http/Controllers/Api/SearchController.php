@@ -126,9 +126,9 @@ class SearchController extends Controller
             }
 
             elseif ($filter === 'campaign') {
-                $interest = Interest::where('post_type',3)->count();
-                $totalPost = Post::where('post_type',3)->count();
-                $post = PostSubType::where('post_type_id', 3)
+                $interest = Interest::where('post_type',4)->count();
+                $totalPost = Post::where('post_type',4)->count();
+                $post = PostSubType::where('post_type_id', 4)
                     ->where('name', 'LIKE', $text)
                     ->paginate($this->limit);
                 return Response::json([
@@ -139,9 +139,9 @@ class SearchController extends Controller
             }
 
             elseif ($filter === 'help') {
-                $interest = Interest::where('post_type',4)->count();
-                $totalPost = Post::where('post_type',4)->count();
-                $post = PostSubType::where('post_type_id', 4)
+                $interest = Interest::where('post_type',3)->count();
+                $totalPost = Post::where('post_type',3)->count();
+                $post = PostSubType::where('post_type_id', 3)
                     ->where('name', 'LIKE', $text)
                     ->paginate($this->limit);
                 return Response::json([
