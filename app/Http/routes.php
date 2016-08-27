@@ -148,15 +148,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 
+Route::get('test', ['as'=>'test','uses' => 'Api\UserController@test']);
 
 
-
-
-
-
-Route::get('test', function () {
-	return  $interest = \ApiModel\Interest::count();
-});
 
 
 

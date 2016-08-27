@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\Gcm;
 use App\ApiModel\Post;
 use App\ApiModel\PostAttachment;
 use App\ApiModel\PostPhoto;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Mockery\CountValidator\Exception;
 use Response;
 use Intervention\Image\ImageManagerStatic as Image;
+use PushNotification;
 
 class PostTopicController extends Controller
 {
@@ -111,7 +113,15 @@ class PostTopicController extends Controller
               }
 
 
-              return Response::json(['success' => 'Topic Post Successfully'], 200);
+              //gcm
+                try{
+                    $this->sendGcm($topic->id);  //call gcm function
+                    return Response::json(['success' => 'Topic Post Successfully and gcm send '], 200);
+                }catch(Exception $ex){
+                    return Response::json(['error' => 'Something went wrong to send gcm notification'], 403);
+                }
+
+
           }
       }catch (Exception $e){
           return Response::json(['error' => 'Something went wrong'], 403);
@@ -124,4 +134,44 @@ class PostTopicController extends Controller
 
 
 
+
+
+
+
+    public function sendGcm($post_id)
+    {
+        $post = Post::findOrFail($post_id);
+        //gcm
+        $tokens = Gcm::where('user_id', '!=', $post->posted_by)->get();  // getting the device token
+
+       // Populate the device collection
+        $args = [];
+
+        foreach($tokens as $i =>  $token) {
+
+               // $args[$i] = PushNotification::Device($token);
+          return $i;
+        }
+
+        $devices = PushNotification::DeviceCollection($args);
+
+
+        $message = 'Hello this is test';
+
+        // Send the notification to all devices in the collect
+        $collection = PushNotification::app('appNameAndroid')
+            ->to($devices)
+            ->send($message);
+
+
+        return true;
+
+
+    }
+
+
+
 }
+
+
+

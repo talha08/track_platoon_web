@@ -150,6 +150,7 @@ return [
         Laravel\Cashier\CashierServiceProvider::class,
         Artdarek\OAuth\OAuthServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
     ],
 
     /*
@@ -202,7 +203,9 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Entrust'   =>Zizaco\Entrust\EntrustFacade::class,
         'OAuth'     => Artdarek\OAuth\Facade\OAuth::class,
-        'Image'     => Intervention\Image\Facades\Image::class
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'PushNotification' => Davibennun\LaravelPushNotification\Facades\PushNotification::class,
+
     ],
 
 ];

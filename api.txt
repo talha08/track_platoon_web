@@ -419,6 +419,15 @@
 			 *
 			 */
 
+       =========================================
+                 GCM
+	   =========================================
 
-
-
+			 /**
+			 * Gcm | device token store
+			 *
+			 * Post method
+			 * @param: user_id , device_token
+			 * @url: /gcmStore
+			 * @return success, error
+			 */

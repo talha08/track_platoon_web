@@ -77,4 +77,14 @@ class UserController extends Controller
 
 
 
+
+
+
+
+
+    public function test(){
+        return   $post = Post::findOrFail(1);
+    }
+
+
 }
