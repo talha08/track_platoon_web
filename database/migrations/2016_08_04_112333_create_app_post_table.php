@@ -17,10 +17,12 @@ class CreateAppPostTable extends Migration
 
             $table->integer('posted_by')->unsigned();
             $table->integer('app_subType_id')->unsigned();
+            $table->string('country');
             $table->integer('app_city_id')->unsigned();   //city and country
             $table->string('location');   // specific location
 
             $table->string('title');
+
             $table->text('description');
             $table->integer('is_active')->default(1); // 1 or 0
             $table->integer('is_emergency'); //1 or 0

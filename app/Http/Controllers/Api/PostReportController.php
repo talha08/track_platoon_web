@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\City;
+use App\ApiModel\Country;
 use App\ApiModel\PostSubType;
 use Illuminate\Http\Request;
 
@@ -42,14 +44,19 @@ class PostReportController extends Controller
                 $topic->posted_by = $request->user_id;
             }
 
+            //post type
             $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
+
+            //country
+            $country_id = City::where('id',$request->app_city_id)->pluck('country_id');
+            $country = Country::where('id', $country_id )->pulck('name');
 
             $topic->app_subType_id = $request->app_subType_id;
             $topic->app_city_id = $request->app_city_id;
             $topic->location = $request->location;
 
             $topic->survey_among = $request->survey_among;  // only for report
-
+            $topic->country = $country;
             $topic->title = $request->title;
             $topic->description = $request->description;
             $topic->is_active = 1;

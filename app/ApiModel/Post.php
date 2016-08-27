@@ -65,6 +65,14 @@ class Post extends Model
 
 
 
+ //PostSubType
+    public function city()
+    {
+        return $this->belongsTo('App\ApiModel\City','app_city_id','id');
+    }
+
+
+
     /**
      * One to many relationship with Comment
      * Post Has Many Comment
@@ -73,6 +81,9 @@ class Post extends Model
 //    public function comments(){
 //        return $this->hasMany('App\ApiModel\Comment','post_id','id');
 //    }
+
+
+
 
 
 

@@ -12,6 +12,9 @@ use App\ApiModel\PostAttachment;
 use App\ApiModel\PostPhoto;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\ApiModel\Country;
+use App\ApiModel\City;
+
 class PostCampaignController extends Controller
 {
 
@@ -33,6 +36,10 @@ class PostCampaignController extends Controller
         try{
             $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
 
+            //country
+            $country_id = City::where('id',$request->app_city_id)->pluck('country_id');
+            $country = Country::where('id', $country_id )->pulck('name');
+
             $campaign = new Post();
             $campaign->posted_by = $request->user_id;
             $campaign->app_subType_id = $request->app_subType_id;
@@ -45,7 +52,7 @@ class PostCampaignController extends Controller
             $campaign->is_active = 1;
             $campaign->is_emergency = $request->is_emergency;  //1 or 0
             $campaign->help_info = $request->help_info;
-
+            $campaign->country = $country;
             $campaign->post_type = $type;
 
             if($campaign->save()){

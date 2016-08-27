@@ -18,4 +18,15 @@ class City extends Model
     {
         return $this->belongsTo('App\ApiModel\Country','country_id','id');
     }
+
+
+    /**
+     * One to many relationship with Post
+     * City Has Many Post
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function post(){
+        return $this->hasMany('App\ApiModel\Post','app_city_id','id');
+    }
+
 }

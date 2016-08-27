@@ -14,14 +14,16 @@ class PostTableSeeder extends Seeder
     {
         Post::create([
             'posted_by' => 1,
-            'app_subType_id' => 1,
+            'app_subType_id' => 12,
             'app_city_id' => 1,
             'location' => 'Mirpur ds',
             'title' => 'Topic Test',
             'description' => 'srtwerseyydty',
             'is_emergency' => 1,
             'help_info' => 'xfthshtjfdj',
-            'post_type' => 1
+            'post_type' => 4,
+            'survey_among' => 10000,
+            'country' => 'Bangladesh'
 
         ]);
 
@@ -35,7 +37,8 @@ class PostTableSeeder extends Seeder
             'description' => 'srtwerseyydty',
             'is_emergency' => 1,
             'help_info' => '1fthdtj',
-            'post_type' => 1
+            'post_type' => 1,
+            'country' => 'Bangladesh'
 
         ]);
 
@@ -49,7 +52,8 @@ class PostTableSeeder extends Seeder
             'description' => 'srtwerseyydty',
             'is_emergency' => 1,
             'help_info' => 'cfgethdtrhd',
-            'post_type' => 1
+            'post_type' => 1,
+            'country' => 'Bangladesh'
 
         ]);
 

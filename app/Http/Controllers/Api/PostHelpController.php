@@ -12,7 +12,8 @@ use App\ApiModel\PostAttachment;
 use App\ApiModel\PostPhoto;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\ApiModel\Country;
+use App\ApiModel\City;
 class PostHelpController extends Controller
 {
 
@@ -36,6 +37,10 @@ class PostHelpController extends Controller
 
         try{
 
+            //country
+            $country_id = City::where('id',$request->app_city_id)->pluck('country_id');
+            $country = Country::where('id', $country_id )->pulck('name');
+
             $type = PostSubType::where('id',$request->app_subType_id)->pluck('post_type_id');
 
             $topic = new Post();
@@ -44,7 +49,7 @@ class PostHelpController extends Controller
             $topic->app_subType_id = $request->app_subType_id;
             $topic->app_city_id = $request->app_city_id;
             $topic->location = $request->location;
-
+            $topic->country = $country;
             $topic->title = $request->title;
             $topic->description = $request->description;
             $topic->is_active = 1;

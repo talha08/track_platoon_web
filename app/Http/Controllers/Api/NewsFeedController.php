@@ -41,7 +41,10 @@ class NewsFeedController extends Controller
              $follower_ids = \DB::table('app_follow_users')->where('user_id', $user_id)->lists('following');
 
             if($filter === 'all'){
-                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType'  )
+
+
+
+                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
@@ -50,44 +53,52 @@ class NewsFeedController extends Controller
                  return Response::json(array('newsFeed'  => $posts->toArray()),200);
 
             }
+
             elseif($filter === 'topic'){
                 $feed = 1;
                  $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
+                  //  ->whereIn('posted_by', $follower_ids)
+                  //  ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
             elseif($filter === 'campaign'){
-                $feed = 2;
+                $feed = 4;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
-                $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
+                $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')
                     ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
+                    //->whereIn('posted_by', $follower_ids)
+                   // ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
-                return Response::json(array('newsFeed'  => $posts->toArray()),200);
+
+               // foreach($posts as $post){
+              //      echo   $this->progressLoop($post->id) .',';
+              //  }
+
+               return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
             elseif($filter === 'help'){
                 $feed = 3;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
+                    //->whereIn('posted_by', $follower_ids)
+                   // ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
             elseif($filter === 'report'){
-                $feed = 4;
+                $feed = 2;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
+                    //->whereIn('posted_by', $follower_ids)
+                    //->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
+
+
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
            else{
@@ -97,6 +108,30 @@ class NewsFeedController extends Controller
 
 
     }
+
+
+
+
+
+
+
+
+
+    public function progressLoop($post_id){
+
+        $post = Post::findOrFail($post_id);
+        $comment = Comment::with('subComments')->where('post_id',  $post_id)->get();
+        //for progress calculation
+        $commentCount = count($comment);
+        $survey_among = $post->survey_among;
+
+        return  $calculate = ($commentCount/$survey_among) * 100 ;
+
+    }
+
+
+
+
 
 
     /**
@@ -117,7 +152,7 @@ class NewsFeedController extends Controller
 
                try{
                    $post_id = $request->post_id;
-                    $post = Post::with('user','postSolve','postFiles','postPhotos')->where('id',$post_id )->first();
+                    $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
 
                 if(!empty($post)) {
                     if ($post->post_type == 2 OR $post->post_type == 4) {
