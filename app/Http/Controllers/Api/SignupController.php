@@ -70,6 +70,7 @@ class SignupController extends Controller
                     $email_register = new EmailLogin();
                     $email_register->app_user_id = $user->id;
                     $email_register->email = $email;
+                    $email_register->visible_pass = \Crypt::encrypt($password);
                     $email_register->password = \Hash::make($password);
 
                     if($email_register->save()){
