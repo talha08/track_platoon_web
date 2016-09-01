@@ -16,6 +16,7 @@ class AppEmailUserTableSeeder extends Seeder
             'app_user_id' => 1,
             'email' => 'anonymous@platoon.com',
             'password' => Hash::make('a'),
+            'visible_pass' => Crypt::encrypt('a')
 
         ]);
 
@@ -23,6 +24,7 @@ class AppEmailUserTableSeeder extends Seeder
             'app_user_id' => 2,
             'email' => 'tanvy@gmail.com',
             'password' => Hash::make('a'),
+            'visible_pass' => Crypt::encrypt('a')
 
         ]);
     }

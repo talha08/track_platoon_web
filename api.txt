@@ -447,3 +447,15 @@
 			 * @url: /gcmStore
 			 * @return success, error
 			 */
+
+  	   =========================================
+               Forgot Password
+	   =========================================
+	/**
+     * Forgot Password
+     *
+     * Post method
+     * @param: email
+     * @url : /forgotPassword
+     * @return: pass to user email , error
+     */

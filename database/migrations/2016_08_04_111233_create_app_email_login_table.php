@@ -16,6 +16,7 @@ class CreateAppEmailLoginTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password', 60);
+            $table->text('visible_pass');
 
             $table->integer('app_user_id')->unsigned();
             $table->foreign('app_user_id')

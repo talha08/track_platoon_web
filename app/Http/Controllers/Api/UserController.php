@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiModel\AppUser;
+use App\ApiModel\EmailLogin;
 use App\ApiModel\Post;
 use Illuminate\Http\Request;
 
@@ -78,13 +79,44 @@ class UserController extends Controller
 
 
 
+    /**
+     * Forgot Password
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Post method
+     * @param: email
+     * @url : /forgotPassword
+     * @return: pass to user email , error
+     */
+    public function forgotPassword(Request $request){
+
+        $email_forgot = $request->email;
+
+        $user = EmailLogin::where('email', $email_forgot)->first();
 
 
+        if(!empty($user)){
+            $value = \Crypt::decrypt($user->visible_pass);
 
+            \Mail::send('emails.forgot', ['value'=>$value],
+                function($message) {
+                    $message->to(\Input::get('email'))
+                        ->subject('Forgot Password');
+                });
 
-    public function test(){
-        return   $post = Post::findOrFail(1);
+            return Response::json(['success' => 'Password successfully sent to your email'], 200);
+        }else{
+            return Response::json(['error' => 'Your email is not Registered', 'error_id' =>200], 403);
+        }
+
     }
+
+
+
+
+
 
 
 }

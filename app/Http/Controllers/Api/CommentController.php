@@ -131,7 +131,7 @@ class CommentController extends Controller
 
                 try{
                     $post_id = $request->post_id;
-                    $comment = Comment::where('post_id', $post_id)
+                    $comment = Comment::with('subComments','user')->where('post_id', $post_id)
                         ->where('app_comment_type_id',1)
                         ->paginate($this->limit);
                     return Response::json(['comment' => $comment->toArray()], 200);
@@ -160,7 +160,7 @@ class CommentController extends Controller
 
                 try{
                     $post_id = $request->post_id;
-                    $comment = Comment::where('post_id', $post_id)
+                    $comment = Comment::with('subComments','user')->where('post_id', $post_id)
                         ->where('app_comment_type_id',2)
                         ->paginate($this->limit);
                     return Response::json(['comment' => $comment->toArray()], 200);

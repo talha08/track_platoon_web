@@ -67,6 +67,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	    Route::post('confirmAccount', ['as'=>'confirmAccount','uses' => 'Api\SignupController@confirmAccount']);
 
 
+		//forgot pass forgotPassword
+		Route::post('forgotPassword', ['as'=>'forgotPassword','uses' => 'Api\UserController@forgotPassword']);
+
 		//user ban request
 		Route::post('userBanRequest', ['as'=>'userBanRequest','uses' => 'Api\UserBannedController@userBanRequest']);
 
