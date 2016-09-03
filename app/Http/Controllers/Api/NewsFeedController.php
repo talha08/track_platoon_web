@@ -139,14 +139,24 @@ class NewsFeedController extends Controller
 
         $post = Post::findOrFail($post_id);
 
-        if ($post->post_type == 2 OR $post->post_type == 4) {
+        if ($post->post_type == 2 ) {
             $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
             //for progress calculation
             $commentCount = count($comment);
             $survey_among = $post->survey_among;
 
             return $calculate = ($commentCount / $survey_among) * 100;
-        }else{
+        }elseif($post->post_type == 4){
+
+            $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
+            //for progress calculation
+            $commentCount = count($comment) + $post->participate;
+            $survey_among = $post->survey_among;
+
+            return $calculate = ($commentCount / $survey_among) * 100;
+        }
+
+        else{
             return $calculate = null;
         }
 
@@ -181,10 +191,10 @@ class NewsFeedController extends Controller
 
                     $support = $comment->where('app_comment_type_id', 1)->count();
                     $unsupport = $comment->where('app_comment_type_id', 2)->count();
-                    $share = 110;
+                    $share = 0;
 
                 if(!empty($post)) {
-                    if ($post->post_type == 2 OR $post->post_type == 4) {
+                    if ($post->post_type == 2) {
                         //for progress calculation
                         $commentCount = count($comment);
                         $survey_among = $post->survey_among;
@@ -198,7 +208,21 @@ class NewsFeedController extends Controller
                             'post' => $post
                         ], 200);
 
-                    } else {
+                    }elseif($post->post_type == 4){
+                        //for progress calculation
+                        $commentCount = count($comment)+ $post->participate;
+                        $survey_among = $post->survey_among;
+                        $progress = $this->progress($commentCount, $survey_among);
+
+                        return Response::json([
+                            'progress' => $progress,
+                            'support'=>$support,
+                            'unSupport' => $unsupport,
+                            'share' => $share,
+                            'post' => $post
+                        ], 200);
+                    }
+                    else {
                         return Response::json([
                             'progress' => 'null',
                             'support'=>$support,
