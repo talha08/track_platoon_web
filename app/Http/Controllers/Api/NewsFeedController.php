@@ -48,14 +48,18 @@ class NewsFeedController extends Controller
                      ->whereIn('posted_by', $follower_ids)
                      ->orWhere('posted_by',$user_id)
                      ->orderBy('id', 'desc')
-                  //  ->union($process)
-                   ->paginate($this->limit);
+                     ->paginate($this->limit);
 
-
+                   foreach($posts as $post){
+                       $process = $this->progressLoop($post->id);
+                       $post['progress'] = $process;
+                   }
 
                  return Response::json(array('newsFeed'  => $posts->toArray()),200);
 
             }
+
+
 
             elseif($filter === 'topic'){
                 $feed = 1;
@@ -67,21 +71,26 @@ class NewsFeedController extends Controller
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
+
             elseif($filter === 'campaign'){
                 $feed = 4;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')
                     ->whereIn('id', $test)
                     ->whereIn('posted_by', $follower_ids)
-                   ->orWhere('posted_by',$user_id)
-                    ->orderBy('id', 'desc')->paginate($this->limit);
+                    ->orWhere('posted_by',$user_id)
+                    ->orderBy('id', 'desc')
+                    ->paginate($this->limit);
 
-               // foreach($posts as $post){
-              //      echo   $this->progressLoop($post->id) .',';
-              //  }
+                    foreach($posts as $post){
+                        $process = $this->progressLoop($post->id);
+                        $post['progress'] = $process;
+                    }
 
                return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
+
+
             elseif($filter === 'help'){
                 $feed = 3;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
@@ -92,6 +101,8 @@ class NewsFeedController extends Controller
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
+
+
             elseif($filter === 'report'){
                 $feed = 2;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
@@ -99,9 +110,13 @@ class NewsFeedController extends Controller
                     ->whereIn('id', $test)
                     ->whereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
-                    ->orderBy('id', 'desc')->paginate($this->limit);
+                    ->orderBy('id', 'desc')
+                    ->paginate($this->limit);
 
-
+                foreach($posts as $post){
+                    $process = $this->progressLoop($post->id);
+                    $post['progress'] = $process;
+                }
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
            else{
@@ -123,12 +138,17 @@ class NewsFeedController extends Controller
     public function progressLoop($post_id){
 
         $post = Post::findOrFail($post_id);
-        $comment = Comment::with('subComments')->where('post_id',  $post_id)->get();
-        //for progress calculation
-        $commentCount = count($comment);
-        $survey_among = $post->survey_among;
 
-        return  $calculate = ($commentCount/$survey_among) * 100 ;
+        if ($post->post_type == 2 OR $post->post_type == 4) {
+            $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
+            //for progress calculation
+            $commentCount = count($comment);
+            $survey_among = $post->survey_among;
+
+            return $calculate = ($commentCount / $survey_among) * 100;
+        }else{
+            return $calculate = null;
+        }
 
     }
 
