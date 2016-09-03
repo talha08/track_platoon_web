@@ -84,6 +84,14 @@ class Post extends Model
 
 
 
+    /**
+     * One to many relationship with Participate
+     * Post Has Many Participate
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function participates(){
+        return $this->hasMany('App\ApiModel\Participate','post_id','id');
+    }
 
 
 

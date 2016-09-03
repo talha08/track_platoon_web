@@ -502,34 +502,67 @@
                   Save Post
 	   =========================================
 
-	   /**
-            * Save Post
-            *
-            *
-            * Post Method
-            * @param: user_id, post_id
-            * @url: /savePostByUser
-            * @return: success, error (error_id =200)
-            */
+	/**
+	* Save Post
+	*
+	*
+	* Post Method
+	* @param: user_id, post_id
+	* @url: /savePostByUser
+	* @return: success, error (error_id =200)
+	*/
 
 
-               /**
-                 * View Save Post
-                 *
-                 *
-                 * Get Method
-                 * @param: user_id
-                 * @url: /savePostView
-                 * @return: savePost json
-                 */
+	/**
+	* View Save Post
+	*
+	*
+	* Get Method
+	* @param: user_id
+	* @url: /savePostView
+	* @return: savePost json
+	*/
 
 
-                    /**
-                      * Remove Save Post
-              		  *
-                      * Post Method
-                      * @param: user_id, post_id
-                      * @url: /removeSavePost
-                      * @return: success, error(error_id = 200)
-                      */
+	/**
+	* Remove Save Post
+	*
+	* Post Method
+	* @param: user_id, post_id
+	* @url: /removeSavePost
+	* @return: success, error(error_id = 200)
+	*/
 
+
+	=========================================
+			 Participate
+    =========================================
+
+	/**
+	* Participate
+	*
+	* Post Method
+	* @param: user_id, post_id
+	* @url: /postParticipate
+	* @return: success, error(error_id =200)
+	*/
+
+
+	/**
+	* Show Participate List
+	*
+	* Get Method
+	* @param: post_id
+	* @url: /viewParticipate
+	* @return: participate json, error(error_id =200)
+	*/
+
+
+	/**
+	* checkParticipateStatus
+	*
+	* Get Method
+	* @param: user_id, post_id
+	* @url: /checkParticipateStatus
+	* @return: success[eligible to participate(success_id =>200)]  or error[Already Participated(error_id => 300)]
+	*/

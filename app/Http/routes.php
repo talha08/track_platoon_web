@@ -149,7 +149,10 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::get('savePostView', ['as'=>'savePostView','uses' => 'Api\SavePostController@savePostView']);
 		Route::post('removeSavePost', ['as'=>'removeSavePost','uses' => 'Api\SavePostController@removeSavePost']);
 
-
+		//participate
+		Route::post('postParticipate', ['as'=>'postParticipate','uses' => 'Api\ParticipateController@postParticipate']);
+		Route::get('viewParticipate', ['as'=>'viewParticipate','uses' => 'Api\ParticipateController@viewParticipate']);
+		Route::get('checkParticipateStatus', ['as'=>'checkParticipateStatus','uses' => 'Api\ParticipateController@checkParticipateStatus']);
 
 
 });
