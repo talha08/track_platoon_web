@@ -35,18 +35,22 @@ class NewsFeedController extends Controller
     public function newsFeed(Request $request)
     {
 
-            $filter = $request->filter;
+             $filter = $request->filter;
              $user_id  = $request->user_id;
+
+            //$process = $this->progressLoop(1);
 
              $follower_ids = \DB::table('app_follow_users')->where('user_id', $user_id)->lists('following');
 
             if($filter === 'all'){
 
-              $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
+                $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                      ->whereIn('posted_by', $follower_ids)
                      ->orWhere('posted_by',$user_id)
                      ->orderBy('id', 'desc')
-                     ->paginate($this->limit);
+                  //  ->union($process)
+                   ->paginate($this->limit);
+
 
 
                  return Response::json(array('newsFeed'  => $posts->toArray()),200);
