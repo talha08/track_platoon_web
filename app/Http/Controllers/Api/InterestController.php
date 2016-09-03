@@ -85,42 +85,49 @@ class InterestController extends Controller
             if ($filter === 'topic') {
                 $post = Interest::with('postSubType')->where('post_type', 1)
                     ->where('user_id', '=', $user_id)
-                    ->paginate($this->limit);
+                    // ->paginate($this->limit);
+                    ->get();
+
                 return Response::json(['data' => $post->toArray()], 200);
             }
 
             elseif ($filter === 'report') {
                 $post = Interest::with('postSubType')->where('post_type', 2)
                     ->where('user_id', '=', $user_id)
-                    ->paginate($this->limit);
+                    // ->paginate($this->limit);
+                    ->get();
                 return Response::json(['data' => $post->toArray()], 200);
             }
 
             elseif ($filter === 'campaign') {
                 $post = Interest::with('postSubType')->where('post_type', 3)
                     ->where('user_id', '=', $user_id)
-                    ->paginate($this->limit);
+                    // ->paginate($this->limit);
+                    ->get();
                 return Response::json(['data' => $post->toArray()], 200);
             }
 
             elseif ($filter === 'help') {
                 $post = Interest::with('postSubType')->where('post_type', 4)
                     ->where('user_id', '=', $user_id)
-                    ->paginate($this->limit);
+                    // ->paginate($this->limit);
+                    ->get();
                 return Response::json(['data' => $post->toArray()], 200);
             }
 
             elseif ($filter === 'all') {
                 $post = Interest::with('postSubType')->whereIn('post_type', [1, 2, 3, 4])
                     ->where('user_id', '=', $user_id)
-                    ->paginate($this->limit);
-                return Response::json(['data' => $post->toArray()], 200);
+                   // ->paginate($this->limit);
+                    ->get();
+                return Response::json(['data' => $post->toArray(),'sfdg'=>10], 200);
             }
 
             else {
                 $post = Interest::with('postSubType')->whereIn('post_type', [1, 2, 3, 4])
                     ->where('user_id', '=', $user_id)
-                    ->paginate($this->limit);
+                    // ->paginate($this->limit);
+                    ->get();
                 return Response::json(['data' => $post->toArray()], 200);
             }
 

@@ -312,6 +312,41 @@
 	  * @return: json following,200
 	  */
 
+
+
+
+	 /**
+     	* Show Follower Request
+     	*
+     	* Get Method
+     	* @param: user_id
+     	* @url: /showFollowerRequest
+     	* @return: followerRequest json, 200 or error
+     	*/
+
+
+
+     	/**
+     	* Accept Follower
+     	*
+     	* Post Method
+     	* @param: user_id, follower_id
+     	* @url: /acceptFollowerRequest
+     	* @return: success, error_id=200
+     	*/
+
+
+
+     	/**
+     	* Reject Follower
+     	*
+     	* Post Method
+     	* @param: user_id, follower_id
+     	* @url: /rejectFollowerRequest
+     	* @return: success, error_id=200
+     	*/
+
+
 	=========================================
 			 Interest
     =========================================
@@ -459,3 +494,42 @@
      * @url : /forgotPassword
      * @return: pass to user email , error
      */
+
+
+
+
+	   =========================================
+                  Save Post
+	   =========================================
+
+	   /**
+            * Save Post
+            *
+            *
+            * Post Method
+            * @param: user_id, post_id
+            * @url: /savePostByUser
+            * @return: success, error (error_id =200)
+            */
+
+
+               /**
+                 * View Save Post
+                 *
+                 *
+                 * Get Method
+                 * @param: user_id
+                 * @url: /savePostView
+                 * @return: savePost json
+                 */
+
+
+                    /**
+                      * Remove Save Post
+              		  *
+                      * Post Method
+                      * @param: user_id, post_id
+                      * @url: /removeSavePost
+                      * @return: success, error(error_id = 200)
+                      */
+

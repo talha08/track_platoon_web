@@ -9,6 +9,8 @@ class AppUser extends Model
     protected $table ='app_user';
 
 
+    //protected $fillable = ['id'];
+   // protected $guarded = array('id');
 
 
     /**

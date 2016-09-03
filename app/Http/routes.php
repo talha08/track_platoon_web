@@ -119,6 +119,10 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::get('followerList', ['as'=>'followerList','uses' => 'Api\FollowerController@followerList']);
 		Route::get('followingList', ['as'=>'followingList','uses' => 'Api\FollowerController@followingList']);
 
+	     Route::get('showFollowerRequest', ['as'=>'showFollowerRequest','uses' => 'Api\FollowerController@showFollowerRequest']);
+	     Route::post('acceptFollowerRequest', ['as'=>'acceptFollowerRequest','uses' => 'Api\FollowerController@acceptFollowerRequest']);
+	     Route::post('rejectFollowerRequest', ['as'=>'rejectFollowerRequest','uses' => 'Api\FollowerController@rejectFollowerRequest']);
+
 
 		//newsFeed
 	    Route::get('newsFeed', ['as'=>'newsFeed','uses' => 'Api\NewsFeedController@newsFeed']); //query problem
@@ -138,6 +142,15 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		//search
 		Route::get('searchPostOrUser', ['as'=>'searchPostOrUser','uses' => 'Api\SearchController@searchPostOrUser']);
 		Route::get('searchDiscover', ['as'=>'searchDiscover','uses' => 'Api\SearchController@searchDiscover']);
+
+
+		//save post
+		Route::post('savePostByUser', ['as'=>'savePostByUser','uses' => 'Api\SavePostController@savePostByUser']);
+		Route::get('savePostView', ['as'=>'savePostView','uses' => 'Api\SavePostController@savePostView']);
+		Route::post('removeSavePost', ['as'=>'removeSavePost','uses' => 'Api\SavePostController@removeSavePost']);
+
+
+
 
 });
 

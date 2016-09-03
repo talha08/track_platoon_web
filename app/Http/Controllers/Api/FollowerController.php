@@ -14,6 +14,11 @@ use Response;
 class FollowerController extends Controller
 {
 
+
+
+
+
+
     /**
      * Follow
      * @param Request $request
@@ -26,19 +31,139 @@ class FollowerController extends Controller
      */
     public function follow(Request $request){
       try{
-          $user = $request->user_id;
+
+          $user_id = $request->user_id;
           $follower = $request->follower_id;
 
-          FollowUser::create([
-              'user_id' => $user,
-              'following' => $follower
-          ]);
+          $user = AppUser::where('id',$user_id)->first();
+          $follower = FollowUser::where('user_id',$user_id )->where('following',$follower )->first();
 
-          return Response::json(['success' => 'Following successfully'], 200);
+          if(empty($follower)){
+              if($user->can_followed == 1){
+                  FollowUser::create([
+                      'user_id' => $user_id,
+                      'following' => $follower,
+                      'status' => 2  //accept or direct follow
+                  ]);
+              }
+              else{
+                  FollowUser::create([
+                      'user_id' => $user_id,
+                      'following' => $follower,
+                      'status' => 1  //request
+                  ]);
+              }
+              return Response::json(['success' => 'Following successfully'], 200);
+          }else{
+              return Response::json(['error' => 'Duplicate entry', 'error_id'=> 100], 403);
+          }
+
       }catch(Exception $ex){
           return Response::json(['error' => 'Something went wrong'], 403);
       }
     }
+
+
+
+
+
+
+    /**
+     * Show Follower Request
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get Method
+     * @param: user_id
+     * @url: /showFollowerRequest
+     * @return: followerRequest json, 200 or error
+     */
+    public function showFollowerRequest(Request $request){
+        try{
+            $user = $request->user_id;
+            $followers = \DB::table('app_follow_users')
+                ->where('user_id',$user)
+                ->where('status',1)  //request
+                ->lists('following');
+            // return    FollowUser::with('user')->where('user_id',$user)->get();
+            $data = AppUser::whereIn('id',$followers )->paginate(10);
+
+            return Response::json(['followerRequest' => $data->toArray()], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong'], 403);
+        }
+    }
+
+
+
+
+
+    /**
+     * Accept Follower
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Post Method
+     * @param: user_id, follower_id
+     * @url: /acceptFollowerRequest
+     * @return: success, error_id=200
+     */
+    public function acceptFollowerRequest(Request $request){
+        try{
+
+            $user = $request->user_id;
+            $follower = $request->follower_id;
+
+            $user = AppUser::where('id',$user)->first();
+
+
+                FollowUser::create([
+                    'user_id' => $user,
+                    'following' => $follower,
+                    'status' => 2  //accept
+                ]);
+
+            return Response::json(['success' => 'Follower Added successfully'], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong', 'error_id'=>200], 403);
+        }
+    }
+
+
+    /**
+     * Reject Follower
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Post Method
+     * @param: user_id, follower_id
+     * @url: /rejectFollowerRequest
+     * @return: success, error_id=200
+     */
+    public function rejectFollowerRequest(Request $request){
+        try{
+
+            $user = $request->user_id;
+            $follower = $request->follower_id;
+
+            $user = AppUser::where('id',$user)->first();
+
+
+            FollowUser::create([
+                'user_id' => $user,
+                'following' => $follower,
+                'status' => 3  //reject
+            ]);
+
+            return Response::json(['success' => 'Follower rejected successfully'], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong', 'error_id'=>200], 403);
+        }
+    }
+
+
+
+
 
 
     /**
@@ -74,6 +199,9 @@ class FollowerController extends Controller
 
 
 
+
+
+
     /**
      * followerList
      *
@@ -89,7 +217,10 @@ class FollowerController extends Controller
     public function followerList(Request $request){
         try{
             $user = $request->user_id;
-            $followers = \DB::table('app_follow_users')->where('user_id',$user)->lists('following');
+            $followers = \DB::table('app_follow_users')
+                ->where('user_id',$user)
+                ->where('status',2)
+                ->lists('following');
             // return    FollowUser::with('user')->where('user_id',$user)->get();
             $data = AppUser::whereIn('id',$followers )->paginate(10);
 
@@ -118,7 +249,10 @@ class FollowerController extends Controller
     public function followingList(Request $request){
         try{
         $user = $request->user_id;
-        $following = \DB::table('app_follow_users')->where('following',$user)->lists('user_id');
+        $following = \DB::table('app_follow_users')
+            ->where('following',$user)
+            ->where('status',2)
+            ->lists('user_id');
         // return    FollowUser::with('user')->where('user_id',$user)->get();
        $data = AppUser::whereIn('id',$following )->paginate(10);
 

@@ -8,6 +8,12 @@ class FollowUser extends Model
 {
     protected $table ='app_follow_users';
 
+    protected $fillable = ['user_id', 'following'];
+
+    //protected $guarded = array('id');
+
+
+
 
     /**
      * One to many relationship with AppUser
