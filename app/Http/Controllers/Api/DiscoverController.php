@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiModel\AppUser;
+use App\ApiModel\FollowUser;
 use App\ApiModel\Interest;
 use App\ApiModel\Post;
 use App\ApiModel\PostSubType;
@@ -38,15 +39,29 @@ class DiscoverController extends Controller
            $filter = $request->filter;
 
            if ($filter === 'people') {
+
+               $follower = FollowUser::where('user_id',$user)->lists('following');
+               $following = FollowUser::where('following',$user)->lists('user_id');
+
                $people = AppUser::where('user_type', 0)
+                   ->where('id','!=',$user)
+                   ->whereNotIn('id',$follower)
+                   ->whereNotIn('id',$following)
                    ->paginate($this->limit);
                //need to send location
                return Response::json(['data' => $people->toArray()], 200);
            }
 
+
            elseif ($filter === 'organization') {
 
+               $follower = FollowUser::where('user_id',$user)->lists('following');
+               $following = FollowUser::where('following',$user)->lists('user_id');
+
                $organization = AppUser::where('user_type', 1)
+                   ->where('id','!=',$user)
+                   ->whereNotIn('id',$follower)
+                   ->whereNotIn('id',$following)
                    ->paginate($this->limit);
                //need to send location
                return Response::json(['data' => $organization->toArray()], 200);

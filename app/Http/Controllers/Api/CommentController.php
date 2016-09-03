@@ -66,7 +66,7 @@ class CommentController extends Controller
                 $subComment->app_comment_type_id = $request->comment_type_id;
                 $subComment->description = $request->description;
                 if($subComment->save()){
-                    return Response::json(['success' => 'Comment post successfully'], 200);
+                    return Response::json(['success' => 'SubComment post successfully'], 200);
                 }else{
                     return Response::json(['error' => 'Something went wrong'], 403);
                 }
@@ -134,6 +134,8 @@ class CommentController extends Controller
                     $comment = Comment::with('subComments','user')->where('post_id', $post_id)
                         ->where('app_comment_type_id',1)
                         ->paginate($this->limit);
+
+
                     return Response::json(['comment' => $comment->toArray()], 200);
                 }
                 catch(Exception $ex){

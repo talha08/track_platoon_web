@@ -9,6 +9,7 @@ class SubComment extends Model
     protected $table ='app_subComment';
 
 
+    protected $with = ['user'];
 
     /**
      * One to many relationship with CommentType

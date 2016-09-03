@@ -31,7 +31,7 @@ class CreateAppPostTable extends Migration
 
 
             $table->string('post_type');  //direct use of post type
-
+           // $table->string('participate');
 
             $table->foreign('posted_by')->references('id')
                 ->on('app_user')
