@@ -9,6 +9,8 @@ class Interest extends Model
   protected $table ='app_interest';
 
 
+  protected $hidden =['created_at','updated_at'];
+
   //postSubType table
   public function postSubType(){
     return $this->belongsTo('App\ApiModel\PostSubType','app_subType_id','id');
