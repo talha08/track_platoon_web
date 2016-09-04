@@ -96,7 +96,15 @@ class PostCampaignController extends Controller
 
 
 
-                return Response::json(['success' => 'Campaign Post Successfully Posted'], 200);
+                //gcm
+                try{
+                    Post::sendGcm($campaign->id);  //call gcm function
+
+                    return Response::json(['success' => 'Campaign Post Successfully and gcm send '], 200);
+                }catch(Exception $ex){
+                    return Response::json(['error' => 'Something went wrong to send gcm notification'], 403);
+                }
+
             }
         }catch (Exception $e){
             return Response::json(['error' => 'Something went wrong'], 403);

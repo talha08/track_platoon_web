@@ -21,6 +21,29 @@ class CreateAppUserTable extends Migration
             $table->string('is_active')->default(0);   // 0 inactive , 1 for active
             $table->string('user_type')->default(0);   //  0 for person, 1 for organization
 
+
+           // $table->string('first_name')->nullable();
+           // $table->string('last_name')->nullable();
+            $table->string('username')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('work_place')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('religion')->nullable();
+
+
+            $table->string('hide_email')->default(0); //1 hide, 0 show for all
+            $table->string('hide_mobile')->default(0);
+            $table->string('hide_occupation')->default(0);
+            $table->string('hide_religion')->default(0);
+            $table->string('hide_country')->default(0);
+            $table->string('hide_work_place')->default(0);
+
+
+
+
             $table->string('is_banned')->default(0); // 1 for ban request, 2 for banned
 
             $table->string('can_followed')->default(1); // 1 can follow, 2 for cant, need to send request

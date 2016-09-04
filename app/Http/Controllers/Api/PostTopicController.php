@@ -115,7 +115,8 @@ class PostTopicController extends Controller
 
               //gcm
                 try{
-                    $this->sendGcm($topic->id);  //call gcm function
+                    Post::sendGcm($topic->id);  //call gcm function
+
                     return Response::json(['success' => 'Topic Post Successfully and gcm send '], 200);
                 }catch(Exception $ex){
                     return Response::json(['error' => 'Something went wrong to send gcm notification'], 403);
@@ -138,36 +139,7 @@ class PostTopicController extends Controller
 
 
 
-    public function sendGcm($post_id)
-    {
-        $post = Post::findOrFail($post_id);
-        //gcm
-        $tokens = Gcm::where('user_id', '!=', $post->posted_by)->get();  // getting the device token
 
-       // Populate the device collection
-        $args = [];
-
-        foreach($tokens as $i =>  $token) {
-
-               // $args[$i] = PushNotification::Device($token);
-          return $i;
-        }
-
-        $devices = PushNotification::DeviceCollection($args);
-
-
-        $message = 'Hello this is test';
-
-        // Send the notification to all devices in the collect
-        $collection = PushNotification::app('appNameAndroid')
-            ->to($devices)
-            ->send($message);
-
-
-        return true;
-
-
-    }
 
 
 

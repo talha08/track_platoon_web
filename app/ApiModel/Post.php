@@ -3,6 +3,7 @@
 namespace App\ApiModel;
 
 use Illuminate\Database\Eloquent\Model;
+use Davibennun\LaravelPushNotification\Facades\PushNotification;
 
 class Post extends Model
 {
@@ -94,6 +95,44 @@ class Post extends Model
     }
 
 
+
+
+
+    /**
+     * Gcm Notification for all type post
+     * @param $post_id
+     * @return bool
+     */
+    public static function sendGcm($post_id)
+    {
+        $post = Post::findOrFail($post_id);
+        //gcm
+        $tokens = Gcm::where('user_id', '!=', $post->posted_by)->get();  // getting the device token
+
+        // Populate the device collection
+        $args = [];
+
+        foreach($tokens as $i =>  $token) {
+
+            $args[$i] = PushNotification::Device($token);
+            //return $i;
+        }
+
+        $devices = PushNotification::DeviceCollection($args);
+
+
+        $message = 'Hello this is test';
+
+        // Send the notification to all devices in the collect
+        $collection = PushNotification::app('appNameAndroid')
+            ->to($devices)
+            ->send($message);
+
+
+        return true;
+
+
+    }
 
 
 }
