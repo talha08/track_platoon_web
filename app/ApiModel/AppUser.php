@@ -8,6 +8,9 @@ class AppUser extends Model
 {
     protected $table ='app_user';
 
+    protected $hidden = ['username','mobile','occupation','work_place','city','country','religion',
+    'hide_email','hide_mobile','hide_occupation','hide_religion','hide_country','hide_work_place'
+    ];
 
     //protected $fillable = ['id'];
    // protected $guarded = array('id');
