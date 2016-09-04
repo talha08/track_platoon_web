@@ -218,9 +218,9 @@ class FollowerController extends Controller
         try{
             $user = $request->user_id;
             $followers = \DB::table('app_follow_users')
-                ->where('user_id',$user)
+                ->where('following',$user)
                 ->where('status',2)
-                ->lists('following');
+                ->lists('user_id');
             // return    FollowUser::with('user')->where('user_id',$user)->get();
             $data = AppUser::whereIn('id',$followers )->paginate(10);
 
@@ -250,9 +250,9 @@ class FollowerController extends Controller
         try{
         $user = $request->user_id;
         $following = \DB::table('app_follow_users')
-            ->where('following',$user)
+            ->where('user_id',$user)
             ->where('status',2)
-            ->lists('user_id');
+            ->lists('following');
         // return    FollowUser::with('user')->where('user_id',$user)->get();
        $data = AppUser::whereIn('id',$following )->paginate(10);
 
