@@ -92,10 +92,10 @@ class ParticipateController extends Controller
 
         $post_participate = Participate::where('user_id',$user_id)->where('post_id',$post_id)->first();
 
-        if(!empty($post_participate)){
+        if(empty($post_participate)){
             return Response::json(['success'=>'Eligible to participate', 'success_id'=> 200], 200);
         }else{
-            return Response::json(['error'=>'Already participated', 'success_id'=> 300], 403);
+            return Response::json(['error'=>'Already participated', 'error_id'=> 300], 403);
         }
     }
 
