@@ -33,23 +33,23 @@ class FollowerController extends Controller
       try{
 
           $user_id = $request->user_id;
-          $follower = $request->follower_id;
+          $follower_id = $request->follower_id;
 
           $user = AppUser::where('id',$user_id)->first();
-          $follower = FollowUser::where('user_id',$user_id )->where('following',$follower )->first();
+          $follower = FollowUser::where('user_id',$user_id )->where('following',$follower_id )->first();
 
           if(empty($follower)){
               if($user->can_followed == 1){
                   FollowUser::create([
                       'user_id' => $user_id,
-                      'following' => $follower,
+                      'following' => $follower_id,
                       'status' => 2  //accept or direct follow
                   ]);
               }
               else{
                   FollowUser::create([
                       'user_id' => $user_id,
-                      'following' => $follower,
+                      'following' => $follower_id,
                       'status' => 1  //request
                   ]);
               }

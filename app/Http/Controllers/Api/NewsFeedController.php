@@ -193,7 +193,8 @@ class NewsFeedController extends Controller
 
                     $comment = Comment::with('subComments')->where('post_id', $post->id)->get();
 
-                 return    $support = $comment->where('app_comment_type_id', 1)->count();
+                 //return  Comment::where('post_id',$post->id)->
+                    $support = $comment->where('app_comment_type_id', 1)->count();
                     $unsupport = $comment->where('app_comment_type_id', 2)->count();
                     $share = 0;
 
