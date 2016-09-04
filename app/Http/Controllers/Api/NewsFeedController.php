@@ -47,10 +47,12 @@ class NewsFeedController extends Controller
             if($filter === 'all'){
 
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                     ->whereIn('posted_by', $follower_ids)
-                     ->orWhere('posted_by',$user_id)
-                     ->orderBy('id', 'desc')
-                     ->paginate($this->limit);
+                    ->where( function($query) use ($follower_ids,$user_id ) {
+                        $query->whereIn('posted_by', $follower_ids)
+                              ->orWhere('posted_by',$user_id);
+                    })
+                    ->orderBy('id', 'desc')
+                    ->paginate($this->limit);
 
 
                    foreach($posts as $post){
@@ -65,27 +67,25 @@ class NewsFeedController extends Controller
 
 
             elseif($filter === 'topic'){
-                $feed = 1;
-                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
+
                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                     ->whereIn('id', $test)
-                     ->orWhereIn('posted_by', $follower_ids)
-                     ->orWhere('posted_by',$user_id)
-                     ->orderBy('id', 'desc')->paginate($this->limit);
+                     ->where('post_type',1 ,function($query) use ($follower_ids,$user_id ) {
+                         $query->whereIn('posted_by', $follower_ids)
+                               ->orWhere('posted_by',$user_id);
+                     })
+                     ->orderBy('id', 'desc')
+                     ->paginate($this->limit);
+
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
 
             elseif($filter === 'campaign'){
-                $feed = 4;
-                $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
+
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')
-                    ->where(function ($query)use ($follower_ids,$user_id, $test){
-                     return  $query ->whereIn('id', $test)
-                                    ->whereIn('posted_by', $follower_ids)
-                                    ->orWhere('posted_by',$user_id);
-                    })
-                   // ->orWhereIn('posted_by', $follower_ids)
-                  //  ->orWhere('posted_by',$user_id)
+                    ->where('post_type',4 ,function($query) use ($follower_ids,$user_id ) {
+                         $query->whereIn('posted_by', $follower_ids)
+                               ->orWhere('posted_by',$user_id);
+                     })
                     ->orderBy('id', 'desc')
                     ->paginate($this->limit);
 
@@ -99,24 +99,26 @@ class NewsFeedController extends Controller
 
 
             elseif($filter === 'help'){
-                $feed = 3;
-                $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
+
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                    ->whereIn('id', $test)
-                    ->orWhereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
-                    ->orderBy('id', 'desc')->paginate($this->limit);
+                    ->where('post_type',3 ,function($query) use ($follower_ids,$user_id ) {
+                        $query->whereIn('posted_by', $follower_ids)
+                              ->orWhere('posted_by',$user_id);
+                    })
+                    ->orderBy('id', 'desc')
+                    ->paginate($this->limit);
+
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
 
 
             elseif($filter === 'report'){
-                $feed = 2;
-                $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
+
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                    ->whereIn('id', $test)
-                    ->orWhereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
+                    ->where('post_type',2 ,function($query) use ($follower_ids,$user_id ) {
+                        $query->whereIn('posted_by', $follower_ids);
+                        $query->orWhere('posted_by',$user_id);
+                    })
                     ->orderBy('id', 'desc')
                     ->paginate($this->limit);
 
@@ -124,6 +126,7 @@ class NewsFeedController extends Controller
                     $process = $this->progressLoop($post->id);
                     $post['progress'] = $process;
                 }
+
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
            else{
