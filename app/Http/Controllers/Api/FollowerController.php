@@ -209,22 +209,47 @@ class FollowerController extends Controller
      * @return \Illuminate\Http\JsonResponse
      *
      * Get method
-     * @param: user_id
+     * @param: user_id , filter[people,organization]
      * @url: http://localhost:8000/api/v2/followerList
      * @return: json follower,200
+     *
      *
      */
     public function followerList(Request $request){
         try{
-            $user = $request->user_id;
-            $followers = \DB::table('app_follow_users')
-                ->where('following',$user)
-                ->where('status',2)
-                ->lists('user_id');
-            // return    FollowUser::with('user')->where('user_id',$user)->get();
-            $data = AppUser::whereIn('id',$followers )->paginate(10);
 
-            return Response::json(['follower' => $data->toArray()], 200);
+              $user = $request->user_id;
+              $filter = $request->filter;
+           if($filter === 'people'){
+
+               $followers = \DB::table('app_follow_users')
+                   ->where('following',$user)
+                   ->where('status',2)
+                   ->lists('user_id');
+
+
+               $data = AppUser::whereIn('id',$followers )
+                        ->where('user_type', 0) //  0 for person, 1 for organization
+                        ->orderBy('name', 'asc')
+                        ->paginate(10);
+
+               return Response::json(['follower' => $data->toArray()], 200);
+           }else{
+
+               $user = $request->user_id;
+               $followers = \DB::table('app_follow_users')
+                   ->where('following',$user)
+                   ->where('status',2)
+                   ->lists('user_id');
+
+
+               $data = AppUser::whereIn('id',$followers )
+                   ->where('user_type', 1) //  0 for person, 1 for organization
+                   ->orderBy('name', 'asc')
+                   ->paginate(10);
+
+               return Response::json(['follower' => $data->toArray()], 200);
+           }
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }
@@ -248,15 +273,34 @@ class FollowerController extends Controller
      */
     public function followingList(Request $request){
         try{
-        $user = $request->user_id;
-        $following = \DB::table('app_follow_users')
-            ->where('user_id',$user)
-            ->where('status',2)
-            ->lists('following');
-        // return    FollowUser::with('user')->where('user_id',$user)->get();
-       $data = AppUser::whereIn('id',$following )->paginate(10);
+            $user = $request->user_id;
+            $filter = $request->filter;
 
-            return Response::json(['following' => $data->toArray()], 200);
+            if($filter === 'people'){
+                $following = \DB::table('app_follow_users')
+                    ->where('user_id',$user)
+                    ->where('status',2)
+                    ->lists('following');
+
+                $data = AppUser::whereIn('id',$following )
+                    ->where('user_type', 0) //  0 for person, 1 for organization
+                    ->orderBy('name', 'asc')
+                    ->paginate(10);
+                return Response::json(['following' => $data->toArray()], 200);
+            }else{
+                $following = \DB::table('app_follow_users')
+                    ->where('user_id',$user)
+                    ->where('status',2)
+                    ->lists('following');
+
+                $data = AppUser::whereIn('id',$following )
+                    ->where('user_type', 1) //  0 for person, 1 for organization
+                    ->orderBy('name', 'asc')
+                    ->paginate(10);
+                return Response::json(['following' => $data->toArray()], 200);
+            }
+
+
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }
