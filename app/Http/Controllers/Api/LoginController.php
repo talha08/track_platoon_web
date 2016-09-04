@@ -55,26 +55,35 @@ class LoginController extends Controller
                 $email   = $allInput['email'];
                 $password = $allInput['password'];
 
-                $user_id = EmailLogin::where('email', $email)->first();
-
-                 $user_active = AppUser::where('id',$user_id->app_user_id)->first();
+                 $user_id = EmailLogin::where('email', $email)->first();
 
 
                 if(!empty($user_id)){
 
-                    if($user_active->is_active == 1 ){   // user active check
 
-                        $user_pass = EmailLogin::where('id', $user_id->id)->pluck('password');
-                        //Hash::check('INPUT PASSWORD', database password);
-                        if(Hash::check($password, $user_pass)){
+                    $user_active = AppUser::where('id',$user_id->app_user_id)->first();
+                    $value = \Crypt::decrypt($user_id->visible_pass);
 
-                            return Response::json(['user_id'=> $user_id->app_user_id], 200);
+                    if($password === $value ){
+
+                        if($user_active->is_active == 1 ){   // user active check
+
+                            $user_pass = EmailLogin::where('id', $user_id->id)->pluck('password');
+                            //Hash::check('INPUT PASSWORD', database password);
+                            if(Hash::check($password, $user_pass)){
+
+                                return Response::json(['user_id'=> $user_id->app_user_id], 200);
+                            }else{
+                                return Response::json(['error'=>'Wrong Password'], 403);
+                            }
                         }else{
-                            return Response::json(['error'=>'Wrong Password'], 403);
+                            return Response::json(['error'=>'Unauthorized account, please confirm your account'], 403);
                         }
+
                     }else{
-                        return Response::json(['error'=>'Unauthorized account, please confirm your account'], 403);
+                        return Response::json(['error'=>'Wrong Password'], 403);
                     }
+                    
 
                 }else{
                     return Response::json(['error'=>'No user found with this account'], 403);
