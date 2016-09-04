@@ -42,6 +42,8 @@ class NewsFeedController extends Controller
 
              $follower_ids = \DB::table('app_follow_users')->where('user_id', $user_id)->lists('following');
 
+
+
             if($filter === 'all'){
 
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
@@ -49,6 +51,7 @@ class NewsFeedController extends Controller
                      ->orWhere('posted_by',$user_id)
                      ->orderBy('id', 'desc')
                      ->paginate($this->limit);
+
 
                    foreach($posts as $post){
                        $process = $this->progressLoop($post->id);
