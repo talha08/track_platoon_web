@@ -41,16 +41,18 @@ class NewsFeedController extends Controller
             //$process = $this->progressLoop(1);
 
              $follower_ids = \DB::table('app_follow_users')->where('user_id', $user_id)->lists('following');
+             $following_ids = \DB::table('app_follow_users')->where('following', $user_id)->lists('user_id');
 
 
 
             if($filter === 'all'){
 
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                    ->where( function($query) use ($follower_ids,$user_id ) {
-                        $query->whereIn('posted_by', $follower_ids)
-                              ->orWhere('posted_by',$user_id);
-                    })
+//                    ->whereIn( function($query) use ($follower_ids,$user_id,$following_ids ) {
+//                        $query->whereIn('posted_by', $follower_ids)
+//                            //  ->whereIn('posted_by', $following_ids)
+//                              ->orWhere('posted_by',$user_id);
+//                    })
                     ->orderBy('id', 'desc')
                     ->paginate($this->limit);
 
