@@ -9,6 +9,8 @@ class Participate extends Model
     protected $table = 'app_post_participate';
 
 
+    protected $fillable = ['user_id','post_id'];
+
     /**
      * One to many relationship with AppUser
      * Participate belongsTo AppUser
