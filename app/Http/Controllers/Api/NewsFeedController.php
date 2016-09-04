@@ -191,9 +191,9 @@ class NewsFeedController extends Controller
                    $post_id = $request->post_id;
                    $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
 
-                    $comment = Comment::with('subComments')->where('post_id', $request->post_id)->get();
+                    $comment = Comment::with('subComments')->where('post_id', $post->id)->get();
 
-                    $support = $comment->where('app_comment_type_id', 1)->count();
+                 return    $support = $comment->where('app_comment_type_id', 1)->count();
                     $unsupport = $comment->where('app_comment_type_id', 2)->count();
                     $share = 0;
 
