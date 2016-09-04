@@ -138,8 +138,8 @@ class CommentController extends Controller
                         ->paginate($this->limit);
 
                     foreach($comments as $comment){
-                        $supportComment = SubComment::where('app_comment_type_id', 1)->count();
-                        $unsupportComment = SubComment::where('app_comment_type_id', 2)->count();
+                        $supportComment = SubComment::where('app_comment_id',$comment->id)->where('app_comment_type_id', 1)->count();
+                        $unsupportComment = SubComment::where('app_comment_id',$comment->id)->where('app_comment_type_id', 2)->count();
 
                         $comment['support_count'] = $supportComment;
                         $comment['unsupport_count'] = $unsupportComment;
@@ -178,8 +178,8 @@ class CommentController extends Controller
                         ->paginate($this->limit);
 
                     foreach($comments as $comment){
-                        $supportComment = SubComment::where('app_comment_type_id', 1)->count();
-                        $unsupportComment = SubComment::where('app_comment_type_id', 2)->count();
+                        $supportComment = SubComment::where('app_comment_id',$comment->id)->where('app_comment_type_id', 1)->count();
+                        $unsupportComment = SubComment::where('app_comment_id',$comment->id)->where('app_comment_type_id', 2)->count();
 
                         $comment['support_count'] = $supportComment;
                         $comment['unsupport_count'] = $unsupportComment;
