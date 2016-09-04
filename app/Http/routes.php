@@ -129,6 +129,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 		//discover
 	    Route::get('discover', ['as'=>'discover','uses' => 'Api\DiscoverController@discover']);
+	    Route::get('discoverCategoryPost', ['as'=>'discoverCategoryPost','uses' => 'Api\DiscoverController@discoverCategoryPost']);
 
 		//User profile
 	     Route::get('userProfile', ['as'=>'userProfile','uses' => 'Api\UserController@userProfile']);

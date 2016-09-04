@@ -65,10 +65,10 @@ class NewsFeedController extends Controller
                 $feed = 1;
                  $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                  $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
-                    ->whereIn('id', $test)
-                     ->whereIn('posted_by', $follower_ids)
+                     ->whereIn('id', $test)
+                     ->orWhereIn('posted_by', $follower_ids)
                      ->orWhere('posted_by',$user_id)
-                    ->orderBy('id', 'desc')->paginate($this->limit);
+                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
             }
 
@@ -76,9 +76,13 @@ class NewsFeedController extends Controller
                 $feed = 4;
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')
-                    ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
-                    ->orWhere('posted_by',$user_id)
+                    ->where(function ($query)use ($follower_ids,$user_id, $test){
+                     return  $query ->whereIn('id', $test)
+                                    ->whereIn('posted_by', $follower_ids)
+                                    ->orWhere('posted_by',$user_id);
+                    })
+                   // ->orWhereIn('posted_by', $follower_ids)
+                  //  ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')
                     ->paginate($this->limit);
 
@@ -96,7 +100,7 @@ class NewsFeedController extends Controller
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
+                    ->orWhereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')->paginate($this->limit);
                 return Response::json(array('newsFeed'  => $posts->toArray()),200);
@@ -108,7 +112,7 @@ class NewsFeedController extends Controller
                 $test = \DB::table('app_post')->where('post_type', $feed)->lists('id');
                 $posts = Post::with('user','postSolve','postFiles','postPhotos','postSubType')
                     ->whereIn('id', $test)
-                    ->whereIn('posted_by', $follower_ids)
+                    ->orWhereIn('posted_by', $follower_ids)
                     ->orWhere('posted_by',$user_id)
                     ->orderBy('id', 'desc')
                     ->paginate($this->limit);
@@ -137,7 +141,7 @@ class NewsFeedController extends Controller
 
     public function progressLoop($post_id){
 
-        $post = Post::findOrFail($post_id);
+        $post = Post::where('id',$post_id)->first();
 
         if ($post->post_type == 2 ) {
             $comment = Comment::with('subComments')->where('post_id', $post_id)->get();

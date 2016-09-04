@@ -18,7 +18,7 @@ use App\Http\Controllers\Controller;
 class DiscoverController extends Controller
 {
 
-    public $limit = 5 ;
+    public $limit = 10 ;
 
     /**
      * Discover
@@ -164,16 +164,31 @@ class DiscoverController extends Controller
            return Response::json(['error' => 'Something went wrong'], 403);
        }
 
-
-
-
-
     }
 
 
 
 
 
+    /**
+     * All Post associate with subCategory
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get Method
+     * @param: subType_id (post sub category id)
+     * @url: /discoverCategoryPost
+     * @return: data json, 200
+     */
+    public function discoverCategoryPost(Request $request){
+          $subType_id = $request->subType_id;
+
+          $posts = Post::where('app_subType_id',$subType_id)
+               ->orderBy('id', 'desc')
+               ->paginate($this->limit);
+
+        return Response::json(array('data'  => $posts->toArray()),200);
+    }
 
 
 

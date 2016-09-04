@@ -269,6 +269,15 @@
 	*/
 
 
+
+ 	/**
+     * All Post associate with subCategory
+     *
+     * Get Method
+     * @param: subType_id (post sub category id)
+     * @url: /discoverCategoryPost
+     * @return: data json, 200
+     */
 	=========================================
 				Follow & UnFollow
 	=========================================

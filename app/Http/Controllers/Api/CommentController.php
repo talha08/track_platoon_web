@@ -131,7 +131,9 @@ class CommentController extends Controller
 
                 try{
                     $post_id = $request->post_id;
-                    $comments = Comment::with('subComments','user')->where('post_id', $post_id)
+                    $comments = Comment::with('subComments','user')
+                        ->orderBy('id', 'desc')
+                        ->where('post_id', $post_id)
                         ->where('app_comment_type_id',1)
                         ->paginate($this->limit);
 
@@ -169,10 +171,22 @@ class CommentController extends Controller
 
                 try{
                     $post_id = $request->post_id;
-                    $comment = Comment::with('subComments','user')->where('post_id', $post_id)
+                    $comments = Comment::with('subComments','user')
+                        ->orderBy('id', 'desc')
+                        ->where('post_id', $post_id)
                         ->where('app_comment_type_id',2)
                         ->paginate($this->limit);
-                    return Response::json(['comment' => $comment->toArray()], 200);
+
+                    foreach($comments as $comment){
+                        $supportComment = SubComment::where('app_comment_type_id', 1)->count();
+                        $unsupportComment = SubComment::where('app_comment_type_id', 2)->count();
+
+                        $comment['support_count'] = $supportComment;
+                        $comment['unsupport_count'] = $unsupportComment;
+                    }
+
+
+                    return Response::json(['comment' => $comments->toArray()], 200);
                 }
                 catch(Exception $ex){
                     return Response::json(['error' => 'Something went wrong'], 403);
@@ -198,7 +212,9 @@ class CommentController extends Controller
             public function postsSubComment(Request $request){
                try{
                    $comment_id = $request->comment_id;
-                   $subComment = SubComment::where('app_comment_id', $comment_id)->paginate($this->limit);
+                   $subComment = SubComment::where('app_comment_id', $comment_id)
+                       ->orderBy('id', 'desc')
+                       ->paginate($this->limit);
                    return Response::json(['subComment' => $subComment->toArray()], 200);
                }
                catch(Exception $ex){
