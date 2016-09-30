@@ -158,7 +158,8 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::get('checkParticipateStatus', ['as'=>'checkParticipateStatus','uses' => 'Api\ParticipateController@checkParticipateStatus']);
 
 
-
+		//Gcm
+	    Route::post('gcmStore', ['as'=>'gcmStore','uses' => 'Api\GcmController@gcmStore']);
 
 
 	  //setting

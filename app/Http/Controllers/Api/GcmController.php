@@ -29,7 +29,7 @@ class GcmController extends Controller
         $gcm->user_id = $user_id;
         $gcm->device_token = $device_token;
         if($gcm->save()){
-            return Response::json(['success' => 'Topic Post Successfully'], 200);
+            return Response::json(['success' => 'Device Token Added Successfully'], 200);
         }else{
             return Response::json(['error' => 'Something went wrong'], 403);
         }
