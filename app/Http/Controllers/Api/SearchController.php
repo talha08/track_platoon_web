@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiModel\AppUser;
+use App\ApiModel\Comment;
 use App\ApiModel\Post;
 use App\ApiModel\PostSubType;
 use Illuminate\Http\Request;
@@ -40,11 +41,16 @@ class SearchController extends Controller
 
             $user = AppUser::where('name', 'LIKE', $text)->pluck('id');
 
-            $post = Post::with('user', 'postSolve', 'postFiles', 'postPhotos')
+            $posts = Post::with('user', 'postSolve', 'postFiles', 'postPhotos')
                 ->where('posted_by', $user)
                 ->orWhere('title', 'LIKE', $text)
                 ->paginate($this->limit);
-            return Response::json(['search' => $post->toArray()], 200);
+
+            foreach($posts as $post){
+                $process = $this->progressLoop($post->id);
+                $post['progress'] = $process;
+            }
+            return Response::json(['search' => $posts->toArray()], 200);
         } catch (Exception $ex) {
             return Response::json(['error' => 'No post found with this id'], 403);
         }
@@ -52,6 +58,33 @@ class SearchController extends Controller
 
 
 
+
+    public function progressLoop($post_id){
+
+        $post = Post::where('id',$post_id)->first();
+
+        if ($post->post_type == 2 ) {
+            $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
+            //for progress calculation
+            $commentCount = count($comment);
+            $survey_among = $post->survey_among;
+
+            return $calculate = ($commentCount / $survey_among) * 100;
+        }elseif($post->post_type == 4){
+
+            $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
+            //for progress calculation
+            $commentCount = count($comment) + $post->participate;
+            $survey_among = $post->survey_among;
+
+            return $calculate = ($commentCount / $survey_among) * 100;
+        }
+
+        else{
+            return $calculate = null;
+        }
+
+    }
 
 
 

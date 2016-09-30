@@ -14,20 +14,13 @@ class CreateAppPostSolvedTable extends Migration
     {
         Schema::create('app_post_solved', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('post_id')->unsigned();
-
-
             $table->string('title');
             $table->text('description');
             $table->string('help_info')->nullable();
-
             $table->foreign('post_id')->references('id')
                 ->on('app_post')
                 ->onUpdate('cascade')->onDelete('cascade');
-
-
-
             $table->timestamps();
         });
     }

@@ -145,6 +145,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::get('searchDiscover', ['as'=>'searchDiscover','uses' => 'Api\SearchController@searchDiscover']);
 
 
+
 		//save post
 		Route::post('savePostByUser', ['as'=>'savePostByUser','uses' => 'Api\SavePostController@savePostByUser']);
 		Route::get('savePostView', ['as'=>'savePostView','uses' => 'Api\SavePostController@savePostView']);
