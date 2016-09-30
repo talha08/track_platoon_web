@@ -24,14 +24,19 @@ class GcmController extends Controller
         $user_id = $request->user_id;
         $device_token  = $request->device_token;
 
-
-        $gcm = new Gcm();
-        $gcm->user_id = $user_id;
-        $gcm->device_token = $device_token;
-        if($gcm->save()){
-            return Response::json(['success' => 'Device Token Added Successfully'], 200);
+        $gcm_id =Gcm::where('device_token',$device_token)->get();
+        if(!empty($gcm_id)){
+            $gcm = new Gcm();
+            $gcm->user_id = $user_id;
+            $gcm->device_token = $device_token;
+            if($gcm->save()){
+                return Response::json(['success' => 'Device Token Added Successfully'], 200);
+            }else{
+                return Response::json(['error' => 'Something went wrong' , 'error_code'=>300], 403);
+            }
         }else{
-            return Response::json(['error' => 'Something went wrong'], 403);
+            return Response::json(['error' => 'Already in the list, Duplicate entry', 'error_code'=>100], 403);
         }
+
     }
 }
