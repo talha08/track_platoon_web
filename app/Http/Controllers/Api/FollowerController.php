@@ -40,18 +40,20 @@ class FollowerController extends Controller
 
           if(empty($follower)){
               if($user->can_followed == 1){
-                  FollowUser::create([
-                      'user_id' => $user_id,
-                      'following' => $follower_id,
-                      'status' => 2  //accept or direct follow
-                  ]);
+
+                  $follow = new FollowUser();
+                  $follow->status =1;
+                  $follow->user_id =$user_id;
+                  $follow->following =$follower_id;
+                  $follow->save();
               }
               else{
-                  FollowUser::create([
-                      'user_id' => $user_id,
-                      'following' => $follower_id,
-                      'status' => 1  //request
-                  ]);
+
+                  $follow = new FollowUser();
+                  $follow->status =2;
+                  $follow->user_id =$user_id;
+                  $follow->following =$follower_id;
+                  $follow->save();
               }
               return Response::json(['success' => 'Following successfully'], 200);
           }else{
@@ -276,22 +278,18 @@ class FollowerController extends Controller
             $user = $request->user_id;
             $filter = $request->filter;
 
-            if($filter === 'people'){
-                $following = \DB::table('app_follow_users')
-                    ->where('user_id',$user)
-                    ->where('status',2)
-                    ->lists('following');
+            $following = \DB::table('app_follow_users')
+                ->where('user_id',$user)
+                //->where('status',2)  //if not accept though we see the list whom you folllow
+                ->lists('following');
 
+            if($filter === 'people'){
                 $data = AppUser::whereIn('id',$following )
                     ->where('user_type', 0) //  0 for person, 1 for organization
                     ->orderBy('name', 'asc')
                     ->paginate(10);
                 return Response::json(['following' => $data->toArray()], 200);
             }else{
-                $following = \DB::table('app_follow_users')
-                    ->where('user_id',$user)
-                    ->where('status',2)
-                    ->lists('following');
 
                 $data = AppUser::whereIn('id',$following )
                     ->where('user_type', 1) //  0 for person, 1 for organization
