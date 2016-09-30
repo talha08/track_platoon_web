@@ -105,31 +105,38 @@ class Post extends Model
      */
     public static function sendGcm($post_id)
     {
-        $post = Post::findOrFail($post_id);
-        //gcm
-        $tokens = Gcm::where('user_id', '!=', $post->posted_by)->get();  // getting the device token
+//        $post = Post::findOrFail($post_id);
+//        //gcm
+//
+//        $tokens = Gcm::where('user_id', '!=', $post->posted_by)->get();  // getting the device token
+//
+//        // Populate the device collection
+//        $args = [];
+//
+//        foreach($tokens as $i =>  $token) {
+//
+//            $args[$i] = PushNotification::Device($token);
+//            //return $i;
+//        }
+//
+//        $devices = PushNotification::DeviceCollection($args);
+//
+//
+//        $message = 'Hello this is test';
+//
+//        // Send the notification to all devices in the collect
+//        $collection = PushNotification::app('appNameAndroid')
+//            ->to($devices)
+//            ->send($message);
+//
+//
+//        return true;
 
-        // Populate the device collection
-        $args = [];
 
-        foreach($tokens as $i =>  $token) {
-
-            $args[$i] = PushNotification::Device($token);
-            //return $i;
-        }
-
-        $devices = PushNotification::DeviceCollection($args);
-
-
-        $message = 'Hello this is test';
-
-        // Send the notification to all devices in the collect
-        $collection = PushNotification::app('appNameAndroid')
-            ->to($devices)
-            ->send($message);
-
-
-        return true;
+        $deviceToken = Gcm::where('id',1)->pluck('device_token');
+        PushNotification::app('appNameAndroid')
+            ->to($deviceToken)
+            ->send('Hello World, i`m a push message');
     }
 
 
