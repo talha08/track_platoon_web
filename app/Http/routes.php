@@ -118,6 +118,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 		Route::get('followerList', ['as'=>'followerList','uses' => 'Api\FollowerController@followerList']);
 		Route::get('followingList', ['as'=>'followingList','uses' => 'Api\FollowerController@followingList']);
+		Route::get('isFollowing', ['as'=>'isFollowing','uses' => 'Api\FollowerController@isFollowing']);
 
 	     Route::get('showFollowerRequest', ['as'=>'showFollowerRequest','uses' => 'Api\FollowerController@showFollowerRequest']);
 	     Route::post('acceptFollowerRequest', ['as'=>'acceptFollowerRequest','uses' => 'Api\FollowerController@acceptFollowerRequest']);

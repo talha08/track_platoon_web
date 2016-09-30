@@ -305,4 +305,29 @@ class FollowerController extends Controller
     }
 
 
+
+
+    /**
+     * Checking already following or not
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @param: user_id,follower_id
+     * @url: /isFollowing
+     * @return: success(success_code=200), error(error_code=100)
+     */
+        public function isFollowing(Request $request){
+
+            $user_id = $request->user_id;
+            $follower_id = $request->follower_id;
+
+            $user = AppUser::where('id',$user_id)->first();
+            $follower = FollowUser::where('user_id',$user_id )->where('following',$follower_id )->first();
+
+            if(!empty($follower)){
+                return Response::json(['success' => 'Can follow', 'success_code'=> 200], 200);
+            }else{
+                return Response::json(['error' => 'Already follow him/her',  'error_code'=> 100], 403);
+            }
+        }
 }
