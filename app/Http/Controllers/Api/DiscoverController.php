@@ -45,6 +45,7 @@ class DiscoverController extends Controller
 
                $people = AppUser::where('user_type', 0)
                    ->where('id','!=',$user)
+                   ->where('user_id', '!=', 1)
                    ->whereNotIn('id',$follower)
                    ->whereNotIn('id',$following)
                    ->paginate($this->limit);
