@@ -24,8 +24,8 @@ class GcmController extends Controller
         $user_id = $request->user_id;
         $device_token  = $request->device_token;
 
-        $gcm_id =Gcm::where('device_token',$device_token)->get();
-        if(!empty($gcm_id)){
+        $gcm_id =Gcm::where('device_token','LIke',$device_token)->get();
+        if(empty($gcm_id)){
             $gcm = new Gcm();
             $gcm->user_id = $user_id;
             $gcm->device_token = $device_token;
