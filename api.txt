@@ -359,8 +359,6 @@
 		/**
 		 * Checking already following or not
 		 *
-		 * @param Request $request
-		 * @return \Illuminate\Http\JsonResponse
 		 * @param: user_id,follower_id
 		 * @url: /isFollowing
 		 * @return: success(success_code=200), error(error_code=100)
@@ -408,7 +406,7 @@
      * Post solved
 	 *
      * Post Method
-     * @param: post_id, title, description, help_info
+     * @param: post_id, title, description, help_info, photo[] (multiple photo select), file[] (multiple select)
      * @url: http://localhost:8000/api/v2/postSolved
      * @return: success 200/ error 403
      */
