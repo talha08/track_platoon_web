@@ -236,6 +236,18 @@ class FollowerController extends Controller
                     ->orderBy('name', 'asc')
                     //->paginate(10);
                     ->get();
+
+
+                foreach($data as $dat){
+                    $is_follow = FollowUser::where('user_id',$user)->where('following',$dat->id )->first();
+
+                    if(!empty($is_follow)){
+                        $data['is_following'] = true; //
+                    }else{
+                        $data['is_following'] = false;
+                    }
+                }
+
                 return Response::json(['follower' => $data->toArray()], 200);
             }else{
 
