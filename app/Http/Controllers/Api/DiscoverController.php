@@ -70,29 +70,25 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'topic') {
 
-                  $interestIds = Interest::where('user_id',$user)
+
+                      $interestIds = Interest::where('user_id',$user)
                                      ->where('post_type',1)
-                                     ->lists('app_subType_id');
+                                     ->lists('app_subType_id','app_subType_id');
 
 
-
-                   $post =PostSubType::where('post_type_id',1 ,function($query) use ($interestIds ) {
-                       $query->whereNotIn('id', $interestIds);
-                    })
-                   ->orderBy('id', 'desc')
-                   ->paginate($this->limit);
-
-//                  $post = PostSubType::where('post_type_id', 1)
-//                            ->paginate($this->limit);
+                      $post = PostSubType::where('post_type_id', 1)
+                             ->whereNotIn('id', $interestIds)
+                             ->orderBy('name')
+                             ->paginate($this->limit);
 
 
-               foreach($post as $pos ){
-                   $total_post = Post::where('app_subType_id', $pos->id)->count();
-                   $total_interest = Interest::where('app_subType_id', $pos->id)->count();
+                       foreach($post as $pos ){
+                           $total_post = Post::where('app_subType_id', $pos->id)->count();
+                           $total_interest = Interest::where('app_subType_id', $pos->id)->count();
 
-                   $pos['total_post'] = $total_post;
-                   $pos['total_interest'] = $total_interest;
-               }
+                           $pos['total_post'] = $total_post;
+                           $pos['total_interest'] = $total_interest;
+                       }
 
                return Response::json([
                    'data' => $post->toArray()
@@ -101,8 +97,16 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'report') {
 
+               $interestIds = Interest::where('user_id',$user)
+                   ->where('post_type',2)
+                   ->lists('app_subType_id','app_subType_id');
+
+
                $post = PostSubType::where('post_type_id', 2)
+                   ->whereNotIn('id', $interestIds)
+                   ->orderBy('name')
                    ->paginate($this->limit);
+
 
                foreach($post as $pos ){
                    $total_post = Post::where('app_subType_id', $pos->id)->count();
@@ -119,7 +123,14 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'campaign') {
 
+               $interestIds = Interest::where('user_id',$user)
+                   ->where('post_type',4)
+                   ->lists('app_subType_id','app_subType_id');
+
+
                $post = PostSubType::where('post_type_id', 4)
+                   ->whereNotIn('id', $interestIds)
+                   ->orderBy('name')
                    ->paginate($this->limit);
 
                foreach($post as $pos ){
@@ -137,7 +148,14 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'help') {
 
+               $interestIds = Interest::where('user_id',$user)
+                   ->where('post_type',3)
+                   ->lists('app_subType_id','app_subType_id');
+
+
                $post = PostSubType::where('post_type_id', 3)
+                   ->whereNotIn('id', $interestIds)
+                   ->orderBy('name')
                    ->paginate($this->limit);
 
                foreach($post as $pos ){
