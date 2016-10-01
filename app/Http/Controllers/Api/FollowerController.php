@@ -220,42 +220,34 @@ class FollowerController extends Controller
      *
      */
     public function followerList(Request $request){
+
         try{
+            $user = $request->user_id;
+            $filter = $request->filter;
 
-              $user = $request->user_id;
-              $filter = $request->filter;
-           if($filter === 'people'){
+               $follower = \DB::table('app_follow_users')
+                ->where('following',$user)
+                //->where('status',2)  //if not accept though we see the list whom you folllow
+                ->lists('user_id');
 
-               $followers = \DB::table('app_follow_users')
-                   ->where('following',$user)
-                   ->where('status',2)
-                   ->lists('user_id');
+            if($filter === 'people'){
+                $data = AppUser::whereIn('id',$follower )
+                    ->where('user_type', 0) //  0 for person, 1 for organization
+                    ->orderBy('name', 'asc')
+                    //->paginate(10);
+                    ->get();
+                return Response::json(['follower' => $data->toArray()], 200);
+            }else{
 
-
-               $data = AppUser::whereIn('id',$followers )
-                        ->where('user_type', 0) //  0 for person, 1 for organization
-                        ->orderBy('name', 'asc')
-                      //  ->paginate(10);
-                         ->get();
-
-               return Response::json(['follower' => $data->toArray()], 200);
-           }else{
-
-               $user = $request->user_id;
-               $followers = \DB::table('app_follow_users')
-                   ->where('following',$user)
-                   ->where('status',2)
-                   ->lists('user_id');
+                $data = AppUser::whereIn('id',$follower )
+                    ->where('user_type', 1) //  0 for person, 1 for organization
+                    ->orderBy('name', 'asc')
+                    // ->paginate(10);
+                    ->get();
+                return Response::json(['follower' => $data->toArray()], 200);
+            }
 
 
-               $data = AppUser::whereIn('id',$followers )
-                   ->where('user_type', 1) //  0 for person, 1 for organization
-                   ->orderBy('name', 'asc')
-                   //->paginate(10);
-                   ->get();
-
-               return Response::json(['follower' => $data->toArray()], 200);
-           }
         }catch(Exception $ex){
             return Response::json(['error' => 'Something went wrong'], 403);
         }
