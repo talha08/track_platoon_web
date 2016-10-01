@@ -126,8 +126,8 @@ class Post extends Model
         $devices = PushNotification::DeviceCollection($args);
 
 
-        $message = 'Hello this is test';
-      //  $message = $post;
+        //$message = 'Hello this is test';
+       $message = $post;
 
         // Send the notification to all devices in the collect
         $collection = PushNotification::app('appNameAndroid')
