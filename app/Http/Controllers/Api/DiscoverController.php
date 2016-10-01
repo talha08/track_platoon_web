@@ -70,8 +70,20 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'topic') {
 
-                 $post = PostSubType::where('post_type_id', 1)
-                            ->paginate($this->limit);
+                  $interestIds = Interest::where('user_id',$user)
+                                     ->where('post_type',1)
+                                     ->lists('app_subType_id');
+
+
+
+                   $post =PostSubType::where('post_type_id',1 ,function($query) use ($interestIds ) {
+                       $query->whereNotIn('id', $interestIds);
+                    })
+                   ->orderBy('id', 'desc')
+                   ->paginate($this->limit);
+
+//                  $post = PostSubType::where('post_type_id', 1)
+//                            ->paginate($this->limit);
 
 
                foreach($post as $pos ){
