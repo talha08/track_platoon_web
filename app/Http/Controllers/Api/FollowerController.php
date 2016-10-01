@@ -88,7 +88,9 @@ class FollowerController extends Controller
                 ->where('status',1)  //request
                 ->lists('following');
             // return    FollowUser::with('user')->where('user_id',$user)->get();
-            $data = AppUser::whereIn('id',$followers )->paginate(10);
+            $data = AppUser::whereIn('id',$followers )
+                     //->paginate(10);
+                       ->get();
 
             return Response::json(['followerRequest' => $data->toArray()], 200);
         }catch(Exception $ex){
@@ -233,7 +235,8 @@ class FollowerController extends Controller
                $data = AppUser::whereIn('id',$followers )
                         ->where('user_type', 0) //  0 for person, 1 for organization
                         ->orderBy('name', 'asc')
-                        ->paginate(10);
+                      //  ->paginate(10);
+                         ->get();
 
                return Response::json(['follower' => $data->toArray()], 200);
            }else{
@@ -248,7 +251,8 @@ class FollowerController extends Controller
                $data = AppUser::whereIn('id',$followers )
                    ->where('user_type', 1) //  0 for person, 1 for organization
                    ->orderBy('name', 'asc')
-                   ->paginate(10);
+                   //->paginate(10);
+                   ->get();
 
                return Response::json(['follower' => $data->toArray()], 200);
            }
@@ -287,14 +291,16 @@ class FollowerController extends Controller
                 $data = AppUser::whereIn('id',$following )
                     ->where('user_type', 0) //  0 for person, 1 for organization
                     ->orderBy('name', 'asc')
-                    ->paginate(10);
+                    //->paginate(10);
+                    ->get();
                 return Response::json(['following' => $data->toArray()], 200);
             }else{
 
                 $data = AppUser::whereIn('id',$following )
                     ->where('user_type', 1) //  0 for person, 1 for organization
                     ->orderBy('name', 'asc')
-                    ->paginate(10);
+                   // ->paginate(10);
+                   ->get();
                 return Response::json(['following' => $data->toArray()], 200);
             }
 
@@ -321,7 +327,7 @@ class FollowerController extends Controller
             $user_id = $request->user_id;
             $follower_id = $request->follower_id;
 
-            $user = AppUser::where('id',$user_id)->first();
+          //  $user = AppUser::where('id',$user_id)->first();
             $follower = FollowUser::where('user_id',$user_id )->where('following',$follower_id )->first();
 
             if(!empty($follower)){

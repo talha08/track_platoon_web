@@ -37,6 +37,9 @@ class SearchController extends Controller
     public function searchPostOrUser(Request $request)
     {
 
+
+
+
         try {
             $text = '%' . $request->search_text . '%';
 

@@ -98,6 +98,10 @@ class Post extends Model
 
 
 
+
+
+
+
     /**
      * Gcm Notification for all type post
      * @param $post_id
@@ -123,6 +127,7 @@ class Post extends Model
 
 
         $message = 'Hello this is test';
+      //  $message = $post;
 
         // Send the notification to all devices in the collect
         $collection = PushNotification::app('appNameAndroid')
