@@ -340,7 +340,7 @@ class FollowerController extends Controller
                     }
                 }
 
-                
+
                 return Response::json(['following' => $data->toArray()], 200);
             }
 
@@ -370,7 +370,7 @@ class FollowerController extends Controller
           //  $user = AppUser::where('id',$user_id)->first();
             $follower = FollowUser::where('user_id',$user_id )->where('following',$follower_id )->first();
 
-            if(!empty($follower)){
+            if(empty($follower)){
                 return Response::json(['success' => 'Can follow', 'success_code'=> 200], 200);
             }else{
                 return Response::json(['error' => 'Already follow him/her',  'error_code'=> 100], 403);
