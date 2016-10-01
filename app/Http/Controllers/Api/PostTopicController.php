@@ -114,13 +114,13 @@ class PostTopicController extends Controller
 
 
               //gcm
-             //   try{
+               try{
                     Post::sendGcm($topic->id);  //call gcm function
 
                     return Response::json(['success' => 'Topic Post Successfully and gcm send '], 200);
-              //  }catch(Exception $ex){
+                }catch(Exception $ex){
                     return Response::json(['error' => 'Something went wrong to send gcm notification'], 403);
-             //   }
+               }
 
 
           }
