@@ -235,7 +235,7 @@ class SearchController extends Controller
             elseif ($filter === 'help') {
 
                 $interestIds = Interest::where('user_id',$user)
-                    ->where('post_type',13)
+                    ->where('post_type',3)
                     ->lists('app_subType_id','app_subType_id');
 
 
