@@ -238,13 +238,13 @@ class FollowerController extends Controller
                     ->get();
 
 
+                //can follow or not
                 foreach($data as $dat){
                     $is_follow = FollowUser::where('user_id',$user)->where('following',$dat->id )->first();
-
                     if(!empty($is_follow)){
-                        $data['is_following'] = true; //
+                        $dat['is_following'] = true;
                     }else{
-                        $data['is_following'] = false;
+                        $dat['is_following'] = false;
                     }
                 }
 
@@ -256,6 +256,18 @@ class FollowerController extends Controller
                     ->orderBy('name', 'asc')
                     // ->paginate(10);
                     ->get();
+
+                //can follow or not
+                foreach($data as $dat){
+                    $is_follow = FollowUser::where('user_id',$user)->where('following',$dat->id )->first();
+                    if(!empty($is_follow)){
+                        $dat['is_following'] = true;
+                    }else{
+                        $dat['is_following'] = false;
+                    }
+                }
+
+
                 return Response::json(['follower' => $data->toArray()], 200);
             }
 
@@ -297,6 +309,18 @@ class FollowerController extends Controller
                     ->orderBy('name', 'asc')
                     //->paginate(10);
                     ->get();
+
+                //can follow or not
+                foreach($data as $dat){
+                    $is_follow = FollowUser::where('user_id',$user)->where('following',$dat->id )->first();
+                    if(!empty($is_follow)){
+                        $dat['is_following'] = true;
+                    }else{
+                        $dat['is_following'] = false;
+                    }
+                }
+
+
                 return Response::json(['following' => $data->toArray()], 200);
             }else{
 
@@ -305,6 +329,18 @@ class FollowerController extends Controller
                     ->orderBy('name', 'asc')
                    // ->paginate(10);
                    ->get();
+
+                //can follow or not
+                foreach($data as $dat){
+                    $is_follow = FollowUser::where('user_id',$user)->where('following',$dat->id )->first();
+                    if(!empty($is_follow)){
+                        $dat['is_following'] = true;
+                    }else{
+                        $dat['is_following'] = false;
+                    }
+                }
+
+                
                 return Response::json(['following' => $data->toArray()], 200);
             }
 
