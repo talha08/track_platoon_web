@@ -9,7 +9,7 @@ class Post extends Model
 {
     protected $table ='app_post';
 
-   protected  $with =['postPhotos','postFiles','postSolve','postSubType','city','comments'];
+   protected  $with =['postPhotos','postFiles','postSolve','postSubType','city','comments','user'];
 
 
 
