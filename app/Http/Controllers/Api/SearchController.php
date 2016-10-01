@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\ApiModel\AppUser;
 use App\ApiModel\Comment;
+use App\ApiModel\FollowUser;
 use App\ApiModel\Post;
 use App\ApiModel\PostSubType;
 use Illuminate\Http\Request;
@@ -111,119 +112,170 @@ class SearchController extends Controller
         try {
             //Topic,Report,Help,Campaign
 
-            $text = '%' . $request->search_text . '%'; // Auth user
+            $text = '%'.$request->search_text.'%';
             $filter = $request->filter;
+            $user = $request->user_id;
+
 
             if ($filter === 'people') {
+
+                $follower = FollowUser::where('user_id',$user)->lists('following');
+                $following = FollowUser::where('following',$user)->lists('user_id');
+
                 $people = AppUser::where('user_type', 0)
+                    ->where('id','!=',$user)
+                    ->where('id', '!=', 1)
                     ->where('name', 'LIKE', $text)
+                    ->whereNotIn('id',$follower)
+                    ->whereNotIn('id',$following)
                     ->paginate($this->limit);
                 //need to send location
                 return Response::json(['data' => $people->toArray()], 200);
             }
 
+
             elseif ($filter === 'organization') {
 
+                $follower = FollowUser::where('user_id',$user)->lists('following');
+                $following = FollowUser::where('following',$user)->lists('user_id');
+
                 $organization = AppUser::where('user_type', 1)
+                    ->where('id','!=',$user)
                     ->where('name', 'LIKE', $text)
+                    ->whereNotIn('id',$follower)
+                    ->whereNotIn('id',$following)
                     ->paginate($this->limit);
                 //need to send location
                 return Response::json(['data' => $organization->toArray()], 200);
             }
 
             elseif ($filter === 'topic') {
-                $interest = Interest::where('post_type',1)->count();
-                $totalPost = Post::where('post_type',1)->count();
-                $posts = PostSubType::where('post_type_id', 1)
-                     ->where('name', 'LIKE', $text)
-                    ->paginate($this->limit);
 
 
-                foreach($posts as $post){
-                    $process = $this->progressLoop($post->id);
-                    $post['progress'] = $process;
-                }
+                $interestIds = Interest::where('user_id',$user)
+                    ->where('post_type',1)
+                    ->lists('app_subType_id','app_subType_id');
 
 
-                return Response::json([
-                    'interestPeople'=>$interest,
-                    'totalPost' => $totalPost,
-                    'data' => $posts->toArray()
-                ], 200);
-            }
-
-            elseif ($filter === 'report') {
-                $interest = Interest::where('post_type',2)->count();
-                $totalPost = Post::where('post_type',2)->count();
-                $posts = PostSubType::where('post_type_id', 2)
+                   $post = PostSubType::where('post_type_id', 1)
+                    ->whereNotIn('id', $interestIds)
+                    ->orderBy('name')
                     ->where('name', 'LIKE', $text)
                     ->paginate($this->limit);
 
-                foreach($posts as $post){
-                    $process = $this->progressLoop($post->id);
-                    $post['progress'] = $process;
-                }
 
 
-                return Response::json([
-                    'interestPeople'=>$interest,
-                    'totalPost' => $totalPost,
-                    'data' => $posts->toArray()
-                ], 200);
-            }
+                foreach($post as $pos ){
+                    $total_post = Post::where('app_subType_id', $pos->id)->count();
+                    $total_interest = Interest::where('app_subType_id', $pos->id)->count();
 
-            elseif ($filter === 'campaign') {
-                $interest = Interest::where('post_type',4)->count();
-                $totalPost = Post::where('post_type',4)->count();
-                $posts = PostSubType::where('post_type_id', 4)
-                    ->where('name', 'LIKE', $text)
-                    ->paginate($this->limit);
-
-                foreach($posts as $post){
-                    $process = $this->progressLoop($post->id);
-                    $post['progress'] = $process;
+                    $pos['total_post'] = $total_post;
+                    $pos['total_interest'] = $total_interest;
                 }
 
                 return Response::json([
-                    'interestPeople'=>$interest,
-                    'totalPost' => $totalPost,
-                    'data' => $posts->toArray()
-                ], 200);
-            }
-
-            elseif ($filter === 'help') {
-                $interest = Interest::where('post_type',3)->count();
-                $totalPost = Post::where('post_type',3)->count();
-                $posts = PostSubType::where('post_type_id', 3)
-                    ->where('name', 'LIKE', $text)
-                    ->paginate($this->limit);
-
-                foreach($posts as $post){
-                    $process = $this->progressLoop($post->id);
-                    $post['progress'] = $process;
-                }
-
-
-                return Response::json([
-                    'interestPeople'=>$interest,
-                    'totalPost' => $totalPost,
-                    'data' => $posts->toArray()
-                ], 200);
-            }
-
-            elseif ($filter === 'all') {
-                $interest = Interest::count();
-                $totalPost = Post::count();
-                $post = PostSubType::whereIn('post_type_id', [1, 2, 3, 4])
-                    ->where('name', 'LIKE', $text)
-                    ->paginate($this->limit);
-                return Response::json([
-                    'interestPeople'=>$interest,
-                    'totalPost' => $totalPost,
                     'data' => $post->toArray()
                 ], 200);
             }
 
+            elseif ($filter === 'report') {
+
+                $interestIds = Interest::where('user_id',$user)
+                    ->where('post_type',2)
+                    ->lists('app_subType_id','app_subType_id');
+
+
+                $post = PostSubType::where('post_type_id', 2)
+                    ->whereNotIn('id', $interestIds)
+                    ->orderBy('name')
+                    ->where('name', 'LIKE', $text)
+                    ->paginate($this->limit);
+
+
+                foreach($post as $pos ){
+                    $total_post = Post::where('app_subType_id', $pos->id)->count();
+                    $total_interest = Interest::where('app_subType_id', $pos->id)->count();
+
+                    $pos['total_post'] = $total_post;
+                    $pos['total_interest'] = $total_interest;
+                }
+
+                return Response::json([
+                    'data' => $post->toArray()
+                ], 200);
+            }
+
+            elseif ($filter === 'campaign') {
+
+                $interestIds = Interest::where('user_id',$user)
+                    ->where('post_type',4)
+                    ->lists('app_subType_id','app_subType_id');
+
+
+                $post = PostSubType::where('post_type_id', 4)
+                    ->whereNotIn('id', $interestIds)
+                    ->orderBy('name')
+                    ->where('name', 'LIKE', $text)
+                    ->paginate($this->limit);
+
+
+                foreach($post as $pos ){
+                    $total_post = Post::where('app_subType_id', $pos->id)->count();
+                    $total_interest = Interest::where('app_subType_id', $pos->id)->count();
+
+                    $pos['total_post'] = $total_post;
+                    $pos['total_interest'] = $total_interest;
+                }
+
+                return Response::json([
+                    'data' => $post->toArray()
+                ], 200);
+            }
+
+            elseif ($filter === 'help') {
+
+                $interestIds = Interest::where('user_id',$user)
+                    ->where('post_type',13)
+                    ->lists('app_subType_id','app_subType_id');
+
+
+                $post = PostSubType::where('post_type_id', 3)
+                    ->whereNotIn('id', $interestIds)
+                    ->orderBy('name')
+                    ->where('name', 'LIKE', $text)
+                    ->paginate($this->limit);
+
+                foreach($post as $pos ){
+                    $total_post = Post::where('app_subType_id', $pos->id)->count();
+                    $total_interest = Interest::where('app_subType_id', $pos->id)->count();
+
+                    $pos['total_post'] = $total_post;
+                    $pos['total_interest'] = $total_interest;
+                }
+
+                return Response::json([
+                    'data' => $post->toArray()
+                ], 200);
+            }
+
+            elseif ($filter === 'all') {
+
+                $post = PostSubType::whereIn('post_type_id', [1, 2, 3, 4])
+                    ->where('name', 'LIKE', $text)
+                    ->paginate($this->limit);
+
+                foreach($post as $pos ){
+                    $total_post = Post::where('app_subType_id', $pos->id)->count();
+                    $total_interest = Interest::where('app_subType_id', $pos->id)->count();
+
+                    $pos['total_post'] = $total_post;
+                    $pos['total_interest'] = $total_interest;
+                }
+
+                return Response::json([
+                    'data' => $post->toArray()
+                ], 200);
+            }
             else {
                 return Response::json(['error' => 'Something went wrong'], 403);
             }
@@ -233,6 +285,9 @@ class SearchController extends Controller
         }
 
     }
+
+
+
 
 
 

@@ -481,7 +481,7 @@
 			 *
 			 *
 			 * Get Method
-			 * @param: search_text, filter = [people,organization,topic,report,campaign,help]
+			 * @param: search_text, filter = [people,organization,topic,report,campaign,help],user_id
 			 * @url: http://platoon.sustcse12.cf/api/v2/searchDiscover
 			 * @return: data json,200
 			 *
