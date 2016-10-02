@@ -132,8 +132,8 @@ class Post extends Model
         //.....................................
 
 
-        //$message = 'Hello this is test';
-       $message = Post::singlePost($post->id);
+        $message = 'Hello this is test';
+       // $message = Post::singlePost($post->id);
 
         //.....................................
 
@@ -166,11 +166,11 @@ class Post extends Model
     /**
      * Single Post with Progress bar
      *
-     * @param Request $request
+     * @param $post_id_gcm
      * @return \Illuminate\Http\JsonResponse
      *
      * Get Method
-     * @param: post_id
+     * @param: $post_id_gcm
      * @url: http://localhost:8000/api/v2/singlePost
      * @return: json progress, post 200
      */
