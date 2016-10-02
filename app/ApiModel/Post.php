@@ -134,8 +134,9 @@ class Post extends Model
 
 
         //$message = 'Hello this is test';
-        $message =  Post::singlePost($post->id);
-
+         $post =  Post::singlePost($post->id);
+        // $message = json_decode($post);
+         $message = $post;
         //.....................................
 
         // Send the notification to all devices in the collect
@@ -144,13 +145,7 @@ class Post extends Model
             ->send($message);
 
 
-         return $message;
-
-//
-//        $deviceToken = Gcm::where('id',1)->pluck('device_token');
-//        PushNotification::app('appNameAndroid')
-//            ->to($deviceToken)
-//            ->send('Hello World, i`m a push message');
+         return true;
     }
 
 
@@ -180,7 +175,7 @@ class Post extends Model
         // survey among == report, campaign
         //topic=1 , report=2, help=3,campaign=4
 
-        try{
+
             $post_id = $post_id_gcm;
             $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
 
@@ -232,7 +227,6 @@ class Post extends Model
 
             //..........................
 
-            if(!empty($post)) {
                 if ($post->post_type == 2) {
                     //for progress calculation
                     $commentCount = count($comment);
@@ -273,14 +267,6 @@ class Post extends Model
                         'userList' => $userIds->toArray(),
                     ], 200);
                 }
-            }else{
-                return Response::json(['error' => 'No post found with this id'], 403);
-            }
-
-        }catch(Exception $ex){
-            return Response::json(['error' => 'Something went wrong'], 403);
-        }
-
     }
 
 
