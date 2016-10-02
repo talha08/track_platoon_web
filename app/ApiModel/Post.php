@@ -133,9 +133,9 @@ class Post extends Model
         //.....................................
 
 
-        $message = 'Hello this is test';
+        //$message = 'Hello this is test';
          //$posts =  Post::singlePost($post->id);
-        // $message = $posts;
+         $message = $post->id;
         //.....................................
 
         // Send the notification to all devices in the collect
