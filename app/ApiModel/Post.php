@@ -121,11 +121,11 @@ class Post extends Model
         //.....................................
 
         //gcm
-        //  $result = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
+          $result = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
 
         $tokens = Gcm::where('user_id', '!=', $post->posted_by)
-            //  ->where('user_id', '!=', 1)
-            //  ->whereIn('user_id',$result)
+             ->where('user_id', '!=', 1)
+            ->whereIn('user_id',$result)
             ->get();  // getting the device token
 
 
@@ -144,11 +144,6 @@ class Post extends Model
         $devices = PushNotification::DeviceCollection($args);
 
 
-
-        //....................................
-        $followingIds = FollowUser::where('user_id',$post->posted_by)->lists('following'); //all user whom I follow
-        $followerIds = FollowUser::where('following',$post->posted_by)->lists('user_id'); //all user who follow me
-        //.....................................
 
 
         //$message = 'Hello this is test';
