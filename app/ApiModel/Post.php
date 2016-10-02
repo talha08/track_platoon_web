@@ -112,12 +112,23 @@ class Post extends Model
     public static function sendGcm($post_id)
     {
         $post = Post::findOrFail($post_id);
-        //gcm
 
-        $tokens = Gcm::where('user_id', '!=', $post->posted_by)->get();  // getting the device token
+        //....................................
+        $followingIds = FollowUser::where('user_id',$post->posted_by)->lists('following'); //all user whom I follow
+        $followerIds = FollowUser::where('following',$post->posted_by)->lists('user_id'); //all user who follow me
+        //.....................................
+
+        //gcm
+        $result = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
+
+         $tokens = Gcm::where('user_id', '!=', $post->posted_by)
+                        ->where('user_id', '!=', 1)
+                        ->whereIn('user_id',$result)
+                        ->get();  // getting the device token
 
         // Populate the device collection
         $args = [];
+
 
         foreach($tokens as $i =>  $token) {
 
@@ -125,23 +136,27 @@ class Post extends Model
             //return $i;
         }
 
-        $devices = PushNotification::DeviceCollection($args);
+         $devices = PushNotification::DeviceCollection($args);
 
 
 
 
-        //.....................................
 
 
         //$message = 'Hello this is test';
-        $posts =  Post::singlePost($post->id);
-         $message = json_encode($posts);
+          $posts =  Post::singlePost($post->id);
+          $message = json_encode($posts);
         //.....................................
 
         // Send the notification to all devices in the collect
-        $collection = PushNotification::app('appNameAndroid')
-            ->to($devices)
-            ->send($message);
+        if(!empty($tokens)){
+            $collection = PushNotification::app('appNameAndroid')
+                ->to($devices)
+                ->send($message);
+        }else{
+
+        }
+
 
 
          return true;
@@ -176,55 +191,13 @@ class Post extends Model
 
 
             $post_id = $post_id_gcm;
+
             $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
-
             $comment = Comment::with('subComments')->where('post_id', $post->id)->get();
-
             $support =  Comment::where('post_id',$post->id)->where('app_comment_type_id', 1)->count();
             $unsupport =  Comment::where('post_id',$post->id)->where('app_comment_type_id', 2)->count();
-            //$support = $comment->where('app_comment_type_id', 1)->count();
-            //$unsupport = $comment->where('app_comment_type_id', 2)->count();
             $share = 0;
 
-
-
-            //..........................
-            //is follow or not
-            $followingIds = FollowUser::where('user_id',$post->posted_by)->lists('following'); //all user whom I follow
-            $followerIds = FollowUser::where('following',$post->posted_by)->lists('user_id'); //all user whom I follow
-            $userIds = AppUser::where('id','!=',1)
-                ->where('id','!=',$post->posted_by )
-                ->get(); // all user
-
-            foreach($userIds as $follow){
-
-                if(in_array($follow->id,$followingIds->toArray()))
-                {
-                    $follow['is_following'] = true;
-                }
-
-                else
-                {
-                    $follow['is_following'] = false;
-                }
-
-            }
-
-            foreach($userIds as $follow){
-
-                if(in_array($follow->id,$followerIds->toArray()))
-                {
-                    $follow['is_follower'] = true;
-                }
-
-                else
-                {
-                    $follow['is_follower'] = false;
-                }
-
-            }
-
-            //..........................
 
                 if ($post->post_type == 2) {
                     //for progress calculation
@@ -237,8 +210,7 @@ class Post extends Model
                         'support'=>$support,
                         'unSupport' => $unsupport,
                         'share' => $share,
-                        'post' => $post,
-                        'userList' => $userIds->toArray(),
+                        'post' => $post
                     ];
 
                 }elseif($post->post_type == 4){
@@ -252,8 +224,8 @@ class Post extends Model
                         'support'=>$support,
                         'unSupport' => $unsupport,
                         'share' => $share,
-                        'post' => $post,
-                        'userList' => $userIds->toArray(),
+                        'post' => $post
+
                     ];
                 }
                 else {
@@ -262,8 +234,7 @@ class Post extends Model
                         'support'=>$support,
                         'unSupport' => $unsupport,
                         'share' => $share,
-                        'post' => $post,
-                        'userList' => $userIds->toArray(),
+                        'post' => $post
                     ];
                 }
     }
