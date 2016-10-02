@@ -134,7 +134,7 @@ class Post extends Model
 
 
         //$message = 'Hello this is test';
-         $posts =  Post::singlePost($post->id);
+        $posts =  Post::singlePost($post->id);
          $message = json_encode($posts);
         //.....................................
 
@@ -232,14 +232,14 @@ class Post extends Model
                     $survey_among = $post->survey_among;
                     $progress = Post::progress($commentCount, $survey_among);
 
-                    return Response::json([
+                    return [
                         'progress' => $progress,
                         'support'=>$support,
                         'unSupport' => $unsupport,
                         'share' => $share,
                         'post' => $post,
                         'userList' => $userIds->toArray(),
-                    ], 200);
+                    ];
 
                 }elseif($post->post_type == 4){
                     //for progress calculation
@@ -247,24 +247,24 @@ class Post extends Model
                     $survey_among = $post->survey_among;
                     $progress = Post::progress($commentCount, $survey_among);
 
-                    return Response::json([
+                    return [
                         'progress' => $progress,
                         'support'=>$support,
                         'unSupport' => $unsupport,
                         'share' => $share,
                         'post' => $post,
                         'userList' => $userIds->toArray(),
-                    ], 200);
+                    ];
                 }
                 else {
-                    return Response::json([
+                    return [
                         'progress' => 'null',
                         'support'=>$support,
                         'unSupport' => $unsupport,
                         'share' => $share,
                         'post' => $post,
                         'userList' => $userIds->toArray(),
-                    ], 200);
+                    ];
                 }
     }
 
