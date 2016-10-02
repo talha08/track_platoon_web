@@ -134,7 +134,7 @@ class Post extends Model
 
 
         //$message = 'Hello this is test';
-        $message = Post::singlePost($post->id);
+        $message =  Post::singlePost($post->id);
 
         //.....................................
 
@@ -144,7 +144,7 @@ class Post extends Model
             ->send($message);
 
 
-        return true;
+         return $message;
 
 //
 //        $deviceToken = Gcm::where('id',1)->pluck('device_token');
