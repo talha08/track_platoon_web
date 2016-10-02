@@ -38,6 +38,9 @@ class PostSolvedController extends Controller
             $solved->help_info = $request->help_info;
             if($solved->save()){
 
+                $post = new Post();
+                $post->is_active = 0;
+                $post->save();
 
                 //multiple  photos
                 if( $request->hasFile('photo')) {

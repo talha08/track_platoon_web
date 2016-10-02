@@ -4,6 +4,7 @@ namespace App\ApiModel;
 
 use Illuminate\Database\Eloquent\Model;
 use Davibennun\LaravelPushNotification\Facades\PushNotification;
+use Mockery\CountValidator\Exception;
 
 class Post extends Model
 {
@@ -126,8 +127,15 @@ class Post extends Model
         $devices = PushNotification::DeviceCollection($args);
 
 
+
+
+        //.....................................
+
+
         //$message = 'Hello this is test';
-       $message = $post;
+       $message = Post::singlePost($post->id);
+
+        //.....................................
 
         // Send the notification to all devices in the collect
         $collection = PushNotification::app('appNameAndroid')
@@ -143,6 +151,152 @@ class Post extends Model
 //            ->to($deviceToken)
 //            ->send('Hello World, i`m a push message');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Single Post with Progress bar
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * Get Method
+     * @param: post_id
+     * @url: http://localhost:8000/api/v2/singlePost
+     * @return: json progress, post 200
+     */
+    public static function singlePost($post_id_gcm){
+
+        // survey among == report, campaign
+        //topic=1 , report=2, help=3,campaign=4
+
+        try{
+            $post_id = $post_id_gcm;
+            $post = Post::with('user','postSolve','postFiles','postPhotos','postSubType','city')->where('id',$post_id )->first();
+
+            $comment = Comment::with('subComments')->where('post_id', $post->id)->get();
+
+            $support =  Comment::where('post_id',$post->id)->where('app_comment_type_id', 1)->count();
+            $unsupport =  Comment::where('post_id',$post->id)->where('app_comment_type_id', 2)->count();
+            //$support = $comment->where('app_comment_type_id', 1)->count();
+            //$unsupport = $comment->where('app_comment_type_id', 2)->count();
+            $share = 0;
+
+
+
+            //..........................
+            //is follow or not
+            $followingIds = FollowUser::where('user_id',$post->posted_by)->lists('following'); //all user whom I follow
+            $followerIds = FollowUser::where('following',$post->posted_by)->lists('user_id'); //all user whom I follow
+            $userIds = AppUser::where('id','!=',1)
+                ->where('id','!=',$post->posted_by )
+                ->get(); // all user
+
+            foreach($userIds as $follow){
+
+                if(in_array($follow->id,$followingIds->toArray()))
+                {
+                    $follow['is_following'] = true;
+                }
+
+                else
+                {
+                    $follow['is_following'] = false;
+                }
+
+            }
+
+            foreach($userIds as $follow){
+
+                if(in_array($follow->id,$followerIds->toArray()))
+                {
+                    $follow['is_follower'] = true;
+                }
+
+                else
+                {
+                    $follow['is_follower'] = false;
+                }
+
+            }
+
+            //..........................
+
+            if(!empty($post)) {
+                if ($post->post_type == 2) {
+                    //for progress calculation
+                    $commentCount = count($comment);
+                    $survey_among = $post->survey_among;
+                    $progress = Post::progress($commentCount, $survey_among);
+
+                    return \Response::json([
+                        'progress' => $progress,
+                        'support'=>$support,
+                        'unSupport' => $unsupport,
+                        'share' => $share,
+                        'post' => $post,
+                        'userList' => $userIds->toArray(),
+                    ], 200);
+
+                }elseif($post->post_type == 4){
+                    //for progress calculation
+                    $commentCount = count($comment)+ $post->participate;
+                    $survey_among = $post->survey_among;
+                    $progress = Post::progress($commentCount, $survey_among);
+
+                    return \Response::json([
+                        'progress' => $progress,
+                        'support'=>$support,
+                        'unSupport' => $unsupport,
+                        'share' => $share,
+                        'post' => $post,
+                        'userList' => $userIds->toArray(),
+                    ], 200);
+                }
+                else {
+                    return \Response::json([
+                        'progress' => 'null',
+                        'support'=>$support,
+                        'unSupport' => $unsupport,
+                        'share' => $share,
+                        'post' => $post,
+                        'userList' => $userIds->toArray(),
+                    ], 200);
+                }
+            }else{
+                return \Response::json(['error' => 'No post found with this id'], 403);
+            }
+
+        }catch(Exception $ex){
+            return \Response::json(['error' => 'Something went wrong'], 403);
+        }
+
+    }
+
+
+
+    /**
+     * Progress bar Calculation
+     *
+     * @param $commentCount
+     * @param $survey_among
+     * @return float
+     */
+    public function progress($commentCount,$survey_among ){
+
+        return  $calculate = ($commentCount/$survey_among) * 100 ;
+
+    }
+
 
 
 }

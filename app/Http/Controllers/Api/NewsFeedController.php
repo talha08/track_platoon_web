@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\AppUser;
 use App\ApiModel\Comment;
 use App\ApiModel\Post;
 use App\ApiModel\PostSubType;
@@ -152,17 +153,17 @@ class NewsFeedController extends Controller
         $post = Post::where('id',$post_id)->first();
 
         if ($post->post_type == 2 ) {
-            $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
-            //for progress calculation
-            $commentCount = count($comment);
-            $survey_among = $post->survey_among;
+                $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
+                //for progress calculation
+                $commentCount = count($comment);
+                $survey_among = $post->survey_among;
 
-            return $calculate = ($commentCount / $survey_among) * 100;
-        }elseif($post->post_type == 4){
+                return $calculate = ($commentCount / $survey_among) * 100;
+            }elseif($post->post_type == 4){
 
-            $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
-            //for progress calculation
-            $commentCount = count($comment) + $post->participate;
+                $comment = Comment::with('subComments')->where('post_id', $post_id)->get();
+                //for progress calculation
+                $commentCount = count($comment) + $post->participate;
             $survey_among = $post->survey_among;
 
             return $calculate = ($commentCount / $survey_among) * 100;
@@ -207,7 +208,10 @@ class NewsFeedController extends Controller
                     //$unsupport = $comment->where('app_comment_type_id', 2)->count();
                     $share = 0;
 
-                if(!empty($post)) {
+
+
+
+                   if(!empty($post)) {
                     if ($post->post_type == 2) {
                         //for progress calculation
                         $commentCount = count($comment);
