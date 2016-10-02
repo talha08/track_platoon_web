@@ -5,6 +5,7 @@ namespace App\ApiModel;
 use Illuminate\Database\Eloquent\Model;
 use Davibennun\LaravelPushNotification\Facades\PushNotification;
 use Mockery\CountValidator\Exception;
+use Response;
 
 class Post extends Model
 {
@@ -132,8 +133,8 @@ class Post extends Model
         //.....................................
 
 
-        $message = 'Hello this is test';
-       // $message = Post::singlePost($post->id);
+        //$message = 'Hello this is test';
+        $message = Post::singlePost($post->id);
 
         //.....................................
 
@@ -238,7 +239,7 @@ class Post extends Model
                     $survey_among = $post->survey_among;
                     $progress = Post::progress($commentCount, $survey_among);
 
-                    return \Response::json([
+                    return Response::json([
                         'progress' => $progress,
                         'support'=>$support,
                         'unSupport' => $unsupport,
@@ -253,7 +254,7 @@ class Post extends Model
                     $survey_among = $post->survey_among;
                     $progress = Post::progress($commentCount, $survey_among);
 
-                    return \Response::json([
+                    return Response::json([
                         'progress' => $progress,
                         'support'=>$support,
                         'unSupport' => $unsupport,
@@ -263,7 +264,7 @@ class Post extends Model
                     ], 200);
                 }
                 else {
-                    return \Response::json([
+                    return Response::json([
                         'progress' => 'null',
                         'support'=>$support,
                         'unSupport' => $unsupport,
@@ -273,11 +274,11 @@ class Post extends Model
                     ], 200);
                 }
             }else{
-                return \Response::json(['error' => 'No post found with this id'], 403);
+                return Response::json(['error' => 'No post found with this id'], 403);
             }
 
         }catch(Exception $ex){
-            return \Response::json(['error' => 'Something went wrong'], 403);
+            return Response::json(['error' => 'Something went wrong'], 403);
         }
 
     }
@@ -291,7 +292,7 @@ class Post extends Model
      * @param $survey_among
      * @return float
      */
-    public function progress($commentCount,$survey_among ){
+    public static  function progress($commentCount,$survey_among ){
 
         return  $calculate = ($commentCount/$survey_among) * 100 ;
 
