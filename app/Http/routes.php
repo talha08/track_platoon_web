@@ -160,6 +160,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 		//Gcm
 	    Route::post('gcmStore', ['as'=>'gcmStore','uses' => 'Api\GcmController@gcmStore']);
+	    Route::get('logout', ['as'=>'logout','uses' => 'Api\GcmController@logout']);
 
 
 	  //setting

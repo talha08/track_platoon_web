@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mockery\CountValidator\Exception;
 use Response;
 class GcmController extends Controller
 {
@@ -39,4 +40,33 @@ class GcmController extends Controller
         }
 
     }
+
+
+    /**
+     *
+     * Logout
+     * Get Method
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param: user_id
+     * @url: /logout
+     * return success, error (error_code =300)
+     *
+     */
+    public function logout(Request $request){
+        try{
+             $user_id = $request->user_id;
+             $deletedRows = Gcm::where('user_id',$user_id)->delete();
+
+            return Response::json(['success' => 'Logout Successfully'], 200);
+        }catch(Exception $ex){
+            return Response::json(['error' => 'Something went wrong', 'error_code'=>300], 403);
+        }
+    }
+
+
+
+
 }

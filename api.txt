@@ -500,6 +500,21 @@
 			 * @return success, error
 			 */
 
+			     /**
+                  *
+                  * Logout
+                  * Get Method
+                  *
+                  * @param Request $request
+                  * @return \Illuminate\Http\JsonResponse
+                  *
+                  * @param: user_id
+                  * @url: /logout
+                  * return success, error (error_code =300)
+                  *
+                  */
+
+
   	   =========================================
                Forgot Password
 	   =========================================
