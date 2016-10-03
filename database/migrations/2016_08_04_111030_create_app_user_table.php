@@ -16,7 +16,7 @@ class CreateAppUserTable extends Migration
             $table->increments('id');
             $table->string('name');
            // $table->string('type');
-            $table->string('profile_pic')->default('http://platoon.sustcse12.cf/upload/default/icon.jpg');
+            $table->string('profile_pic')->default(Request::root().'/upload/default/icon.jpg');
             $table->string('confirm_code');
             $table->string('is_active')->default(0);   // 0 inactive , 1 for active
             $table->string('user_type')->default(0);   //  0 for person, 1 for organization

@@ -167,7 +167,16 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 	  //setting
-
+	  Route::post('updateUsername', ['as'=>'updateUsername','uses' => 'Api\ProfileSettingController@updateUsername']);
+	  Route::post('updateEmail', ['as'=>'updateEmail','uses' => 'Api\ProfileSettingController@updateEmail']);
+	  Route::post('updatePassword', ['as'=>'updatePassword','uses' => 'Api\ProfileSettingController@updatePassword']);
+	  Route::post('updateMobile', ['as'=>'updateMobile','uses' => 'Api\ProfileSettingController@updateMobile']);
+	  Route::post('updateName', ['as'=>'updateName','uses' => 'Api\ProfileSettingController@updateName']);
+	  Route::post('updateOccupation', ['as'=>'updateOccupation','uses' => 'Api\ProfileSettingController@updateOccupation']);
+	  Route::post('updateWorkPlace', ['as'=>'updateWorkPlace','uses' => 'Api\ProfileSettingController@updateWorkPlace']);
+	  Route::post('updateCity', ['as'=>'updateCity','uses' => 'Api\ProfileSettingController@updateCity']);
+	  Route::post('updateCountry', ['as'=>'updateCountry','uses' => 'Api\ProfileSettingController@updateCountry']);
+	  Route::post('changeProfileImage', ['as'=>'changeProfileImage','uses' => 'Api\ProfileSettingController@changeProfileImage']);
 
 
 
