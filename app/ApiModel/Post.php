@@ -137,8 +137,7 @@ class Post extends Model
              ->get();  // getting the device token
 
 
-        $tokens1 = Gcm::where('user_id', '!=', $post->posted_by)
-            ->where('user_id', '!=', 1)
+        $tokens1 = Gcm::where('user_id', '!=', 1)
             ->whereIn('user_id',$other_user)
             ->get();  // getting the device token
 
