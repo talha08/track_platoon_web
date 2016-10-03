@@ -608,3 +608,135 @@
 	* @url: /checkParticipateStatus
 	* @return: success[eligible to participate(success_id =>200)]  or error[Already Participated(error_id => 300)]
 	*/
+
+
+		=========================================
+		Profile Setting
+		========================================
+
+		/**
+		* Update UserName
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, username
+		* @url: /updateUsername
+		* @return: success 200, error(error_id = 403)
+		*/
+
+
+
+		/**
+		* Update Email
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, email
+		* @url: /updateEmail
+		* @return: success 200, error
+		*/
+
+
+
+
+		/**
+		* Update Password
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, old_password, new_password
+		* @url: /updatePassword
+		* @return: success 200, error
+		*/
+
+
+
+
+		/**
+		* Update Mobile
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, mobile
+		* @url: /updateMobile
+		* @return: success 200, error
+		*/
+
+
+		/**
+		* Update Name
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, name
+		* @url: /updateName
+		* @return: success 200, error
+		*/
+
+
+
+		/**
+		* Update Occupation
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, occupation
+		* @url: /updateOccupation
+		* @return: success 200, error
+		*/
+
+
+
+		/**
+		* Update Work Place
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, work_place
+		* @url: /updateWorkPlace
+		* @return: success 200, error
+		*/
+
+
+		/**
+		* Update City
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, city
+		* @url: /updateCity
+		* @return: success 200, error
+		*/
+
+
+		/**
+		* Update Country
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, country
+		* @url: /updateCountry
+		* @return: success 200, error
+		*/
+
+
+
+		/**
+		* Update Profile Image
+		* Post Method
+		* @param Request $request
+		* @return \Illuminate\Http\JsonResponse
+		*
+		* @param: user_id, image
+		* @url: /changeProfileImage
+		* @return: success 200, error
+		*/

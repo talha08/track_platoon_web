@@ -41,24 +41,25 @@ class SignupController extends Controller
     /**
      * Email Sign Up
      * Post Method
-     * @param email,password,name,account_type=1
+     * @param email,password,name, account_type  = (0 for person, 1 for organization)
      * @param Request $request
      * @return success, 200
      */
     public function register(Request $request){
 
-        $email = $request->email;
+         $email = $request->email;
         $password = $request->password;
         $name = $request->name;
-        $user_type = $request->user_type;
+        $user_type = $request->account_type;
+
+
         $confirm_code = $this->genRandomString();
 
-        $user_exists= EmailLogin::where('email', $email)->first();
+        $user_exists= EmailLogin::where('email', $email)->count();
 
 
-        if(!$user_exists){
+        if(empty($user_exists)){
 
-            if($request->account_type == 1){  // here 1 mean email sign up , 2 = facebook, 3 = google , 4= twitter
 
                 $user = new AppUser();
                 $user->name = $name;
@@ -96,7 +97,7 @@ class SignupController extends Controller
 
                     return Response::json(['error'=>'Something went wrong'], 403);
                 }
-            }
+
 
         }else{
             return Response::json(['error'=>'User Already Exists'], 403);

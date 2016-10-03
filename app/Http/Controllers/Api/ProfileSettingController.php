@@ -327,7 +327,7 @@ class ProfileSettingController extends Controller
 
 
     /**
-     * Update Country
+     * Update Profile Image
      * Post Method
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
