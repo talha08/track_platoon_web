@@ -121,8 +121,7 @@ class Post extends Model
         //.....................................
 
         //following or follower id
-        $userList = AppUser::where('id', '!=', $post->posted_by)
-                     ->where('id', '!=', 1)
+        $userList = AppUser::where('id', '!=', 1)
                      ->lists('id');
 
         $following_follower_user = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
@@ -131,8 +130,7 @@ class Post extends Model
 
 
 
-        $tokens = Gcm::where('user_id', '!=', $post->posted_by)
-             ->where('user_id', '!=', 1)
+        $tokens = Gcm::where('user_id', '!=', 1)
               ->whereIn('user_id',$following_follower_user)
              ->get();  // getting the device token
 
