@@ -28,8 +28,8 @@ class CreateAppUserTable extends Migration
             $table->string('mobile')->nullable();
             $table->string('occupation')->nullable();
             $table->string('work_place')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
+            $table->string('city')->default('Dhaka');
+            $table->string('country')->default('Bangladesh');
             $table->string('religion')->nullable();
 
 

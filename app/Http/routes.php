@@ -70,6 +70,9 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		//forgot pass forgotPassword
 		Route::post('forgotPassword', ['as'=>'forgotPassword','uses' => 'Api\UserController@forgotPassword']);
 
+		//invites user
+		Route::post('inviteUser', ['as'=>'inviteUser','uses' => 'Api\UserController@inviteUser']);
+
 		//user ban request
 		Route::post('userBanRequest', ['as'=>'userBanRequest','uses' => 'Api\UserBannedController@userBanRequest']);
 

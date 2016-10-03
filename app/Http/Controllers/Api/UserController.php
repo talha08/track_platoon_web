@@ -114,9 +114,32 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Invite user
+     * Post method
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param: email,user_id
+     * @url: /inviteUser
+     * @return: success, error(error_code = 300)
+     */
+    public function inviteUser(Request $request){
+        $email = $request->email;
+        $user_id = $request->user_id;
+        try{
+            $user = AppUser::where('id',$user_id)->first();
+            \Mail::send('emails.invite', ['user'=>$user],
+                function($message) {
+                    $message->to(\Input::get('email'))
+                        ->subject('Invitation from Track Platoon');
+                });
 
-
-
+            return Response::json(['success' => 'email successfully sent'], 200);
+        }catch(Exception $e){
+            return Response::json(['error' => 'Something went wrong', 'error_code'=>300], 403);
+        }
+    }
 
 
 }

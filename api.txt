@@ -50,7 +50,7 @@
 
 
 	=========================================
-				User Banned request
+		User Banned request && Invites
 	========================================
 
 
@@ -65,6 +65,16 @@
      * return success 200 or error 403
      */
 
+
+
+    /**
+     * Invite user
+     * Post method
+     *
+     * @param: email,user_id
+     * @url: /inviteUser
+     * @return: success, error(error_code = 300)
+     */
 
 	=========================================
 				Location
