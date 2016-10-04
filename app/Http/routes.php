@@ -104,6 +104,10 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		Route::get('postsSubComment', ['as'=>'postsSubComment','uses' => 'Api\CommentController@postsSubComment']);
 
 
+		//post delete
+		Route::get('postDelete', ['as'=>'postDelete','uses' => 'Api\PostSolvedController@postDelete']);
+
+
 		//comment post
 		Route::post('comment', ['as'=>'comment','uses' => 'Api\CommentController@commentStore']);
 		Route::post('subComment', ['as'=>'subComment','uses' => 'Api\CommentController@subCommentStore']);

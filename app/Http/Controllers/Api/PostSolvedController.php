@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiModel\Post;
+use App\ApiModel\PostAttachment;
+use App\ApiModel\PostPhoto;
 use App\ApiModel\PostSolved;
 use App\ApiModel\PostSolvedAttachment;
 use App\ApiModel\PostSolvedPhoto;
@@ -101,6 +103,69 @@ class PostSolvedController extends Controller
         }
 
     }
+
+
+    /**
+     * Post Delete
+     * Get Method
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param: user_id,post_id
+     * @url: /postDelete
+     * @return : success, error
+     *
+     */
+    public function postDelete(Request $request){
+
+        $user_id = $request->user_id;
+        $post_id = $request->post_id;
+
+        $post = Post::where('posted_by',$user_id)->where('id',$post_id)->first();
+
+     if($post != null){
+         if ($post->delete()) {
+
+             $attachments = PostAttachment::where('app_post_id', $post_id)->get();
+             if($attachments != null) {
+                 foreach($attachments as $attachment){
+
+                     if (\File::exists($attachment->file)) {
+                         \File::delete($attachment->file);
+                     }
+                     $attachment->delete();
+
+                 }
+             }
+
+             $photos = PostPhoto::where('app_post_id', $post_id)->get();
+             if($photos != null) {
+
+                foreach($photos as $photo){
+                    if (\File::exists($photo->photo)) {
+                        \File::delete($photo->photo);
+                    }
+                    $photo->delete();
+                }
+
+             }
+
+           return Response::json(['success' => 'Post deleted successfully'], 200);
+         }
+     }
+     else{
+         return Response::json(['error' => 'The request post is not listed with this corresponding user'], 403);
+     }
+    }
+
+
+
+
+
+
+
+
 
 
 

@@ -249,6 +249,18 @@
 	  */
 
 
+
+    /**
+     * Post Delete
+     * Get Method
+     *
+     *
+     * @param: user_id,post_id
+     * @url: /postDelete
+     * @return : success, error
+     *
+     */
+
 	=========================================
 				Newsfeed
 	=========================================
@@ -740,3 +752,4 @@
 		* @url: /changeProfileImage
 		* @return: success 200, error
 		*/
+
