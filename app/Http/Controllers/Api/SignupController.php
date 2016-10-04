@@ -149,11 +149,36 @@ class SignupController extends Controller
     }
 
 
+    /**
+     * Resend Confirmation Code
+     * Post method
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param: email
+     * @url: /resendConfirmationCode
+     * @return: success,error
+     *
+     */
+  public function resendConfirmationCode(Request $request){
+        $email = $request->email;
 
+          $user_id= EmailLogin::where('email', $email)->pluck('app_user_id');
+          $confirm_code = AppUser::where('id',$user_id )->pluck('confirm_code');
 
+      try{
+          \Mail::send('emails.activation', ['confirm_code'=>$confirm_code],
+              function($message) {
+                  $message->to(\Input::get('email'))
+                      ->subject('Verify your Confirmation Code');
+              });
+          return Response::json(['success'=>'Confirmation code sent'], 200);
 
+      }catch(Exception $e){
+          return Response::json(['error'=>'Confirmation code sending Problem'], 403);
+      }
 
-
+  }
 
 
 

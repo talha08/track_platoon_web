@@ -65,6 +65,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		//sign up api
 		Route::post('register', ['as'=>'register','uses' => 'Api\SignupController@register']);
 	    Route::post('confirmAccount', ['as'=>'confirmAccount','uses' => 'Api\SignupController@confirmAccount']);
+	    Route::post('resendConfirmationCode', ['as'=>'resendConfirmationCode','uses' => 'Api\SignupController@resendConfirmationCode']);
 
 
 		//forgot pass forgotPassword
@@ -105,7 +106,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 		//post delete
-		Route::get('postDelete', ['as'=>'postDelete','uses' => 'Api\PostSolvedController@postDelete']);
+		Route::post('postDelete', ['as'=>'postDelete','uses' => 'Api\PostSolvedController@postDelete']);
 
 
 		//comment post

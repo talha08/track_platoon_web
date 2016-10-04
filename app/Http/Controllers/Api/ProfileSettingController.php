@@ -66,12 +66,22 @@ class ProfileSettingController extends Controller
 
             $emailLogin = EmailLogin::where('app_user_id',$user_id)->first();
             if(!empty($emailLogin)){
-                $emailLogin->email = $email;
-                if($emailLogin->save()){
-                    return Response::json(['success' => 'Email updated successfully'], 200);
+
+                $user_exists= EmailLogin::where('email', $email)->count();
+
+                if(empty($user_exists)) {
+
+                    $emailLogin->email = $email;
+                    if ($emailLogin->save()) {
+                        return Response::json(['success' => 'Email updated successfully'], 200);
+                    } else {
+                        return Response::json(['error' => 'Something went wrong', 'error_id' => 200], 403);
+                    }
                 }else{
-                    return Response::json(['error' => 'Something went wrong', 'error_id' => 200], 403);
+                    return Response::json(['error' => 'Duplicate entry', 'error_id' => 100], 403);
                 }
+
+
             }else{
                 return Response::json(['error' => 'Logged with social, Cant change email', 'error_id' => 100], 403);
             }
