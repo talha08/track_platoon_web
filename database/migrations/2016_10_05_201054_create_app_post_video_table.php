@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostSolvedPhoto extends Migration
+class CreateAppPostVideoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreatePostSolvedPhoto extends Migration
      */
     public function up()
     {
-        Schema::create('post_solved_photo', function (Blueprint $table) {
+        Schema::create('app_post_video', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('photo');
+            $table->string('video');
             $table->integer('is_active')->default(1);  //1 or 0
-            $table->integer('app_post_solved_id')->unsigned();
-            $table->foreign('app_post_solved_id')->references('id')
-                ->on('app_post_solved')
+            $table->integer('app_post_id')->unsigned();
+            $table->foreign('app_post_id')->references('id')
+                ->on('app_post')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreatePostSolvedPhoto extends Migration
      */
     public function down()
     {
-        Schema::drop('post_solved_photo');
+        Schema::drop('app_post_video');
     }
 }

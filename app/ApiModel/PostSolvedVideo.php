@@ -4,9 +4,9 @@ namespace App\ApiModel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostSolvedAttachment extends Model
+class PostSolvedVideo extends Model
 {
-    protected $table = 'app_post_solved_attachment';
+    protected $table = 'app_post_solved_video';
 
     protected $hidden = ['created_at', 'updated_at'];
     /**
@@ -18,5 +18,4 @@ class PostSolvedAttachment extends Model
     {
         return $this->belongsTo('App\ApiModel\PostSolved','app_post_solved_id','id');
     }
-
 }

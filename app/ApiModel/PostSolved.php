@@ -39,7 +39,14 @@ class PostSolved extends Model
         return $this->hasMany('App\ApiModel\PostSolvedAttachment','app_post_solved_id','id');
     }
 
-
+    /**
+     * One to many relationship with PostSolvedVideo
+     * Post Has Many PostSolvedVideo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function postSolvedVideos(){
+        return $this->hasMany('App\ApiModel\PostSolvedVideo','app_post_solved_id','id');
+    }
 
 
 

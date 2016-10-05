@@ -14,7 +14,7 @@ class AppUserTableSeeder extends Seeder
     {
         AppUser::create([
             'name' => 'Anonymous',
-            'profile_pic' => 'http://platoon.sustcse12.cf/upload/default/icon.jpg',
+            'profile_pic' => Request::root().'/upload/default/icon.jpg',
             'is_active' => 1,
             'user_type' => 0,
             'account_type_id' => 1,
@@ -24,7 +24,7 @@ class AppUserTableSeeder extends Seeder
 
         AppUser::create([
             'name' => 'Tanvy',
-            'profile_pic' => 'http://platoon.sustcse12.cf/upload/default/icon.jpg',
+            'profile_pic' => Request::root().'/upload/default/icon.jpg',
             'is_active' => 1,
             'user_type' => 0,
             'account_type_id' => 1,

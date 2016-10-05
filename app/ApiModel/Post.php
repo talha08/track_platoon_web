@@ -36,6 +36,15 @@ class Post extends Model
 
 
 
+    /**
+     * One to many relationship with PostVideo
+     * Post Has Many PostVideo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function postVideos(){
+        return $this->hasMany('App\ApiModel\PostVideo','app_post_id','id');
+    }
+
 
     /**
      * One to many relationship with AppUser

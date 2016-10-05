@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostSolvedPhoto extends Model
 {
-    protected $table = 'post_solved_photo';
+    protected $table = 'app_post_solved_photo';
 
     protected $hidden = ['created_at', 'updated_at'];
     /**

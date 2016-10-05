@@ -29,6 +29,11 @@ class CreateAppPostTable extends Migration
             $table->string('help_info')->nullable();
             $table->string('survey_among')->nullable();
 
+            //for share
+            // we save share post as a new post
+            $table->boolean('is_share')->default(false);
+            $table->integer('share_post_id')->nullable();
+
 
             $table->string('post_type');  //direct use of post type
             $table->string('participate')->nullable();

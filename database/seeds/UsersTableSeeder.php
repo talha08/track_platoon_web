@@ -19,7 +19,5 @@ class UsersTableSeeder extends Seeder
         //creating 10 test users
         // factory(User::class,10)->create();
 
-
-
     }
 }

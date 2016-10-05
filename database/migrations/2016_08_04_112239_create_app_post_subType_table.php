@@ -15,6 +15,7 @@ class CreateAppPostSubTypeTable extends Migration
         Schema::create('app_post_subType', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('photo')->default('/upload/default/category.png');
 
             $table->integer('post_type_id')->unsigned();
             $table->foreign('post_type_id')->references('id')
