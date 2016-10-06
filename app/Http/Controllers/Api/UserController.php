@@ -67,7 +67,9 @@ class UserController extends Controller
     {
         try {
             $user_id = $request->user_id;
-            $post = Post::where('posted_by', $user_id)->paginate($this->limit);
+            $post = Post::where('posted_by', $user_id)
+                ->orderBy('id', 'desc')
+                ->paginate($this->limit);
             return Response::json(['post' => $post->toArray()], 200);
         } catch (Exception $ex) {
             return Response::json(['error' => 'Something went wrong'], 403);
