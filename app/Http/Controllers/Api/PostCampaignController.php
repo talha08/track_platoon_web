@@ -62,19 +62,14 @@ class PostCampaignController extends Controller
                 if( $request->hasFile('photo')) {
                     $files = $request->photo;
                     foreach ($files as $file) {
-                        //getting the file extension
+                        $destinationPath = public_path() . '/upload/campaignPostPhotos';
                         $extension = $file->getClientOriginalExtension();
-                        $fileName = md5(rand(11111, 99999)) . time(). '.' . $extension; // renameing image
-                        //path set
+                        $fileName = md5(rand(11111, 99999)) . '.' . $extension; // renameing image
+                        $file->move($destinationPath, $fileName); // uploading file to given path
 
-                        $img_url = 'upload/campaignPostPhotos/img-'.$fileName;
-                        //resize and crop image using Image Intervention
-                        //Image::make($file)->crop(558, 221, 0, 0)->save(public_path($img_url));
-                        //Image::make($file)->save(public_path($img_url));
-                        $file->move(public_path($img_url), $fileName); // uploading file to given path
                         $photo = new PostPhoto();
                         $photo->app_post_id = $campaign->id;
-                        $photo->photo =  $img_url;
+                        $photo->photo = '/upload/campaignPostPhotos/' . $fileName;
                         $photo->save();
                     }
                 }
