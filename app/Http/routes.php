@@ -227,6 +227,10 @@ Route::get('test', ['as'=>'test','uses' => 'Api\UserController@test']);
 
 
 
+Route::get('phpInfo', function () {
+
+	return phpinfo();
+});
 
 
 
