@@ -76,7 +76,8 @@ class PostHelpController extends Controller
 
                         //resize and crop image using Image Intervention
                         //Image::make($file)->crop(558, 221, 0, 0)->save(public_path($img_url));
-                        Image::make($file)->save(public_path($img_url));
+                      //  Image::make($file)->save(public_path($img_url));
+                        $file->move(public_path($img_url), $fileName); // uploading file to given path
 
 
                         $photo = new PostPhoto();
