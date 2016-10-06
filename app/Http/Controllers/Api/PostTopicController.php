@@ -71,20 +71,28 @@ class PostTopicController extends Controller
               //multiple  photos
               if( $request->hasFile('photo')) {
 
-                 $files = $request->file('photo');
+              $files = $request->file('photo');
 
                    //return count($files);
-                  foreach ($files as $file) {
-                      $destinationPath = public_path() . '/upload/topicPostPhotos';
-                      $extension = $file->getClientOriginalExtension();
-                      $fileName = md5(rand(11111, 99999)) . '.' . $extension; // renameing image
-                      $file->move($destinationPath, $fileName); // uploading file to given path
+                  foreach($files as $file) {
+                      //getting the file extension
+                       $extension = $file->getClientOriginalExtension();
+
+                       $fileName = md5(rand(11111, 99999)) .time().  '.' . $extension; // renameing image
+                      //path set
+                       $img_url = 'upload/topicPostPhotos/img-'.$fileName;
+
+
+                      list($width, $height) = getimagesize($file);
+                      $h = ($height/$width)*600;
+                      Image::make($file)->resize(600, $h)->save(public_path($img_url));
+
 
                       $photo = new PostPhoto();
                       $photo->app_post_id = $topic->id;
-                      $photo->photo = '/upload/topicPostPhotos/' . $fileName;
+                      $photo->photo =  $img_url;
                       $photo->save();
-                  }
+                 }
 
 
               }
