@@ -138,7 +138,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 		//newsFeed
 	    Route::get('newsFeed', ['as'=>'newsFeed','uses' => 'Api\NewsFeedController@newsFeed']); //query problem
 	    //category post
-	    Route::get('categoryPost', ['as'=>'categoryPost','uses' => 'Api\CategoryController		@categoryPost']); //query problem
+	    Route::get('categoryPost', ['as'=>'categoryPost','uses' => 'Api\CategoryController@categoryPost']); //query problem
 
 		//discover
 	    Route::get('discover', ['as'=>'discover','uses' => 'Api\DiscoverController@discover']);
