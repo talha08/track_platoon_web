@@ -33,13 +33,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PostTypeTableSeeder::class);
         $this->call(PostSubTypeTableSeeder::class);
-        $this->call(PostTableSeeder::class);
-        $this->call(AppPostSolvedTableSeeder::class);
+      //  $this->call(PostTableSeeder::class);
+       // $this->call(AppPostSolvedTableSeeder::class);
 
 
         $this->call(AppCommentTypeTableSeeder::class);
-        $this->call(AppCommentTableSeeder::class);
-        $this->call(AppSubCommentTableSeeder::class);
+       // $this->call(AppCommentTableSeeder::class);
+       // $this->call(AppSubCommentTableSeeder::class);
 
 
         if (env('DB_CONNECTION') == 'mysql') {

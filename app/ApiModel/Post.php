@@ -198,6 +198,11 @@ class Post extends Model
             ->send($message1);
 
 
+//        $deviceToken='';
+//        PushNotification::app('appNameIOS')
+//            ->to($deviceToken)
+//            ->send('Hello World, i`m a push message');
+
          return true;
     }
 
