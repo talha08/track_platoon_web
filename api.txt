@@ -763,3 +763,14 @@
 		* @return: success 200, error
 		*/
 
+
+
+
+	/**
+     * Post Associate with Sub Category
+     * Get method
+     *
+     * @param: /category_id
+     * @url: categoryPost
+     * @return: json SubCatPost
+     */
