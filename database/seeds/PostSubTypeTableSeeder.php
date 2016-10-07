@@ -73,7 +73,7 @@ class PostSubTypeTableSeeder extends Seeder
 
 
 
-        PostSubType::create([ 'post_type_id' => 2,'name' => ' Public Nonsense']);
+
         PostSubType::create([ 'post_type_id' => 2,'name' => 'Public Nonsense']);
         PostSubType::create([ 'post_type_id' => 2,'name' => 'Illegal Activity']);
         PostSubType::create([ 'post_type_id' => 2,'name' => 'Religious Violence']);
