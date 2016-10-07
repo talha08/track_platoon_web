@@ -124,82 +124,82 @@ class Post extends Model
         //gcm
 
 
-//        //....................................
-//        $followingIds = FollowUser::where('user_id',$post->posted_by)->lists('following'); //all user whom I follow
-//        $followerIds = FollowUser::where('following',$post->posted_by)->lists('user_id'); //all user who follow me
-//        //.....................................
-//
-//        //following or follower id
-//        $userList = AppUser::where('id', '!=', 1)
-//                     ->lists('id');
-//
-//        $following_follower_user = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
-//        $other_user = array_diff($userList->toArray(), $following_follower_user);
-//
-//
-//
-//
-//        $tokens = Gcm::where('user_id', '!=', 1)
-//              ->whereIn('user_id',$following_follower_user)
-//             ->get();  // getting the device token
-//
-//
-//        $tokens1 = Gcm::where('user_id', '!=', 1)
-//            ->whereIn('user_id',$other_user)
-//            ->get();  // getting the device token
-//
-//
-//
-//        // Populate the device collection
-//        $args = [];
-//        $args1 = [];
-//
-//
-//        //for follower following
-//        foreach($tokens as $i =>  $token) {
-//            $args[$i] = PushNotification::Device($token->device_token);
-//            //return $i;
-//        }
-//
-//        //for other user
-//        foreach($tokens1 as $ix =>  $token1) {
-//            $args1[$ix] = PushNotification::Device($token1->device_token);
-//            //return $i;
-//        }
-//
-//        $devices = PushNotification::DeviceCollection($args);
-//        $devices1 = PushNotification::DeviceCollection($args1);
-//
-//
-//
-//
-//
-//
-//
-//        //$message = 'Hello this is test';
-//         $posts =  Post::singlePost($post->id);
-//         $posts['is_following'] = true;
-//         $message = json_encode($posts);
-//
-//
-//        $posts1 =  Post::singlePost($post->id);
-//        $posts1['is_following'] = false;
-//        $message1 = json_encode($posts1);
-//
-//
-//
-//        // Send the notification to all devices in the collect
-//        $collection = PushNotification::app('appNameAndroid')
-//            ->to($devices)
-//            ->send($message);
-//
-//        $collection1 = PushNotification::app('appNameAndroid')
-//            ->to($devices1)
-//            ->send($message1);
+        //....................................
+        $followingIds = FollowUser::where('user_id',$post->posted_by)->lists('following'); //all user whom I follow
+        $followerIds = FollowUser::where('following',$post->posted_by)->lists('user_id'); //all user who follow me
+        //.....................................
+
+        //following or follower id
+        $userList = AppUser::where('id', '!=', 1)
+                     ->lists('id');
+
+        $following_follower_user = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
+        $other_user = array_diff($userList->toArray(), $following_follower_user);
+
+
+
+
+        $tokens = Gcm::where('user_id', '!=', 1)
+              ->whereIn('user_id',$following_follower_user)
+             ->get();  // getting the device token
+
+
+        $tokens1 = Gcm::where('user_id', '!=', 1)
+            ->whereIn('user_id',$other_user)
+            ->get();  // getting the device token
+
+
+
+        // Populate the device collection
+        $args = [];
+        $args1 = [];
+
+
+        //for follower following
+        foreach($tokens as $i =>  $token) {
+            $args[$i] = PushNotification::Device($token->device_token);
+            //return $i;
+        }
+
+        //for other user
+        foreach($tokens1 as $ix =>  $token1) {
+            $args1[$ix] = PushNotification::Device($token1->device_token);
+            //return $i;
+        }
+
+        $devices = PushNotification::DeviceCollection($args);
+        $devices1 = PushNotification::DeviceCollection($args1);
+
+
+
+
+
+
+
+        //$message = 'Hello this is test';
+         $posts =  Post::singlePost($post->id);
+         $posts['is_following'] = true;
+         $message = json_encode($posts);
+
+
+        $posts1 =  Post::singlePost($post->id);
+        $posts1['is_following'] = false;
+        $message1 = json_encode($posts1);
+
+
+
+        // Send the notification to all devices in the collect
+        $collection = PushNotification::app('appNameAndroid')
+            ->to($devices)
+            ->send($message);
+
+        $collection1 = PushNotification::app('appNameAndroid')
+            ->to($devices1)
+            ->send($message1);
 
 
         $deviceToken='APA91bH-dE66K3kvfkmaeOMjDidR5fM2wYyZnVnN8VoOeprUJWN6hApHZ9pYWWZPCcywmdPTtJf8Cy5xCxtay252s6gnZI3XiUMsQTL_FnBTmSm0Mhl54-m34sr69HWqECZ7JjSk3gZP';
-        PushNotification::app('appNameIOS')
+        PushNotification::app('appNameAndroid')
             ->to($deviceToken)
             ->send('Hello World, i`m a push message');
 
