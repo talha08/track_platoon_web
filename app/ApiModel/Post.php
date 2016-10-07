@@ -192,19 +192,15 @@ class Post extends Model
         $mes ='this is test';
         $collection = PushNotification::app('appNameAndroid')
             ->to($devices)
-           // ->send($message);
-            ->send($mes);
+            ->send($message);
+          //  ->send($mes);
 
         $collection1 = PushNotification::app('appNameAndroid')
             ->to($devices1)
-          //  ->send($message1);
-            ->send($mes);
+           ->send($message1);
+           // ->send($mes);
 
 
-//        $deviceToken='APA91bH-dE66K3kvfkmaeOMjDidR5fM2wYyZnVnN8VoOeprUJWN6hApHZ9pYWWZPCcywmdPTtJf8Cy5xCxtay252s6gnZI3XiUMsQTL_FnBTmSm0Mhl54-m34sr69HWqECZ7JjSk3gZP';
-//        PushNotification::app('appNameAndroid')
-//            ->to($deviceToken)
-//            ->send('Hello World, i`m a push message');
 
          return true;
     }
