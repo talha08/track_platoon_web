@@ -144,15 +144,15 @@ class Post extends Model
              ->get();  // getting the device token
 
 
-//        $tokens1 = Gcm::where('user_id', '!=', 1)
-//            ->whereIn('user_id',$other_user)
-//            ->get();  // getting the device token
+        $tokens1 = Gcm::where('user_id', '!=', 1)
+            ->whereIn('user_id',$other_user)
+            ->get();  // getting the device token
 
 
 
         // Populate the device collection
         $args = [];
-   //     $args1 = [];
+        $args1 = [];
 
 
         //for follower following
@@ -161,14 +161,14 @@ class Post extends Model
             //return $i;
         }
 
-//        //for other user
-//        foreach($tokens1 as $ix =>  $token1) {
-//            $args1[$ix] = PushNotification::Device($token1->device_token);
-//            //return $i;
-//        }
+        //for other user
+        foreach($tokens1 as $ix =>  $token1) {
+            $args1[$ix] = PushNotification::Device($token1->device_token);
+            //return $i;
+        }
 
         $devices = PushNotification::DeviceCollection($args);
-       // $devices1 = PushNotification::DeviceCollection($args1);
+        $devices1 = PushNotification::DeviceCollection($args1);
 
 
 
@@ -179,24 +179,23 @@ class Post extends Model
         //$message = 'Hello this is test';
          $posts =  Post::singlePost($post->id);
          $posts['is_following'] = true;
-        // $message = json_encode($posts);
+         $message = json_encode($posts);
 
 
-//        $posts1 =  Post::singlePost($post->id);
-//        $posts1['is_following'] = false;
-//        $message1 = json_encode($posts1);
+        $posts1 =  Post::singlePost($post->id);
+        $posts1['is_following'] = false;
+        $message1 = json_encode($posts1);
 
 
 
         // Send the notification to all devices in the collect
-        $message ='This is Test';
         $collection = PushNotification::app('appNameAndroid')
             ->to($devices)
             ->send($message);
 
-//        $collection1 = PushNotification::app('appNameAndroid')
-//            ->to($devices1)
-//            ->send($message1);
+        $collection1 = PushNotification::app('appNameAndroid')
+            ->to($devices1)
+            ->send($message1);
 
 
 //        $deviceToken='APA91bH-dE66K3kvfkmaeOMjDidR5fM2wYyZnVnN8VoOeprUJWN6hApHZ9pYWWZPCcywmdPTtJf8Cy5xCxtay252s6gnZI3XiUMsQTL_FnBTmSm0Mhl54-m34sr69HWqECZ7JjSk3gZP';
