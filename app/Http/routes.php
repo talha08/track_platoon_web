@@ -188,6 +188,8 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 	  Route::post('changeProfileImage', ['as'=>'changeProfileImage','uses' => 'Api\ProfileSettingController@changeProfileImage']);
 
 
+//	Route::get('testing', ['as'=>'testing','uses' => 'Api\PostTopicController@testing']);
+
 
 });
 
@@ -203,7 +205,7 @@ Route::group([ 'prefix' => 'api/v2/'], function(){
 
 
 
-Route::get('test', ['as'=>'test','uses' => 'Api\UserController@test']);
+
 
 
 

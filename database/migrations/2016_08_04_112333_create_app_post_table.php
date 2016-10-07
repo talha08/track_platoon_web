@@ -35,6 +35,10 @@ class CreateAppPostTable extends Migration
             $table->integer('share_post_id')->nullable();
 
 
+            //anonymous tracking
+            $table->integer('anonymous_user')->nullable();
+
+
             $table->string('post_type');  //direct use of post type
             $table->string('participate')->nullable();
 

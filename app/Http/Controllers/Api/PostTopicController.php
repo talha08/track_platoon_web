@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ApiModel\AppUser;
+use App\ApiModel\FollowUser;
 use App\ApiModel\Gcm;
 use App\ApiModel\Post;
 use App\ApiModel\PostAttachment;
@@ -132,8 +134,6 @@ class PostTopicController extends Controller
       }
 
     }
-
-
 
 
 
