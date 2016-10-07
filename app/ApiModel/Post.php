@@ -189,16 +189,16 @@ class Post extends Model
 
 
         // Send the notification to all devices in the collect
-        $mes ='this is test';
+
         $collection = PushNotification::app('appNameAndroid')
             ->to($devices)
             ->send($message);
-          //  ->send($mes);
+
 
         $collection1 = PushNotification::app('appNameAndroid')
             ->to($devices1)
            ->send($message1);
-           // ->send($mes);
+          
 
 
 
