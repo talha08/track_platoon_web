@@ -40,6 +40,7 @@ class PostReportController extends Controller
             $topic = new Post();
             if($request->hide_id == 1 ){
                 $topic->posted_by = 1;  // Annonymus user
+                $topic->anonymous_user = $request->user_id;
             }else{
                 $topic->posted_by = $request->user_id;
             }
