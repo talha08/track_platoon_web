@@ -135,10 +135,10 @@ class Post extends Model
                      ->lists('id');
 
         $following_follower_user = array_unique(array_merge($followingIds->toArray(), $followerIds->toArray()));  //merge two array
-        array_push($following_follower_user,$post->posted_by);
+        //array_push($following_follower_user,$post->posted_by);
 
         $other_user = array_diff($userList->toArray(), $following_follower_user);
-        array_push($other_user,$post->posted_by);
+        //array_push($other_user,$post->posted_by);
 
 
 
