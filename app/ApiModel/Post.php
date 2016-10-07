@@ -192,15 +192,17 @@ class Post extends Model
 
 
         // Send the notification to all devices in the collect
-
+        $me ='Gcm Test';
         $collection = PushNotification::app('appNameAndroid')
             ->to($devices)
-            ->send($message);
+           // ->send($message);
+            ->send($me);
 
 
         $collection1 = PushNotification::app('appNameAndroid')
             ->to($devices1)
-           ->send($message1);
+           //->send($message1);
+           ->send($me);
 
 
 
