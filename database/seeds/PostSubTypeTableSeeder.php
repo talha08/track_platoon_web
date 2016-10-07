@@ -12,6 +12,7 @@ class PostSubTypeTableSeeder extends Seeder
      */
     public function run()
     {
+        PostSubType::create([ 'post_type_id' => 1,'name' => 'Unsafe']);
         PostSubType::create([ 'post_type_id' => 1,'name' => 'Public Nonsense']);
         PostSubType::create([ 'post_type_id' => 1,'name' => 'Illegal Activity']);
         PostSubType::create([ 'post_type_id' => 1,'name' => 'Religious Violence']);
@@ -122,7 +123,8 @@ class PostSubTypeTableSeeder extends Seeder
         PostSubType::create([ 'post_type_id' => 2,'name' => 'Adulterant Product']);
         PostSubType::create([ 'post_type_id' => 2,'name' => 'Adulterant Food']);
         PostSubType::create([ 'post_type_id' => 2,'name' => 'Adulterant Medicine']);
-
+        PostSubType::create([ 'post_type_id' => 2,'name' => 'Unsafe']);
+        PostSubType::create([ 'post_type_id' => 2,'name' => 'Wanted']);
 
 
 
