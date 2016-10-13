@@ -16,18 +16,18 @@
             <nav class="navigation">
                 <ul class="list-unstyled">
 
-                     <li class="{!! Menu::areActiveURLs(['dashboard', 'change-password']) !!}"><a href="#"><i class="ion-flask"></i> <span class="nav-label">Dashboard</span></a>
-                        <ul class="list-unstyled">
+                     {{--<li class="{!! Menu::areActiveURLs(['dashboard', 'change-password']) !!}"><a href="#"><i class="ion-flask"></i> <span class="nav-label">Dashboard</span></a>--}}
+                        {{--<ul class="list-unstyled">--}}
 
-                            <li class="{!! Menu::isActiveURL('dashboard') !!}">
-                                <a href="{!!  URL::to( 'dashboard') !!}">Dashboard</a>
-                            </li>
+                            {{--<li class="{!! Menu::isActiveURL('dashboard') !!}">--}}
+                                {{--<a href="{!!  URL::to( 'dashboard') !!}">Dashboard</a>--}}
+                            {{--</li>--}}
 
-                            <li class="{!! Menu::isActiveURL('change-password') !!}">
-                                <a href="{!!  URL::to( 'change-password') !!}">Password Change</a>
-                            </li>
-                        </ul>
-                    </li>
+                            {{--<li class="{!! Menu::isActiveURL('change-password') !!}">--}}
+                                {{--<a href="{!!  URL::to( 'change-password') !!}">Password Change</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
 
 
 
