@@ -85,7 +85,7 @@ class UsersController extends Controller
 
 
     public function userList(){
-        $users = AppUser::all();
+        $users = AppUser::where('id', '!=', 1)->get();
         return view('userList',compact('users'))
             ->with('title', 'APP User');
     }
