@@ -348,6 +348,9 @@ class ProfileSettingController extends Controller
      */
     public function changeProfileImage(Request $request)
     {
+        ///return $request->user_id;
+
+
         try
         {
             $user_id = $request->user_id;
