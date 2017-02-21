@@ -498,9 +498,6 @@
             * Post Search
             *
        		* Get Method
-            * @param: search_text
-            * @url: http://platoon.sustcse12.cf/api/v2/searchPostOrUser
-            * @return: search json, 200
             *
             */
 

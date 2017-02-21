@@ -40,7 +40,7 @@ class DiscoverController extends Controller
 
            if ($filter === 'people') {
 
-               $follower = FollowUser::where('user_id',$user)->lists('following');
+            return   $follower = FollowUser::where('user_id',$user)->lists('following');
                $following = FollowUser::where('following',$user)->lists('user_id');
 
                $people = AppUser::where('user_type', 0)
