@@ -142,14 +142,20 @@ class Post extends Model
 
 
 
-        $tokens = Gcm::where('user_id', '!=', 1)
-              ->whereIn('user_id',$following_follower_user)
-             ->get();  // getting the device token
+        $tokens = Gcm::where( function($query) use ( $following_follower_user) {
+                            $query-> where('user_id', '!=', 1)
+                              ->whereIn('user_id',$following_follower_user)
+                          }) ->get(); 
+                 // getting the device token
 
 
-        $tokens1 = Gcm::where('user_id', '!=', 1)
-            ->whereIn('user_id',$other_user)
-            ->get();  // getting the device token
+
+
+        $tokens1 =  Gcm::where( function($query) use ( $other_user) {
+                            $query-> where('user_id', '!=', 1)
+                              ->whereIn('user_id',$other_user)
+                          }) ->get(); 
+                 // getting the device token
 
 
 
