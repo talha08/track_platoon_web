@@ -86,8 +86,8 @@ class DiscoverController extends Controller
 
                        $post = PostSubType::where( function($query) use ( $interestIds) {
                                       $query->where('post_type_id', 1)
-                                       ->whereNotIn('id', $interestIds)
-                                       ->orderBy('name')
+                                       ->whereNotIn('id', $interestIds);
+                                      
                                       
                                  }) 
                                ->orderBy('id', 'desc')
@@ -116,9 +116,8 @@ class DiscoverController extends Controller
 
                 $post = PostSubType::where( function($query) use (  $interestIds) {
                             $query->where('post_type_id', 2)
-                             ->whereNotIn('id', $interestIds)
-                             ->orderBy('name')
-                           
+                             ->whereNotIn('id', $interestIds);
+                             
                        }) 
                      ->orderBy('id', 'desc')
                      ->paginate($this->limit);
@@ -147,8 +146,8 @@ class DiscoverController extends Controller
 
                  $post = PostSubType::where( function($query) use (  $interestIds) {
                             $query->where('post_type_id', 4)
-                             ->whereNotIn('id', $interestIds)
-                             ->orderBy('name')
+                             ->whereNotIn('id', $interestIds);
+                            
                             
                        }) 
                      ->orderBy('id', 'desc')
@@ -177,8 +176,8 @@ class DiscoverController extends Controller
 
                  $post = PostSubType::where( function($query) use ( $interestIds) {
                             $query->where('post_type_id', 3)
-                             ->whereNotIn('id', $interestIds)
-                             ->orderBy('name')
+                             ->whereNotIn('id', $interestIds);
+                         
                           
                        }) 
                      ->orderBy('id', 'desc')

@@ -29,7 +29,7 @@ class PostCampaignController extends Controller
      *
      * Post method
      * @param app_subType_id(int), app_city_id(int), location (string), title, description, is_emergency(0 or 1),
-    photo (multiple photo select), file (multiple select), survey_among, help_info, survey_among
+   * photo (multiple photo select), file (multiple select), survey_among, help_info, survey_among
      * @return success 200 or error 403
      */
     public function campaignPost(Request $request){
