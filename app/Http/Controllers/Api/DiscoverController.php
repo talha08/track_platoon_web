@@ -40,15 +40,19 @@ class DiscoverController extends Controller
 
            if ($filter === 'people') {
 
-            return   $follower = FollowUser::where('user_id',$user)->lists('following');
+               $follower = FollowUser::where('user_id',$user)->lists('following');
                $following = FollowUser::where('following',$user)->lists('user_id');
 
-               $people = AppUser::where('user_type', 0)
-                   ->where('id','!=',$user)
-                   ->where('id', '!=', 1)
-                   ->whereNotIn('id',$follower)
-                   ->whereNotIn('id',$following)
-                   ->paginate($this->limit);
+               $people = AppUser::where( function($query) use ($filter, $user,$follower,$following ) {
+                       $query->where('user_type', 0)
+                            ->where('id','!=',$user)
+                            ->where('id', '!=', 1)
+                            ->whereNotIn('id',$follower)
+                            ->whereNotIn('id',$following);
+                        
+                   }) 
+                     ->orderBy('id', 'desc')
+                     ->paginate($this->limit);
                //need to send location
                return Response::json(['data' => $people->toArray()], 200);
            }
@@ -59,11 +63,14 @@ class DiscoverController extends Controller
                $follower = FollowUser::where('user_id',$user)->lists('following');
                $following = FollowUser::where('following',$user)->lists('user_id');
 
-               $organization = AppUser::where('user_type', 1)
-                   ->where('id','!=',$user)
-                   ->whereNotIn('id',$follower)
-                   ->whereNotIn('id',$following)
-                   ->paginate($this->limit);
+               $organization = AppUser::where( function($query) use ($filter, $user,$follower,$following ) {
+                                    $query->where('user_type', 1)
+                                    ->where('id','!=',$user)
+                                    ->whereNotIn('id',$follower)
+                                    ->whereNotIn('id',$following);
+                               }) 
+                             ->orderBy('id', 'desc')
+                             ->paginate($this->limit);
                //need to send location
                return Response::json(['data' => $organization->toArray()], 200);
            }
@@ -71,15 +78,20 @@ class DiscoverController extends Controller
            elseif ($filter === 'topic') {
 
 
-                      $interestIds = Interest::where('user_id',$user)
-                                     ->where('post_type',1)
-                                     ->lists('app_subType_id','app_subType_id');
+                      $interestIds = Interest::where( function($query) use ( $user) {
+                                $query->where('user_id', $user)
+                                      ->where('post_type',1);
+                            })->lists('app_subType_id','app_subType_id');
 
 
-                      $post = PostSubType::where('post_type_id', 1)
-                             ->whereNotIn('id', $interestIds)
-                             ->orderBy('name')
-                             ->paginate($this->limit);
+                       $post = PostSubType::where( function($query) use ( $interestIds) {
+                                      $query->where('post_type_id', 1)
+                                       ->whereNotIn('id', $interestIds)
+                                       ->orderBy('name')
+                                      
+                                 }) 
+                               ->orderBy('id', 'desc')
+                               ->paginate($this->limit);
 
 
                        foreach($post as $pos ){
@@ -97,15 +109,19 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'report') {
 
-               $interestIds = Interest::where('user_id',$user)
-                   ->where('post_type',2)
-                   ->lists('app_subType_id','app_subType_id');
+               $interestIds = Interest::where( function($query) use ( $user) {
+                                $query->where('user_id', $user)
+                                      ->where('post_type',2);
+                            })->lists('app_subType_id','app_subType_id');
 
-
-               $post = PostSubType::where('post_type_id', 2)
-                   ->whereNotIn('id', $interestIds)
-                   ->orderBy('name')
-                   ->paginate($this->limit);
+                $post = PostSubType::where( function($query) use (  $interestIds) {
+                            $query->where('post_type_id', 2)
+                             ->whereNotIn('id', $interestIds)
+                             ->orderBy('name')
+                           
+                       }) 
+                     ->orderBy('id', 'desc')
+                     ->paginate($this->limit);
 
 
                foreach($post as $pos ){
@@ -123,15 +139,20 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'campaign') {
 
-               $interestIds = Interest::where('user_id',$user)
-                   ->where('post_type',4)
-                   ->lists('app_subType_id','app_subType_id');
+               $interestIds = Interest::where( function($query) use ( $user) {
+                                $query->where('user_id', $user)
+                                      ->where('post_type',4);
+                            })->lists('app_subType_id','app_subType_id');
 
 
-               $post = PostSubType::where('post_type_id', 4)
-                   ->whereNotIn('id', $interestIds)
-                   ->orderBy('name')
-                   ->paginate($this->limit);
+                 $post = PostSubType::where( function($query) use (  $interestIds) {
+                            $query->where('post_type_id', 4)
+                             ->whereNotIn('id', $interestIds)
+                             ->orderBy('name')
+                            
+                       }) 
+                     ->orderBy('id', 'desc')
+                     ->paginate($this->limit);
 
                foreach($post as $pos ){
                    $total_post = Post::where('app_subType_id', $pos->id)->count();
@@ -148,15 +169,20 @@ class DiscoverController extends Controller
 
            elseif ($filter === 'help') {
 
-               $interestIds = Interest::where('user_id',$user)
-                   ->where('post_type',3)
-                   ->lists('app_subType_id','app_subType_id');
+              $interestIds = Interest::where( function($query) use ( $user) {
+                                $query->where('user_id', $user)
+                                      ->where('post_type',3);
+                            })->lists('app_subType_id','app_subType_id');
 
 
-               $post = PostSubType::where('post_type_id', 3)
-                   ->whereNotIn('id', $interestIds)
-                   ->orderBy('name')
-                   ->paginate($this->limit);
+                 $post = PostSubType::where( function($query) use ( $interestIds) {
+                            $query->where('post_type_id', 3)
+                             ->whereNotIn('id', $interestIds)
+                             ->orderBy('name')
+                          
+                       }) 
+                     ->orderBy('id', 'desc')
+                     ->paginate($this->limit);
 
                foreach($post as $pos ){
                    $total_post = Post::where('app_subType_id', $pos->id)->count();
