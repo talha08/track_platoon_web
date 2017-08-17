@@ -1766,7 +1766,7 @@ ul.p-social-link li a {
 /* Log-in */
 .wrapper-page {
   width: 380px;
-  margin: 140px auto 140px;
+  margin: 80px auto 140px;
 }
 
 /* Lock-screen */
@@ -2044,3 +2044,5 @@ aside.left-panel.collapsed span.nav-label {
     display: none;
   }
 }
+
+
