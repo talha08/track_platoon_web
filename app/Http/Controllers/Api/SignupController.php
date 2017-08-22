@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 //use EllipseSynergie\ApiResponse;
 use Mockery\CountValidator\Exception;
 use Response;
-
+use Mail;
 class SignupController extends Controller
 {
 
@@ -77,17 +77,17 @@ class SignupController extends Controller
                     if($email_register->save()){
 
                         try{
-                            \Mail::send('emails.activation', ['confirm_code'=>$confirm_code],
-                                function($message) {
+                            \Mail::send('emails.activation', ['confirm_code'=>$confirm_code], function($message){
                                     $message->to(\Input::get('email'))
                                         ->subject('Verify your Confirmation Code');
-                                });
+                            });
+
+
                             return Response::json(['success'=>'User successfully added, Confirmation code sent'], 200);
 
                         }catch(Exception $e){
                             return Response::json(['error'=>'Confirmation code sending Problem'], 403);
                         }
-
 
                     }else{
 

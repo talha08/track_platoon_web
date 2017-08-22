@@ -14,10 +14,16 @@ return [
     |
     */
 
-    'mailgun' => array(
-        'domain' => 'sandbox175d9abbdfa34087b499278799f86447.mailgun.org',
-        'secret' => 'key-9de72efb084c1e0352c4e7f41775c787',
-    ),
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+    ],
+
+    'sendinblue' => [
+        'url' => 'https://api.sendinblue.com/v2.0',
+        'key' => env('SENDINBLUE_KEY'),
+    ],
+
 
     'mandrill' => [
         'secret' => env('MANDRILL_SECRET'),
@@ -29,10 +35,6 @@ return [
         'region' => 'us-east-1',
     ],
 
-    'stripe' => [
-        'model'  => App\Cashier::class,
-        'key'    => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-    ],
+
 
 ];
